@@ -1,9 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
+import { store } from './store';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-router-dom';
+import ConnectedLogin from './components/login';
+import ConnectedRegister from './components/register';
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <div>
+
+        <Switch>
+          
+          <Route path='/register' component={ConnectedRegister}/>
+        </Switch>
+      </div>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
