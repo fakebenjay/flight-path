@@ -1,4 +1,6 @@
 class Account < ApplicationRecord
-  has_many :trips
-  has_many :activities, through: :trips
+  has_many :planned_trips
+  has_many :trips, through: :planned_trips
+  has_many :planned_activities
+  has_many :activities, through: :planned_activities
 end

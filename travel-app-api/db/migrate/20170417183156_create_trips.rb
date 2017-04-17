@@ -7,7 +7,7 @@ class CreateTrips < ActiveRecord::Migration[5.0]
       t.string :location
       t.date :start_date
       t.date :end_date
-      t.int :google_id
+      t.integer :google_id
 
       t.timestamps
     end
