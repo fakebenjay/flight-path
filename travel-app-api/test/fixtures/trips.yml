@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  lng: 9.99
+  lat: 9.99
+  start_date: 2017-04-17
+  end_date: 2017-04-17
+  google_id: 
+
+two:
+  name: MyString
+  lng: 9.99
+  lat: 9.99
+  start_date: 2017-04-17
+  end_date: 2017-04-17
+  google_id: 
