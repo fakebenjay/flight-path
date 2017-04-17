@@ -13,8 +13,9 @@ ReactDOM.render(
       <div>
 
         <Switch>
-          
+
           <Route path='/register' component={ConnectedRegister}/>
+          <Route path='/login' component={ConnectedLogin}/>
         </Switch>
       </div>
     </Router>
