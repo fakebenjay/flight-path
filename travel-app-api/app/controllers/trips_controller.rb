@@ -3,11 +3,11 @@ class TripsController < ApplicationController
   def create
     trip = Trip.new(trip_params)
     account = Account.from_token(params["token"])
+    friends = params["friends"]
     account.trips << trip
-
-    if trip_params['friends'].length > 0
-      trip_params['friends'].each do |f|
-        account = Account.find(f.id)
+    if friends.length > 0
+      friends.each do |f|
+        account = Account.find(f)
         account.trips << trip
       end
     end
@@ -34,7 +34,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date, :friends)
+    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date)
   end
 
 end

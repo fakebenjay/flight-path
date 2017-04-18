@@ -12,8 +12,9 @@ export default function Friends(state = {potentialFriends: [], addedFriends: []}
       return Object.assign({}, state, {potentialFriends: friends})
     case 'ADD_FRIEND':
       let friendsAdded = []
-      if (!state.addedFriends.includes(action.friend)) {
-        friendsAdded.push(action.friend)
+      let filteredAdded = state.addedFriends.filter((friendInArray) => friendInArray.id === action.friend.id)
+      if (filteredAdded.length === 0) {
+        friendsAdded = [...state.addedFriends, action.friend]
       }
       return Object.assign({}, state, {addedFriends: friendsAdded})
     case 'REMOVE_FRIEND':
