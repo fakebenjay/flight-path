@@ -6,6 +6,7 @@ import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
+import ConnectedGetLocation from './getLocation'
 
 class AddTrip extends React.Component {
   constructor() {
@@ -58,7 +59,7 @@ class AddTrip extends React.Component {
         <input type='text' placeholder='Trip Name' onChange={this.handleChange} name='name'/>
         <DatePicker selected={this.state.startDate} onChange={this.handleDateStart}/>
         <DatePicker selected={this.state.endDate} onChange={this.handleDateEnd}/>
-        <input type='text' placeholder='Location' onChange={this.handleChange} name='location'/>
+        <ConnectedGetLocation />
         <ConnectedAddFriend />
         <input type='submit' value='Create Trip' onClick={this.handleClick}/>
       </div>

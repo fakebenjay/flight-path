@@ -30,12 +30,12 @@ class AddFriend extends React.Component {
     this.props.fetchFriends(query)
   }
   handleClick() {
-    
+
   }
   render() {
     return (
       <div>
-        <input type='text' onChange={this.handleChange}/>
+        <input type='text' onKeyDown={this.handleChange}/>
         {this.listFriends.length > 0 ? this.listFriends() : null}
       </div>
     )

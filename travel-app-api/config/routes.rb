@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :registrations, only: :create
   resources :sessions, only: [:create, :destroy]
   post '/friends', to: 'accounts#friends'
+  post '/location', to: 'locations#location'
 
 end
