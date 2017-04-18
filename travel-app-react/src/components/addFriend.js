@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchFriends, addFriend, removeFriend } from '../actions/friends'
+import { fetchFriends, addFriend, removeFriend, removeAddedFriend } from '../actions/friends'
 import { Friend } from './friend'
 
 class AddFriend extends React.Component {
@@ -12,14 +12,26 @@ class AddFriend extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.listFriends = this.listFriends.bind(this)
+    this.listPotentialFriends = this.listPotentialFriends.bind(this)
     this.friendsAdded = this.friendsAdded.bind(this)
+    this.listAddedFriends = this.listAddedFriends.bind(this)
+    this.removeAddedFriendClick = this.removeAddedFriendClick.bind(this)
   }
-  listFriends() {
+  listPotentialFriends() {
     return this.props.friends.potentialFriends.map((friend) => {
-      return <li><Friend friend={friend} handleClick={this.handleClick.bind(null, friend)}/></li>
+      return <li>{friend.username} <input type="submit" value="Add Friend" onClick={this.handleClick.bind(null, friend)}/></li>
     })
   }
+  listAddedFriends() {
+    return this.props.friends.addedFriends.map((friend) => {
+      return <li>{friend.username} <input type="submit" value="Remove Friend" onClick={this.removeAddedFriendClick.bind(null, friend)}/></li>
+    })
+  }
+
+  removeAddedFriendClick(e) {
+    this.props.removeAddedFriend(e)
+  }
+
   handleChange(e) {
     this.setState({
       query: e.target.value
@@ -46,7 +58,10 @@ class AddFriend extends React.Component {
       <div>
         <input type='text' onChange={this.handleChange}/>
         <ul>
-          {this.props.friends.potentialFriends.length > 0 ? this.listFriends() : null}
+          {this.props.friends.potentialFriends.length > 0 ? (
+            <h4>Users Matching Your Search</h4>, this.listPotentialFriends() ) : null}
+          {this.props.friends.addedFriends.length > 0 ? (
+            <h4>Friends Added</h4>, this.listAddedFriends() ) : null}
         </ul>
       </div>
     )
@@ -57,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchFriends: fetchFriends,
     addFriend: addFriend,
-    removeFriend: removeFriend
+    removeFriend: removeFriend,
+    removeAddedFriend: removeAddedFriend
   }, dispatch)
 }
 
