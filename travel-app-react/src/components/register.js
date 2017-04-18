@@ -1,7 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { createAccount } from '../actions/account'
 
 class Register extends React.Component {
@@ -50,6 +50,6 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch)
 }
 
-const ConnectedRegister = connect(null, mapDispatchToProps)(Register);
+const ConnectedRegister = connect(null, mapDispatchToProps)(Register)
 
-export default ConnectedRegister;
+export default ConnectedRegister

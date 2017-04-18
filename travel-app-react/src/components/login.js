@@ -1,7 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { login } from '../actions/account'
 
 class Login extends React.Component {
@@ -49,6 +49,6 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch)
 }
 
-const ConnectedLogin = connect(null, mapDispatchToProps)(Login);
+const ConnectedLogin = connect(null, mapDispatchToProps)(Login)
 
-export default ConnectedLogin;
+export default ConnectedLogin
