@@ -1,4 +1,4 @@
-class AccountTrips < ActiveRecord::Migration[5.0]
+class CreatePlannedTrips < ActiveRecord::Migration[5.0]
   def change
     create_table :planned_trips do |t|
       t.references :trip, foreign_key: true

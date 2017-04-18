@@ -56,12 +56,12 @@ ActiveRecord::Schema.define(version: 20170417191555) do
     t.string   "name"
     t.decimal  "lng"
     t.decimal  "lat"
-    t.string   "location"
+    t.string   "formatted_name"
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "google_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["name"], name: "index_trips_on_name", using: :btree
   end
 
   add_foreign_key "activities", "trips"

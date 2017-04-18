@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchFriends } from '../actions/friends'
+import { fetchFriends, addFriend, removeFriend } from '../actions/friends'
+import { Friend } from './friend'
 
 class AddFriend extends React.Component {
   constructor() {
@@ -12,31 +13,42 @@ class AddFriend extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.listFriends = this.listFriends.bind(this)
+    this.friendsAdded = this.friendsAdded.bind(this)
   }
   listFriends() {
-    return this.props.friends.map((friend) => {
-      return <div><button value={friend.name} onClick={this.handleClick} key={friend.id} id={friend.id}/></div>
+    return this.props.friends.potentialFriends.map((friend) => {
+      return <li><Friend friend={friend} handleClick={this.handleClick}/></li>
     })
   }
   handleChange(e) {
     this.setState({
       query: e.target.value
     })
-    if (this.state.query.length > 2) {
+    if (this.state.query.length > 0) {
       this.queryAPI(this.state.query)
     }
   }
   queryAPI(query) {
     this.props.fetchFriends(query)
   }
-  handleClick() {
+  handleClick(e) {
+    let friend = {friendID: e.target.id}
+    this.props.addFriend(friend)
+    this.props.removeFriend(e.target.id)
+  }
 
+  friendsAdded() {
+    return this.props.friends.addedFriends.map((friend) => {
+      return <div><li>{friend.username}</li></div>
+    })
   }
   render() {
     return (
       <div>
-        <input type='text' onKeyDown={this.handleChange}/>
-        {this.listFriends.length > 0 ? this.listFriends() : null}
+        <input type='text' onChange={this.handleChange}/>
+        <ul>
+          {this.props.friends.potentialFriends.length > 0 ? this.listFriends() : null}
+        </ul>
       </div>
     )
   }
@@ -44,13 +56,15 @@ class AddFriend extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchFriends: fetchFriends
+    fetchFriends: fetchFriends,
+    addFriend: addFriend,
+    removeFriend: removeFriend
   }, dispatch)
 }
 
 const mapStateToProps = (state) => {
   return {
-    friends: state.friends
+    friends: state.Friends
   }
 }
 

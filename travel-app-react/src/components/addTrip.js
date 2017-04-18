@@ -7,15 +7,18 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
+import { addTrip } from '../actions/trips'
 
 class AddTrip extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       name: '',
       startDate: moment(),
       endDate: moment(),
-      location: null,
+      lat: this.props.location.lat,
+      lng: this.props.location.lng,
+      formattedName: this.props.location.formattedName,
       friends: [],
       redirect: false
     }
@@ -33,6 +36,17 @@ class AddTrip extends React.Component {
   }
   handleClick(e) {
     e.preventDefault()
+    let trip = {}
+    trip.formatted_name = this.props.location.formattedName
+    trip.lng = this.props.location.lng
+    trip.lat = this.props.location.lat
+    trip.name = this.state.name
+    trip.start_date = this.state.startDate.utc()
+    trip.end_date = this.state.endDate.utc()
+    trip.friends = this.state.friends
+    let token = localStorage.getItem("token")
+    this.props.addTrip(trip, token)
+
     this.setState({
       redirect: true
     })
@@ -68,9 +82,17 @@ class AddTrip extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({}, dispatch)
+  return bindActionCreators({
+    addTrip: addTrip
+  }, dispatch)
 }
 
-const ConnectedAddTrip = connect(null, mapDispatchToProps)(AddTrip)
+const mapStateToProps = (state) => {
+  return {
+    location: state.Location
+  }
+}
+
+const ConnectedAddTrip = connect(mapStateToProps, mapDispatchToProps)(AddTrip)
 
 export default ConnectedAddTrip

@@ -11,3 +11,17 @@ export const fetchFriends = (query) => {
       })
   }
 }
+
+export const addFriend = (friend) => {
+  return {
+    type: "ADD_FRIEND",
+    friend
+  }
+}
+
+export const removeFriend = (friendID) => {
+  return {
+    type: "REMOVE_FRIEND",
+    friendID
+  }
+}

@@ -1,0 +1,5 @@
+import React from 'react'
+
+export const Friend = (props) => (
+  <div><input type="button" onClick={props.handleClick} key={props.friend.id} id={props.friend} value={props.friend.username}/></div>
+)
