@@ -12,10 +12,10 @@ export const fetchFriends = (query) => {
   }
 }
 
-export const addFriend = (friend) => {
+export const addFriend = (friendID) => {
   return {
     type: "ADD_FRIEND",
-    friend
+    friendID
   }
 }
 

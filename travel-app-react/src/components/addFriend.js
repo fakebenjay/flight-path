@@ -17,7 +17,7 @@ class AddFriend extends React.Component {
   }
   listFriends() {
     return this.props.friends.potentialFriends.map((friend) => {
-      return <li><Friend friend={friend} handleClick={this.handleClick}/></li>
+      return <li><Friend friend={friend} handleClick={this.handleClick.bind(null, friend)}/></li>
     })
   }
   handleChange(e) {
@@ -32,9 +32,8 @@ class AddFriend extends React.Component {
     this.props.fetchFriends(query)
   }
   handleClick(e) {
-    let friend = {friendID: e.target.id}
-    this.props.addFriend(friend)
-    this.props.removeFriend(e.target.id)
+    this.props.addFriend(e)
+    this.props.removeFriend(e)
   }
 
   friendsAdded() {
