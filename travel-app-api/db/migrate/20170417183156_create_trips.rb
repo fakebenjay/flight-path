@@ -7,7 +7,6 @@ class CreateTrips < ActiveRecord::Migration[5.0]
       t.string :formatted_name
       t.date :start_date
       t.date :end_date
-
       t.timestamps
     end
   end

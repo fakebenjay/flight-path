@@ -19,7 +19,6 @@ class AddTrip extends React.Component {
       lat: this.props.location.lat,
       lng: this.props.location.lng,
       formattedName: this.props.location.formattedName,
-      friends: [],
       redirect: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -43,10 +42,12 @@ class AddTrip extends React.Component {
     trip.name = this.state.name
     trip.start_date = this.state.startDate.utc()
     trip.end_date = this.state.endDate.utc()
-    trip.friends = this.state.friends
     let token = localStorage.getItem("token")
-    this.props.addTrip(trip, token)
-
+    let friends = []
+    this.props.friends.forEach((friend) => {
+      friends.push(friend.id)
+    })
+    this.props.addTrip(trip, token, friends)
     this.setState({
       redirect: true
     })
@@ -89,7 +90,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    location: state.Location
+    location: state.Location,
+    friends: state.Friends.addedFriends
   }
 }
 

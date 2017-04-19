@@ -3,20 +3,27 @@ export default function Friends(state = {potentialFriends: [], addedFriends: []}
     case "FETCH_FRIENDS":
       let friends = []
       action.payload.forEach((friend) => {
-        if (!state.potentialFriends.includes(friend) && !state.addedFriends.includes(friend.id)) {
+        let filteredFriends = state.potentialFriends.filter((friendInArray) => friendInArray.id === friend.id)
+        let filteredAddedFriends = state.addedFriends.filter((friendInArray) => friendInArray.id === friend.id)
+        if (filteredFriends.length < 2  && filteredAddedFriends.length == 0) {
           friends.push(friend)
         }
       })
       return Object.assign({}, state, {potentialFriends: friends})
     case 'ADD_FRIEND':
-      debugger
       let friendsAdded = []
-      if (!state.addedFriends.includes(action.friend.friendID)) {
-        friendsAdded.push(action.friend.friendID)
+      let filteredAdded = state.addedFriends.filter((friendInArray) => friendInArray.id === action.friend.id)
+      if (filteredAdded.length === 0) {
+        friendsAdded = [...state.addedFriends, action.friend]
       }
       return Object.assign({}, state, {addedFriends: friendsAdded})
     case 'REMOVE_FRIEND':
-      return state.potentialFriends.filter((friend) => friend.id !== action.friendID)
+      let filteredFriends = state.potentialFriends.filter((friend) => friend.id !== action.friend.id)
+      return Object.assign({}, state, {potentialFriends: filteredFriends})
+    case 'REMOVE_ADDED_FRIEND':
+      let filteredAddedFriends = state.addedFriends.filter((friend) => friend.id !== action.friend.id)
+      let potentialFriends = [...state.potentialFriends, action.friend]
+      return Object.assign({}, state, {potentialFriends: potentialFriends, addedFriends: filteredAddedFriends})
     default:
       return state
   }
