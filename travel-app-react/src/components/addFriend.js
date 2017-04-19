@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchFriends, addFriend, removeFriend, removeAddedFriend } from '../actions/friends'
-import { Friend } from './friend'
 
 class AddFriend extends React.Component {
   constructor() {
