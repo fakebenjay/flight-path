@@ -12,9 +12,15 @@ class AccountsController < ApplicationController
 
   def mytrips
     token = params["token"]
-    account = Account.from_token(params["token"])
+    account = Account.from_token(token)
     trips = account.trips
     render json: trips, each_serialzer: TripSerializer
+  end
+
+  def authorize
+    token = params["token"]
+    account = Account.from_token(token)
+    render json: account, serializer: AccountSerializer
   end
 
 end

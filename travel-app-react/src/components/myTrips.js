@@ -2,22 +2,23 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTrips } from '../actions/trips'
-
+import ConnectedAuth from '../utils/auth'
+import ConnectedNavbar from './Navbar'
 
 class MyTrips extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      token: localStorage.getItem("token")
-    }
+  constructor() {
+    super()
   }
+
   componentWillMount() {
-    this.props.fetchTrips(this.state.token)
+    let token = localStorage.getItem('token')
+    this.props.fetchTrips(token)
   }
-  render() {
-    // TODO serialize out account info from trip.accounts
-    let trips = this.props.trips.map((trip) => {
-      return  <li><strong>{trip.name}</strong>:
+
+  listTrips() {
+    return this.props.trips.map((trip) => {
+      return  (
+        <li><strong>{trip.name}</strong>:
                 <ul>
                   <li>
                     Where To:
@@ -35,20 +36,23 @@ class MyTrips extends Component {
                     </ul>
                   </li>
                 </ul>
-              </li>
-    })
+        </li>
+            )
+          })
+  }
 
-
+  render() {
     return (
       <div>
+        <ConnectedNavbar />
         <ul>
-          {trips}
+          {this.listTrips()}
         </ul>
       </div>
     )
   }
-}
 
+}
 
 
 const mapStateToProps = (state) => {

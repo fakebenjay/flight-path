@@ -5,11 +5,6 @@ export const setUsername = (username) => {
   username
 }
 
-export const setToken = (token) => {
-  type: "SET_TOKEN",
-  token
-}
-
 export const createAccount = (params) => {
   return (dispatch) => {
     let prefix = 'http://localhost:3001'
@@ -24,7 +19,6 @@ export const createAccount = (params) => {
       .then(response => {
         let token = response.data.token
         localStorage.setItem('token', token)
-        dispatch({type: 'SET_TOKEN', token})
       })
   }
 }
@@ -40,7 +34,22 @@ export const createAccount = (params) => {
         .then(response => {
           let token = response.data.token
           localStorage.setItem('token', token)
-          dispatch({type: 'SET_TOKEN', token})
         })
     }
+}
+
+export const authorize = (token) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/authorize`, {token: token})
+      .then(response => {
+        let account = response.data
+        dispatch({type: 'SET_ACCOUNT', account})
+      })
+  }
+}
+
+export const clearAccount = () => {
+  type: 'CLEAR_ACCOUNT'
 }
