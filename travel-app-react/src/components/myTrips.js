@@ -2,45 +2,49 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTrips } from '../actions/trips'
-
+import { Link } from 'react-router-dom'
 
 class MyTrips extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      token: localStorage.getItem("token")
+      token: localStorage.getItem("token"),
+      redirect: false,
+      clickedTrip: null
     }
+    // this.handleClick = this.handleClick.bind(this)
   }
+  // handleClick(e) {
+  //   this.setState({
+  //     redirect: true,
+  //     clickedTrip: e.target.id
+  //   })
+  // }
+  // handleRedirect() {
+  //   let tripID = this.state.clickedTrip
+  //   return <Redirect to={`/trips/${tripID}`} />
+  // }
   componentWillMount() {
     this.props.fetchTrips(this.state.token)
   }
   render() {
     // TODO serialize out account info from trip.accounts
     let trips = this.props.trips.map((trip) => {
-      return  <li><strong>{trip.name}</strong>:
-                <ul>
-                  <li>
-                    Where To:
-                    <ul><li>{trip.formatted_name}</li></ul>
-                  </li>
-                  <li>
-                    Who's Going:
-                    <ul>{trip.accounts.map((account) => <li>{account.username}</li>)}</ul>
-                  </li>
-                  <li>
-                    Dates:
-                    <ul>
-                      <li>{trip.start_date}</li>
-                      <li>{trip.end_date}</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
+      return  <div>
+                <Link to={`/trips/${trip.id}`}><strong>{trip.name}</strong>:</Link><br/>
+                Where To: {trip.formatted_name}<br/>
+                Who's Going:<br/>
+                <ul>{trip.accounts.map((account) => <li>{account.username}</li>)}</ul>
+                Dates:<br/>
+                Start: {trip.start_date}<br/>
+                End: {trip.end_date}<br/>
+              </div>
     })
 
 
     return (
       <div>
+        {this.state.redirect ? this.handleRedirect() : null}
         <ul>
           {trips}
         </ul>
