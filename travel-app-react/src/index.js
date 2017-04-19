@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-ro
 import ConnectedLogin from './components/login'
 import ConnectedRegister from './components/register'
 import ConnectedAddTrip from './components/addTrip'
+import ConnectedMyTrips from './components/myTrips'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,6 +17,7 @@ ReactDOM.render(
           <Route path='/addtrip' component={ConnectedAddTrip}/>
           <Route path='/register' component={ConnectedRegister}/>
           <Route path='/login' component={ConnectedLogin}/>
+          <Route path='/mytrips' component={ConnectedMyTrips}/>
         </Switch>
       </div>
     </Router>
