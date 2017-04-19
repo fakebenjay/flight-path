@@ -12,34 +12,34 @@ class MyTrips extends Component {
       redirect: false,
       clickedTrip: null
     }
-    // this.handleClick = this.handleClick.bind(this)
   }
-  // handleClick(e) {
-  //   this.setState({
-  //     redirect: true,
-  //     clickedTrip: e.target.id
-  //   })
-  // }
-  // handleRedirect() {
-  //   let tripID = this.state.clickedTrip
-  //   return <Redirect to={`/trips/${tripID}`} />
-  // }
   componentWillMount() {
     this.props.fetchTrips(this.state.token)
   }
   render() {
     // TODO serialize out account info from trip.accounts
     let trips = this.props.trips.map((trip) => {
-      return  <div>
-                <Link to={`/trips/${trip.id}`}><strong>{trip.name}</strong>:</Link><br/>
-                Where To: {trip.formatted_name}<br/>
-                Who's Going:<br/>
-                <ul>{trip.accounts.map((account) => <li>{account.username}</li>)}</ul>
-                Dates:<br/>
-                Start: {trip.start_date}<br/>
-                End: {trip.end_date}<br/>
-              </div>
-    })
+      return  <li key={trip.id}><Link to={`/trips/${trip.id}`}><strong>{trip.name}</strong>:</Link>
+                <ul>
+                  <li>
+                    Where To:
+                    <ul><li>{trip.formatted_name}</li></ul>
+                  </li>
+                  <li>
+                    Who's Going:
+                    <ul>{trip.accounts.map((account) => <li>{account.username}</li>)}</ul>
+                  </li>
+                  <li>
+                    Dates:
+                    <ul>
+                      <li>{trip.start_date}</li>
+                      <li>{trip.end_date}</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            })
+
 
 
     return (
