@@ -18,7 +18,6 @@ class Auth extends Component  {
   }
 
   authorization() {
-    debugger
     let token = localStorage.getItem("token")
       if (token) {
       this.props.authorize(token)
@@ -34,7 +33,7 @@ class Auth extends Component  {
     return (
       <div>
         <div>
-          {this.props.account.account_id ? null : this.handleRedirect() }
+            {this.props.account.account_id ? null : this.handleRedirect() }
         </div>
       </div>
     )
