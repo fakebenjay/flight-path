@@ -11,3 +11,15 @@ export const addTrip = (trip, token, friends) => {
       })
   }
 }
+
+export const fetchTrips = (token) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/mytrips`, {token: token})
+      .then(response => {
+        let payload = response.data
+        dispatch({type: 'FETCH_TRIPS', payload})
+      })
+  }
+}
