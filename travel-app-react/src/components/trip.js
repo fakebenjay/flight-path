@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux'
 import { fetchTrip } from '../actions/trips'
 import { authorize } from '../actions/account'
 import ConnectedNavbar from './Navbar'
-import ConnectedActvities from './activitesList'
-import ConnectedAddActivity from './addActivity'
+import ConnectedActvities from './activitiesList'
+// import ConnectedAddActivity from './addActivity'
 
 class Trip extends React.Component {
   constructor() {
@@ -15,10 +15,8 @@ class Trip extends React.Component {
     }
   }
   componentWillMount() {
-    let token = localStorage.getItem('token')
     let tripID = this.props.match.params.id
     this.props.fetchTrip(tripID)
-    this.props.authorize(token)
   }
   render() {
     let trip = this.props.trip
@@ -29,8 +27,7 @@ class Trip extends React.Component {
     return (
       <div>
         {this.state.toggle === 0 ? <ConnectedActivities /> : <ConnectedAddActivity/>}
-        <ConnectedActivities />
-        <ConnectedAddActivity />
+
         <div>Hi {this.props.account.username}, here's details of your trip:</div>
         <div>{trip.name}</div>
         <div>{trip.formatted_name}</div>
@@ -45,6 +42,7 @@ class Trip extends React.Component {
             <li>{trip.end_date}</li>
           </ul>
         </li>
+        Activities: <ConnectedActvities />
       </div>
     )
   }
@@ -52,7 +50,7 @@ class Trip extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    trip: state.Trip,
+    trip: state.CurrentTrip,
     account: state.Account
   }
 }

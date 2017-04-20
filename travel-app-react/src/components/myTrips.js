@@ -6,10 +6,6 @@ import ConnectedNavbar from './Navbar'
 import TripTile from './tripTile'
 
 class MyTrips extends Component {
-  constructor() {
-    super()
-
-  }
   componentWillMount() {
     let token = this.props.account.token
     this.props.fetchTrips(token)
