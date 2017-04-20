@@ -1,17 +1,18 @@
 class Location
-  def initialize(formatted_name, lat, lng)
+
+  def initialize(formatted_name, google_id)
     @formatted_name = formatted_name
-    @lat = lat
-    @lng = lng
+    @google_id = google_id
   end
 
   def self.new_from_search(search_term)
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{search_term}&key=AIzaSyDKctmGykKUI2sTuv_ipJ6bz9wO-WMQ4NA"
+    url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=#{search_term}&types=(cities)&language=EN&key=AIzaSyDOnb3A_Rz8r3FzCcQThWEN82lUQDGcLBA"
     response = RestClient.send("get", url)
     raw_data = JSON.parse(response)
-    formatted_name = raw_data["results"][0]["formatted_address"]
-    lat = raw_data["results"][0]["geometry"]["location"]["lat"]
-    lng = raw_data["results"][0]["geometry"]["location"]["lng"]
-    Location.new(formatted_name, lat, lng)
+    raw_data["predictions"].map do |location|
+      formatted_name = location["description"]
+      google_id = location["reference"]
+      Location.new(formatted_name, google_id)
+    end
   end
 end

@@ -1,20 +1,23 @@
 import React from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { login } from '../actions/account'
+import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component {
   constructor() {
     super()
-
     this.state = {
       username: '',
       password: '',
     }
-
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
+  }
+
+  handleRedirect() {
+    return <Redirect to="/mytrips" />
   }
 
   handleChange(e) {
@@ -32,6 +35,7 @@ class Login extends React.Component {
   render() {
     return(
       <div>
+        {this.props.account.account_id ? this.handleRedirect() : null }
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
           <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
@@ -43,12 +47,18 @@ class Login extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    account: state.Account
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    login: login
+    login: login,
   }, dispatch)
 }
 
-const ConnectedLogin = connect(null, mapDispatchToProps)(Login)
+const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
 
 export default ConnectedLogin

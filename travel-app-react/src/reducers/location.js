@@ -1,13 +1,19 @@
-export default function Location(state = {formattedName: '', lng: null, lat: null}, action) {
+export default function Location(state = {locations: [], formattedName: '', googleId: null, hasBeenFound: false}, action) {
   switch (action.type) {
     case "SET_LOCATION":
       let newState = Object.assign({}, state)
       newState.formattedName = action.payload.formatted_name
-      newState.lng = action.payload.lng
-      newState.lat = action.payload.lat
+      newState.googleId = action.payload.google_id
+      newState.hasBeenFound = true
       return newState
-    case "CLEAR_LOCATION":
-      return Object.assign({}, state, {formattedName: '', lng: null, lat: null})
+    case "SET_LOCATIONS":
+      let newLocations = action.payload
+      let updatedState = Object.assign({}, state, {locations: newLocations})
+      return updatedState
+    case "CLEAR_LOCATIONS":
+      return Object.assign({}, state, {locations: []})
+    case "RESET_LOCATIONS":
+      return {locations: [], formattedName: '', googleId: null, hasBeenFound: false}
     default:
       return state
   }

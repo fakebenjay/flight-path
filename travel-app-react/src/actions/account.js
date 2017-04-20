@@ -1,14 +1,13 @@
 import axios from 'axios'
 
-export const setUsername = (username) => {
-  type: "SET_USERNAME",
-  username
-}
+export const setToken = (token) => ({
+ type: 'SET_TOKEN', payload: token
+})
 
-export const setToken = (token) => {
-  type: "SET_TOKEN",
-  token
-}
+export const clearAccount = () => ({
+  type: 'CLEAR_ACCOUNT'
+})
+
 
 export const createAccount = (params) => {
   return (dispatch) => {
@@ -24,7 +23,8 @@ export const createAccount = (params) => {
       .then(response => {
         let token = response.data.token
         localStorage.setItem('token', token)
-        dispatch({type: 'SET_TOKEN', token})
+        dispatch(setToken(token))
+        dispatch(setAccount(token))
       })
   }
 }
@@ -40,7 +40,20 @@ export const createAccount = (params) => {
         .then(response => {
           let token = response.data.token
           localStorage.setItem('token', token)
-          dispatch({type: 'SET_TOKEN', token})
+          dispatch(setToken(token))
+          dispatch(setAccount(token))
         })
     }
+}
+
+export const setAccount = (token) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/authorize`, {token: token})
+      .then(response => {
+        let account = response.data
+        dispatch({type: 'SET_ACCOUNT', account})
+      })
+  }
 }
