@@ -33,3 +33,7 @@ export const removeAddedFriend = (friend) => {
     friend
   }
 }
+
+export const clearFriends = () => ({
+  type: "CLEAR_FRIENDS"
+})
