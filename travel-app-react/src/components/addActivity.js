@@ -49,7 +49,6 @@ class AddActivity extends Component {
   }
 
   handleClick(activity) {
-    debugger
     this.props.saveActivity(activity)
   }
 

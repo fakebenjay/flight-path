@@ -2,7 +2,6 @@ class TripsController < ApplicationController
 
   def create
     trip = Trip.new(trip_params)
-    trip.img_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=CjQlAAAAcA47e9YZxUJJn2iZbALoJStN9Ay-384r2MfyXY1-FzmHVaBjylR64jHgXUcMXc4GEhCpkhioyfypaeX6oZJHVq32GhQsyvRUrLwHcgnt5ymzUKCZ8kX67Q&key=AIzaSyDKctmGykKUI2sTuv_ipJ6bz9wO-WMQ4NA"
     trip.retreive_lng_lat
     account = Account.from_token(params["token"])
     friends = params["friends"]

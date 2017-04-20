@@ -8,7 +8,6 @@ class TripTile extends React.Component {
   }
   render() {
     let trip = this.props.trip
-    debugger
     return (
       <div>
         <div>
@@ -17,6 +16,7 @@ class TripTile extends React.Component {
         <div>
           to {trip.formatted_name}
         </div>
+        <img src={trip.img_url} alt=":(" className="img-responsive"/>
       </div>
     )
   }

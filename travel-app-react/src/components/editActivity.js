@@ -14,7 +14,6 @@ class EditActivity extends Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-    debugger
     this.props.editActivity(this.state.input, this.props.activity, this.props.account)
   }
   handleChange(e) {
