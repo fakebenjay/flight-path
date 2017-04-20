@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReactBootstrapSlider from 'react-bootstrap-slider';
+// import ReactBootstrapSlider from 'react-bootstrap-slider';
+import { bindActionCreators } from 'redux'
+import { setRadius, setKeyword } from '../actions/activitySearch'
 
-class addActivity extends Component {
-  constructor(props) {
-    super(props)
-    this.setState = {
+class AddActivity extends Component {
+  constructor() {
+    super()
+    this.state = {
       toggle: false,
       step: 1,
       max: 50,
       min: 1
-      radius: this.props.activitySearch.radius,
-      keyword: this.props.activitySearch.keyword
     }
+
     this.handleToggle = this.handleToggle.bind(this)
     this.changeValue = this.changeValue.bind(this)
     this.renderSearchFields = this.renderSearchFields.bind(this)
@@ -25,9 +26,7 @@ class addActivity extends Component {
   }
 
   handleChange(e) {
-    this.setState({
-      this.props.setKeyword(e.target.value)
-    })
+    this.props.setKeyword(e.target.value)
   }
 
   handleToggle() {
@@ -40,13 +39,6 @@ class addActivity extends Component {
   renderSearchFields() {
     return (
       <div>
-    <ReactBootstrapSlider
-      value={this.state.radius}
-      slideStop={this.changeValue}
-      step={this.state.step}
-      max={this.state.max}
-      min={this.state.min}
-      reversed={true} />
       <input type="text" onChange={this.handleChange} value={this.state.keyword} />
     </div>
     )
@@ -72,6 +64,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    activitySearch: state.actvitiySearch
+    activitySearch: state.activitySearch
   }
 }
+
+const ConnectedAddActivity = connect(mapStateToProps, mapDispatchToProps)(AddActivity)
+
+export default ConnectedAddActivity
