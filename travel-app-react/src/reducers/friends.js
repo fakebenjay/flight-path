@@ -5,7 +5,7 @@ export default function Friends(state = {potentialFriends: [], addedFriends: []}
       action.payload.forEach((friend) => {
         let filteredFriends = state.potentialFriends.filter((friendInArray) => friendInArray.id === friend.id)
         let filteredAddedFriends = state.addedFriends.filter((friendInArray) => friendInArray.id === friend.id)
-        if (filteredFriends.length < 2  && filteredAddedFriends.length == 0) {
+        if (filteredFriends.length < 2  && filteredAddedFriends.length === 0) {
           friends.push(friend)
         }
       })

@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
 import { addTrip } from '../actions/trips'
-import ConnectedNavbar from './Navbar'
 import { resetLocations } from '../actions/location'
 
 class AddTrip extends React.Component {

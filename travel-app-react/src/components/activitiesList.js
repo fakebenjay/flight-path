@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import ActivityTile from './activityTile'
 
 class ActivitiesList extends Component {
@@ -9,7 +8,7 @@ class ActivitiesList extends Component {
     let activities = []
     if (actprops) {
       activities = actprops.map((activity) => {
-        return <li><ActivityTile key={activity.id} activity={activity}/></li>
+        return <li key={activity.id}><ActivityTile activity={activity}/></li>
       })
     }
     return (
