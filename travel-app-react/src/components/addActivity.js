@@ -48,7 +48,7 @@ class AddActivity extends Component {
     return (
       <div>
       {this.state.toggle ? this.renderSearchFields() : null}
-      <button value="Refine Search" onClick={this.handleToggle} />
+      <button onClick={this.handleToggle}>Refine Search</button>
       </div>
 
     )

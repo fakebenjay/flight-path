@@ -1,13 +1,8 @@
-import { NavLink, Redirect } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { clearAccount } from '../actions/account'
 
 class Navbar extends Component  {
-  constructor() {
-    super()
-  }
 
   render() {
     return (

@@ -4,6 +4,18 @@ export const setToken = (token) => ({
  type: 'SET_TOKEN', payload: token
 })
 
+export const setAccount = (token) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/authorize`, {token: token})
+      .then(response => {
+        let account = response.data
+        dispatch({type: 'SET_ACCOUNT', account})
+      })
+  }
+}
+
 export const clearAccount = () => ({
   type: 'CLEAR_ACCOUNT'
 })
@@ -44,16 +56,4 @@ export const createAccount = (params) => {
           dispatch(setAccount(token))
         })
     }
-}
-
-export const setAccount = (token) => {
-  return (dispatch) => {
-    let prefix = 'http://localhost:3001'
-    axios
-      .post(`${prefix}/authorize`, {token: token})
-      .then(response => {
-        let account = response.data
-        dispatch({type: 'SET_ACCOUNT', account})
-      })
-  }
 }

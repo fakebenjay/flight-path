@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTrip } from '../actions/trips'
 import { authorize } from '../actions/account'
-import ConnectedNavbar from './Navbar'
 import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 
@@ -33,6 +32,10 @@ class Trip extends React.Component {
     }
   }
 
+  handleActivityClick() {
+
+  }
+
   render() {
     let trip = this.props.trip
     let friends = []
@@ -46,7 +49,7 @@ class Trip extends React.Component {
         <div>{trip.formatted_name}</div>
         <li>
           Who's Going:
-          <ul>{friends.map((account) => <li>{account.username}</li>)}</ul>
+          <ul>{friends.map((account) => <li key={account.id}>{account.username}</li>)}</ul>
         </li>
         <li>
           Dates:
