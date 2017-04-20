@@ -22,7 +22,7 @@ class ActivitiesController < ApplicationController
     lng = params["activity"]["lng"]
     trip_id = params["activity"]["id"]
     activities = Activity.new_from_search(keyword, radius, lng, lat, trip_id)
-    render json: activities, each_serializer: ActivitySearchSerializer
+    render json: activities, each_serializer: ActivitySerializer
   end
 
 

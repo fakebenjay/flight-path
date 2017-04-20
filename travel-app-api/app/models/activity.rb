@@ -20,6 +20,7 @@ class Activity < ApplicationRecord
       end
       activity.rating = r["rating"]
       activity.address = r["vicinity"]
+      activity
     end
   end
 
