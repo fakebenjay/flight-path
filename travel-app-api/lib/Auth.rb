@@ -1,4 +1,5 @@
 class Auth
+
   def self.issue(payload)
     JWT.encode(payload, Rails.application.secrets.hmac_secret)
   end

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTrips, fetchTripImage } from '../actions/trips'
+import { NavLink } from 'react-router-dom'
 import ConnectedNavbar from './Navbar'
 import TripTile from './tripTile'
 
@@ -20,7 +21,7 @@ class MyTrips extends Component {
     return (
       <div>
         <ul>
-          {this.listTrips()}
+          {this.props.trips.length === 0 ? <h3>No trips planned yet? Get moving, <NavLink to="/addtrip">add</NavLink> one now</h3> : this.listTrips()}
         </ul>
       </div>
     )

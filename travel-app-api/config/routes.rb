@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   post '/location', to: 'locations#location'
   post '/authorize', to: 'accounts#authorize'
   post '/fetchtrip', to: 'accounts#fetchtrip'
-
+  post '/searchactivities', to: 'activities#fetch'
 end
