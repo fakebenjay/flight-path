@@ -1,0 +1,7 @@
+{/* <ReactBootstrapSlider
+  value={this.state.radius}
+  slideStop={this.changeValue}
+  step={this.state.step}
+  max={this.state.max}
+  min={this.state.min}
+  reversed={true} /> */}

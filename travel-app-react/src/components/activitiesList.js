@@ -28,6 +28,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const ConnectedActvities = connect(mapStateToProps, null)(ActivitiesList)
+const ConnectedActivities = connect(mapStateToProps, null)(ActivitiesList)
 
-export default ConnectedActvities
+export default ConnectedActivities

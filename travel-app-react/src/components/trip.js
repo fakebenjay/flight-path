@@ -13,11 +13,25 @@ class Trip extends React.Component {
     this.state = {
       toggle: 0
     }
+    this.handleClick = this.handleClick.bind(this)
   }
   componentWillMount() {
     let tripID = this.props.match.params.id
     this.props.fetchTrip(tripID)
   }
+
+  handleClick() {
+    let toggleId = this.state.toggle
+    if (toggleId === 0) {
+      toggleId = 1
+    } else {
+      toggleId = 0
+    }
+    this.setState({
+      toggle: toggleId
+    })
+  }
+
   render() {
     let trip = this.props.trip
     let friends = []
@@ -26,8 +40,6 @@ class Trip extends React.Component {
     }
     return (
       <div>
-        {this.state.toggle === 0 ? <ConnectedActivities /> : <ConnectedAddActivity/>}
-
         <div>Hi {this.props.account.username}, here's details of your trip:</div>
         <div>{trip.name}</div>
         <div>{trip.formatted_name}</div>
@@ -42,7 +54,9 @@ class Trip extends React.Component {
             <li>{trip.end_date}</li>
           </ul>
         </li>
-        Activities: <ConnectedActvities />
+        <button onClick={this.handleClick}>Planned Activities</button>
+        <button onClick={this.handleClick}>Add Activity</button>
+        {this.state.toggle === 0 ? <ConnectedActivities /> : <ConnectedAddActivity/>}
       </div>
     )
   }
