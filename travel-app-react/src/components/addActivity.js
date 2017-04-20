@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import ReactBootstrapSlider from 'react-bootstrap-slider';
+import ReactBootstrapSlider from 'react-bootstrap-slider';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'jquery'
 import { bindActionCreators } from 'redux'
 import { setRadius, setKeyword } from '../actions/activitySearch'
 
@@ -40,6 +42,13 @@ class AddActivity extends Component {
     return (
       <div>
       <input type="text" onChange={this.handleChange} value={this.state.keyword} />
+      <ReactBootstrapSlider
+        value={this.state.radius}
+        slideStop={this.changeValue}
+        step={this.state.step}
+        max={this.state.max}
+        min={this.state.min}
+        reversed={true} />
     </div>
     )
   }
@@ -47,8 +56,8 @@ class AddActivity extends Component {
   render() {
     return (
       <div>
-      {this.state.toggle ? this.renderSearchFields() : null}
-      <button value="Refine Search" onClick={this.handleToggle} />
+        <button onClick={this.handleToggle}>Refine Search</button>
+        {this.state.toggle ? this.renderSearchFields() : null}
       </div>
 
     )
