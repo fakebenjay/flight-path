@@ -3,45 +3,23 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTrips, fetchTripImage } from '../actions/trips'
 import ConnectedNavbar from './Navbar'
+import TripTile from './tripTile'
 
 class MyTrips extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.state = {
+      token: localStorage.getItem("token"),
+    }
   }
-
   componentWillMount() {
     let token = localStorage.getItem('token')
     this.props.fetchTrips(token)
   }
-
   listTrips() {
     return this.props.trips.map((trip) => {
-      return (
-        <li>
-          <div>
-            <img src={this.props.fetchTripImage(trip)} />
-          </div>
-          <strong>{trip.name}</strong>:
-                <ul>
-                  <li>
-                    Where To:
-                    <ul><li>{trip.formatted_name}</li></ul>
-                  </li>
-                  <li>
-                    Who's Going:
-                    <ul>{trip.accounts.map((account) => <li>{account.username}</li>)}</ul>
-                  </li>
-                  <li>
-                    Dates:
-                    <ul>
-                      <li>{trip.start_date}</li>
-                      <li>{trip.end_date}</li>
-                    </ul>
-                  </li>
-                </ul>
-            </li>
-            )
-          })
+      return <TripTile key={trip.id} trip={trip}/>
+    })
   }
 
   render() {

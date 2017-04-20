@@ -24,6 +24,17 @@ export const fetchTrips = (token) => {
   }
 }
 
+
+export const fetchTrip = (trip_id) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/fetchtrip`, {trip_id: trip_id})
+      .then(response => {
+        let payload = response.data
+        dispatch({type: 'FETCH_TRIPS', payload})
+      })
+
 export const fetchTripImage = (trip) => {
   return (dispatch) => {
     debugger
@@ -32,5 +43,6 @@ export const fetchTripImage = (trip) => {
       debugger
       return response
     })
+
   }
 }

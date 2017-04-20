@@ -17,6 +17,12 @@ class AccountsController < ApplicationController
     render json: trips, each_serialzer: TripSerializer
   end
 
+  def fetchtrip
+    trip_id = params["trip_id"]
+    trip = Trip.find(trip_id)
+    render json: trip, serialzer: TripSerializer
+  end
+
   def authorize
     token = params["token"]
     account = Account.from_token(token)

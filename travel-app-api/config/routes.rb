@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/friends', to: 'accounts#friends'
   post '/mytrips', to: 'accounts#mytrips'
   post '/location', to: 'locations#location'
-  post '/authorize', to: "accounts#authorize"
-  
+  post '/authorize', to: 'accounts#authorize'
+  post '/fetchtrip', to: 'accounts#fetchtrip'
+
 end
