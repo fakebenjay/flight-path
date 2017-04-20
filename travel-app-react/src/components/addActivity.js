@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import ReactBootstrapSlider from 'react-bootstrap-slider';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import { bindActionCreators } from 'redux'
-import { setRadius, setKeyword } from '../actions/activitySearch'
+import { setRadius, setKeyword, fetchActivities } from '../actions/activitySearch'
 
 class AddActivity extends Component {
   constructor() {
@@ -18,15 +19,23 @@ class AddActivity extends Component {
     this.changeValue = this.changeValue.bind(this)
     this.renderSearchFields = this.renderSearchFields.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
   }
 
   changeValue(e) {
-    debugger
-    this.props.setRadius(this.state.radius)
+    this.props.setRadius(e)
   }
 
   handleChange(e) {
     this.props.setKeyword(e.target.value)
+  }
+
+  handleSearch() {
+    this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
   }
 
   handleToggle() {
@@ -39,7 +48,15 @@ class AddActivity extends Component {
   renderSearchFields() {
     return (
       <div>
-      <input type="text" onChange={this.handleChange} value={this.state.keyword} />
+      Keyword: <input type="text" onChange={this.handleChange} value={this.state.keyword} />
+      Radius: {this.props.activitySearch.radius}
+      <Slider
+        defaultValue={this.props.activitySearch.radius}
+        onChange={this.changeValue}
+        max={this.state.max}
+        min={this.state.min}
+       />
+       <input type="submit" value="Search" onClick={this.handleSearch}/>
     </div>
     )
   }
@@ -47,8 +64,8 @@ class AddActivity extends Component {
   render() {
     return (
       <div>
-      {this.state.toggle ? this.renderSearchFields() : null}
-      <button onClick={this.handleToggle}>Refine Search</button>
+        <button onClick={this.handleToggle}>Refine Search</button>
+        {this.state.toggle ? this.renderSearchFields() : null}
       </div>
 
     )
@@ -58,13 +75,15 @@ class AddActivity extends Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setRadius: setRadius,
-    setKeyword: setKeyword
+    setKeyword: setKeyword,
+    fetchActivities: fetchActivities
   }, dispatch)
 }
 
 const mapStateToProps = (state) => {
   return {
-    activitySearch: state.activitySearch
+    activitySearch: state.activitySearch,
+    currentTrip: state.CurrentTrip
   }
 }
 
