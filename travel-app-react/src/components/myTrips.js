@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrips } from '../actions/trips'
-import ConnectedAuth from '../utils/auth'
+import { fetchTrips, fetchTripImage } from '../actions/trips'
 import ConnectedNavbar from './Navbar'
 
 class MyTrips extends Component {
@@ -17,8 +16,12 @@ class MyTrips extends Component {
 
   listTrips() {
     return this.props.trips.map((trip) => {
-      return  (
-        <li><strong>{trip.name}</strong>:
+      return (
+        <li>
+          <div>
+            <img src={this.props.fetchTripImage(trip)} />
+          </div>
+          <strong>{trip.name}</strong>:
                 <ul>
                   <li>
                     Where To:
@@ -36,7 +39,7 @@ class MyTrips extends Component {
                     </ul>
                   </li>
                 </ul>
-        </li>
+            </li>
             )
           })
   }
@@ -63,7 +66,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchTrips: fetchTrips
+    fetchTrips: fetchTrips,
+    fetchTripImage: fetchTripImage
   }, dispatch)
 }
 

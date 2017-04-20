@@ -7,37 +7,25 @@ import { clearAccount } from '../actions/account'
 class Navbar extends Component  {
   constructor() {
     super()
-
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick() {
-    localStorage.removeItem("token")
-    this.props.clearAccount()
-    this.handleRedirect()
-  }
-  
-  handleRedirect() {
-    return <Redirect to="/login" />
   }
 
   render() {
     return (
       <div>
-        <NavLink to="/mytrips">My Trips</NavLink> |
-        <NavLink to="/addtrip">Add Trip</NavLink> |
+        {this.props.token ? <NavLink to="/mytrips">My Trips</NavLink> : <NavLink to="/login">Login</NavLink> }
+        {this.props.token ? <NavLink to="/addtrip">Add Trip</NavLink> : <NavLink to="/register">Register</NavLink> }
+        {this.props.token ? <NavLink to="/logout">Log Out</NavLink> : null }
       </div>
     )
   }
 
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    clearAccount: clearAccount
-  })
-}
+const mapStateToProps = (state) => ({
+  token: state.Account.token
+})
 
-const ConnectedNavbar = connect(null, mapDispatchToProps)(Navbar)
+
+const ConnectedNavbar = connect(mapStateToProps, null)(Navbar)
 
 export default ConnectedNavbar

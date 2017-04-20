@@ -13,7 +13,6 @@ class Register extends React.Component {
       username: '',
       password: '',
       email: '',
-      redirect: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -21,13 +20,6 @@ class Register extends React.Component {
     this.handleRedirect = this.handleRedirect.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.account.account_id) {
-      this.setState({
-        redirect: true
-      })
-    }
-  }
 
   handleChange(e) {
     let target = e.target.name
@@ -38,23 +30,17 @@ class Register extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.createAccount(this.state)
-    this.setState({
-      redirect: true
-    })
   }
 
   handleRedirect() {
     return <Redirect to="/mytrips" />
   }
 
-  handleFalseRedirect() {
-    return <Redirect to="/login" />
-  }
 
   render() {
     return(
       <div>
-        {this.state.redirect ? this.handleRedirect() : null }
+        {this.props.account.account_id ? this.handleRedirect() : null }
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
           <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
@@ -67,12 +53,20 @@ class Register extends React.Component {
   }
 }
 
+
+const mapStateToProps = (state) => {
+  return {
+    account: state.Account
+  }
+}
+
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     createAccount: createAccount
   }, dispatch)
 }
 
-const ConnectedRegister = connect(null, mapDispatchToProps)(Register)
+const ConnectedRegister = connect(mapStateToProps, mapDispatchToProps)(Register)
 
 export default ConnectedRegister
