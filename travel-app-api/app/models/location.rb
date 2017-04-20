@@ -1,5 +1,4 @@
 class Location
-
   def initialize(formatted_name, lat, lng)
     @formatted_name = formatted_name
     @lat = lat
@@ -15,6 +14,4 @@ class Location
     lng = raw_data["results"][0]["geometry"]["location"]["lng"]
     Location.new(formatted_name, lat, lng)
   end
-
-
 end

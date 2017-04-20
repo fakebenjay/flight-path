@@ -70,7 +70,7 @@ class AddTrip extends React.Component {
   render() {
     return (
       <div>
-        {this.state.redirect ? this.handleRedirect : null}
+        {this.state.redirect ? this.handleRedirect() : null}
         <input type='text' placeholder='Trip Name' onChange={this.handleChange} name='name'/>
         <DatePicker selected={this.state.startDate} onChange={this.handleDateStart}/>
         <DatePicker selected={this.state.endDate} onChange={this.handleDateEnd}/>
