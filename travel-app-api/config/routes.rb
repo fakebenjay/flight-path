@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :trips, except: [:new, :edit] do
-    resources :activities, except: [:new, :edit]
+    resources :activities, except: [:new, :edit, :create]
   end
 
   resources :registrations, only: :create
@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   post '/authorize', to: 'accounts#authorize'
   post '/fetchtrip', to: 'accounts#fetchtrip'
   post '/searchactivities', to: 'activities#fetch'
+  post '/activities', to: 'activities#add'
 end

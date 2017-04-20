@@ -4,6 +4,8 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { bindActionCreators } from 'redux'
 import { setRadius, setKeyword, fetchActivities } from '../actions/activitySearch'
+import PreviewActivityTile from './previewActivityTile'
+import { saveActivity } from '../actions/activity'
 
 class AddActivity extends Component {
   constructor() {
@@ -18,8 +20,10 @@ class AddActivity extends Component {
     this.handleToggle = this.handleToggle.bind(this)
     this.changeValue = this.changeValue.bind(this)
     this.renderSearchFields = this.renderSearchFields.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.renderPreviewActivities = this.renderPreviewActivities.bind(this)
   }
 
   componentWillMount() {
@@ -41,6 +45,17 @@ class AddActivity extends Component {
   handleToggle() {
     this.setState({
       toggle: true
+    })
+  }
+
+  handleClick(activity) {
+    debugger
+    this.props.saveActivity(activity)
+  }
+
+  renderPreviewActivities() {
+    return this.props.activitySearch.activities.map((activity) => {
+      return <PreviewActivityTile activity={activity} handleClick={this.handleClick.bind(null, activity)}/>
     })
   }
 
@@ -66,6 +81,7 @@ class AddActivity extends Component {
       <div>
         <button onClick={this.handleToggle}>Refine Search</button>
         {this.state.toggle ? this.renderSearchFields() : null}
+        {this.props.activitySearch.activities.length === 0 ? null : this.renderPreviewActivities()}
       </div>
 
     )
@@ -76,7 +92,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setRadius: setRadius,
     setKeyword: setKeyword,
-    fetchActivities: fetchActivities
+    fetchActivities: fetchActivities,
+    saveActivity: saveActivity
   }, dispatch)
 }
 
