@@ -14,7 +14,6 @@ export const fetchActivities = (radius, keyword, lng, lat, id) => {
   axios
     .post(`${prefix}/searchactivities`, {activity: {radius: radius, keyword: keyword, lng: lng, lat: lat, id: id}})
     .then(response => {
-      debugger
       let payload = response.data
       dispatch({type: 'FETCH_ACTIVITIES', payload})
     })

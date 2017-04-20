@@ -8,6 +8,7 @@ class TripTile extends React.Component {
   }
   render() {
     let trip = this.props.trip
+    debugger
     return (
       <div>
         <div>

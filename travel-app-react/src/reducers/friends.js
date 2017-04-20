@@ -24,7 +24,7 @@ export default function Friends(state = {potentialFriends: [], addedFriends: []}
       let filteredAddedFriends = state.addedFriends.filter((friend) => friend.id !== action.friend.id)
       let potentialFriends = [...state.potentialFriends, action.friend]
       return Object.assign({}, state, {potentialFriends: potentialFriends, addedFriends: filteredAddedFriends})
-    case "CLEAR_LOCATIONS":
+    case "CLEAR_FRIENDS":
       return Object.assign({}, state, {potentialFriends: []})
     default:
       return state

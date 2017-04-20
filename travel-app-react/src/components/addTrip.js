@@ -38,9 +38,8 @@ class AddTrip extends React.Component {
       [target]: e.target.value
     })
   }
-  handleClick(e) {
-    e.preventDefault()
-    if (this.props.location.hasBeenFound || this.state.name === '' || this.state.endDate === moment()) {
+  handleClick() {
+    if (this.props.location.hasBeenFound && this.state.name != '' &&  this.state.endDate === moment()) {
       let trip = {}
       trip.formatted_name = this.props.location.formattedName
       trip.google_id = this.props.location.googleId

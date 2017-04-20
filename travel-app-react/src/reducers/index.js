@@ -4,11 +4,12 @@ import Account from './account'
 import Friends from './friends'
 import Location from './location'
 import Trip from './trips'
+import Activity from './activity'
 import CurrentTrip from './currentTrip'
 import activitySearch from './activitySearch'
 
 const rootReducer = combineReducers({
-  Account, Friends, Location, Trip, router: routerReducer, activitySearch, CurrentTrip
+  Account, Friends, Location, Trip, router: routerReducer, activitySearch, CurrentTrip, Activity
 })
 
 export default rootReducer
