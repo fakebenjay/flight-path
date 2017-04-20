@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchFriends, addFriend, removeFriend, removeAddedFriend } from '../actions/friends'
+import { fetchFriends, addFriend, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
 
 class AddFriend extends React.Component {
   constructor() {
@@ -32,16 +32,25 @@ class AddFriend extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({
-      query: e.target.value
-    })
+    if (this.state.query.length > e.target.value.length) {
+      this.setState({
+        query: e.target.value
+      })
+      this.props.clearFriends()
+    } else {
+      this.setState({
+        query: e.target.value
+      })
     if (this.state.query.length > 0) {
       this.queryAPI(this.state.query)
     }
   }
+}
+
   queryAPI(query) {
-    this.props.fetchFriends(query)
+    this.props.fetchFriends(query, this.props.account.token)
   }
+
   handleClick(e) {
     this.props.addFriend(e)
     this.props.removeFriend(e)
@@ -72,13 +81,15 @@ const mapDispatchToProps = (dispatch) => {
     fetchFriends: fetchFriends,
     addFriend: addFriend,
     removeFriend: removeFriend,
-    removeAddedFriend: removeAddedFriend
+    removeAddedFriend: removeAddedFriend,
+    clearFriends: clearFriends
   }, dispatch)
 }
 
 const mapStateToProps = (state) => {
   return {
-    friends: state.Friends
+    friends: state.Friends,
+    account: state.Account
   }
 }
 

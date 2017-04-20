@@ -10,6 +10,9 @@ import ConnectedActvities from './activitiesList'
 class Trip extends React.Component {
   constructor() {
     super()
+    this.state = {
+      toggle: 0
+    }
   }
   componentWillMount() {
     let tripID = this.props.match.params.id
@@ -23,7 +26,8 @@ class Trip extends React.Component {
     }
     return (
       <div>
-        {/* <ConnectedAddActivity /> */}
+        {this.state.toggle === 0 ? <ConnectedActivities /> : <ConnectedAddActivity/>}
+
         <div>Hi {this.props.account.username}, here's details of your trip:</div>
         <div>{trip.name}</div>
         <div>{trip.formatted_name}</div>

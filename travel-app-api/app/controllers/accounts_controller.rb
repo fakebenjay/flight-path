@@ -1,8 +1,10 @@
 class AccountsController < ApplicationController
 
   def friends
+    byebug
+    account = Account.from_token(params["token"])
     search_term = params["search_term"].downcase
-    accounts = Account.where('lower(username) LIKE ? ', "%#{search_term}%").limit(10)
+    accounts = Account.where('lower(username) LIKE ? ', "%#{search_term}%").where('id != ?', "%#{account.id}%").limit(10)
     if accounts
       render json: accounts, each_serializer: AccountSerializer
     else
@@ -13,8 +15,12 @@ class AccountsController < ApplicationController
   def mytrips
     token = params["token"]
     account = Account.from_token(token)
-    trips = account.trips
-    render json: trips, each_serialzer: TripSerializer
+    if account
+      trips = account.trips
+      render json: trips, each_serialzer: TripSerializer
+    else
+      render json: "Not Permitted", status: 401
+    end 
   end
 
   def fetchtrip

@@ -5,10 +5,11 @@ import Friends from './friends'
 import Location from './location'
 import Trip from './trips'
 import CurrentTrip from './currentTrip'
+import activitySearch from './activitySearch'
 import { rMiddleware } from '../store'
 
 const rootReducer = combineReducers({
-  Account, Friends, Location, Trip, router: routerReducer, CurrentTrip
+  Account, Friends, Location, Trip, router: routerReducer, activitySearch, CurrentTrip
 })
 
 export default rootReducer

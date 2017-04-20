@@ -37,7 +37,6 @@ export const fetchTrip = (trip_id) => {
     }
   }
 
-
 export const fetchTripImage = (trip) => {
   return (dispatch) => {
     axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=${trip.googleId}&key=AIzaSyDOnb3A_Rz8r3FzCcQThWEN82lUQDGcLBA`)
