@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417191555) do
+ActiveRecord::Schema.define(version: 20170420202838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 20170417191555) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["trip_id"], name: "index_activities_on_trip_id", using: :btree
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "account_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["account_id"], name: "index_comments_on_account_id", using: :btree
+    t.index ["activity_id"], name: "index_comments_on_activity_id", using: :btree
   end
 
   create_table "planned_activities", force: :cascade do |t|
@@ -67,6 +76,8 @@ ActiveRecord::Schema.define(version: 20170417191555) do
   end
 
   add_foreign_key "activities", "trips"
+  add_foreign_key "comments", "accounts"
+  add_foreign_key "comments", "activities"
   add_foreign_key "planned_activities", "accounts"
   add_foreign_key "planned_activities", "activities"
   add_foreign_key "planned_trips", "accounts"

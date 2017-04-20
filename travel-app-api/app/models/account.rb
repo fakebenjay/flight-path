@@ -3,6 +3,7 @@ class Account < ApplicationRecord
   has_many :trips, through: :planned_trips
   has_many :planned_activities
   has_many :activities, through: :planned_activities
+  has_many :comments
   has_secure_password
 
   def self.from_token(token)

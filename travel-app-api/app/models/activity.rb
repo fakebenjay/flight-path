@@ -2,6 +2,7 @@ class Activity < ApplicationRecord
   belongs_to :trip
   has_many :planned_activities
   has_many :accounts, through: :planned_activities
+  has_many :comments
 
   def self.new_from_search(keyword, radius, lng, lat, trip_id)
     url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{lat},#{lng}&radius=#{radius}&keyword=#{keyword}&type=point_of_interest&rankBy=prominence&key=AIzaSyDKctmGykKUI2sTuv_ipJ6bz9wO-WMQ4NA"
