@@ -48,8 +48,9 @@ class AddFriend extends React.Component {
 }
 
   queryAPI(query) {
-    this.props.fetchFriends(query)
+    this.props.fetchFriends(query, this.props.account.token)
   }
+
   handleClick(e) {
     this.props.addFriend(e)
     this.props.removeFriend(e)
@@ -87,7 +88,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    friends: state.Friends
+    friends: state.Friends,
+    account: state.Account
   }
 }
 

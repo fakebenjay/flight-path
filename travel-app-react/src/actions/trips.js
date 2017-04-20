@@ -34,6 +34,8 @@ export const fetchTrip = (trip_id) => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIPS', payload})
       })
+    }
+  }
 
 export const fetchTripImage = (trip) => {
   return (dispatch) => {
