@@ -7,7 +7,6 @@ class CreateActivities < ActiveRecord::Migration[5.0]
       t.text :img_url
       t.decimal :rating
       t.string :address
-      t.date :date
       t.references :trip, foreign_key: true
 
       t.timestamps

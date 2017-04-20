@@ -15,6 +15,4 @@ class Location
       Location.new(formatted_name, google_id)
     end
   end
-
-
 end

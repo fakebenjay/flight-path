@@ -80,7 +80,6 @@ class AddTrip extends React.Component {
     return (
       <div>
         {this.state.redirect ? this.handleRedirect() : null}
-        <ConnectedNavbar />
         <input type='text' placeholder='Trip Name' onChange={this.handleChange} name='name'/>
         <DatePicker selected={this.state.startDate} onChange={this.handleDateStart}/>
         <DatePicker selected={this.state.endDate} onChange={this.handleDateEnd}/>
