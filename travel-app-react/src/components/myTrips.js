@@ -1,65 +1,49 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrips } from '../actions/trips'
-
+import { fetchTrips, fetchTripImage } from '../actions/trips'
+import ConnectedNavbar from './Navbar'
+import TripTile from './tripTile'
 
 class MyTrips extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      token: localStorage.getItem("token")
-    }
+  constructor() {
+    super()
+
   }
   componentWillMount() {
-    this.props.fetchTrips(this.state.token)
+    let token = this.props.account.token
+    this.props.fetchTrips(token)
   }
-  render() {
-    // TODO serialize out account info from trip.accounts
-    let trips = this.props.trips.map((trip) => {
-      return  <li><strong>{trip.name}</strong>:
-                <ul>
-                  <li>
-                    Where To:
-                    <ul><li>{trip.formatted_name}</li></ul>
-                  </li>
-                  <li>
-                    Who's Going:
-                    <ul>{trip.accounts.map((account) => <li>{account.username}</li>)}</ul>
-                  </li>
-                  <li>
-                    Dates:
-                    <ul>
-                      <li>{trip.start_date}</li>
-                      <li>{trip.end_date}</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
+  listTrips() {
+    return this.props.trips.map((trip) => {
+      return <TripTile key={trip.id} trip={trip}/>
     })
+  }
 
-
+  render() {
     return (
       <div>
         <ul>
-          {trips}
+          {this.listTrips()}
         </ul>
       </div>
     )
   }
-}
 
+}
 
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.Trip
+    trips: state.Trip,
+    account: state.Account
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchTrips: fetchTrips
+    fetchTrips: fetchTrips,
+    fetchTripImage: fetchTripImage
   }, dispatch)
 }
 

@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
 import { addTrip } from '../actions/trips'
+import ConnectedNavbar from './Navbar'
+import { resetLocations } from '../actions/location'
 
 class AddTrip extends React.Component {
   constructor(props) {
@@ -19,14 +21,18 @@ class AddTrip extends React.Component {
       lat: this.props.location.lat,
       lng: this.props.location.lng,
       formattedName: this.props.location.formattedName,
-      redirect: false
+      redirect: false,
+      error: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.handleDateStart = this.handleDateStart.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
+    this.renderError = this.renderError.bind(this)
   }
+
+
   handleChange(e) {
     let target = e.target.name
     this.setState({
@@ -35,22 +41,30 @@ class AddTrip extends React.Component {
   }
   handleClick(e) {
     e.preventDefault()
-    let trip = {}
-    trip.formatted_name = this.props.location.formattedName
-    trip.lng = this.props.location.lng
-    trip.lat = this.props.location.lat
-    trip.name = this.state.name
-    trip.start_date = this.state.startDate.utc()
-    trip.end_date = this.state.endDate.utc()
-    let token = localStorage.getItem("token")
-    let friends = []
-    this.props.friends.forEach((friend) => {
-      friends.push(friend.id)
-    })
-    this.props.addTrip(trip, token, friends)
-    this.setState({
-      redirect: true
-    })
+    if (this.props.location.hasBeenFound || this.state.name === '' || this.state.endDate === moment()) {
+      let trip = {}
+      trip.formatted_name = this.props.location.formattedName
+      trip.google_id = this.props.location.googleId
+      trip.name = this.state.name
+      trip.start_date = this.state.startDate.utc()
+      trip.end_date = this.state.endDate.utc()
+      let token = localStorage.getItem("token")
+      let friends = []
+      this.props.friends.forEach((friend) => {
+        friends.push(friend.id)
+      })
+      this.props.addTrip(trip, token, friends)
+      this.props.resetLocations()
+      this.setState({
+        error: false,
+        redirect: true
+      })
+    }
+    else {
+      this.setState({
+        error: true
+      })
+    }
   }
   handleRedirect() {
     return (
@@ -67,6 +81,11 @@ class AddTrip extends React.Component {
       endDate: date
     })
   }
+
+  renderError() {
+    return <h4>Please make sure you fill out all of the fields!</h4>
+  }
+
   render() {
     return (
       <div>
@@ -77,6 +96,7 @@ class AddTrip extends React.Component {
         <ConnectedGetLocation />
         <ConnectedAddFriend />
         <input type='submit' value='Create Trip' onClick={this.handleClick}/>
+        {this.state.error ? this.renderError() : null }
       </div>
     )
   }
@@ -84,7 +104,8 @@ class AddTrip extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    addTrip: addTrip
+    addTrip: addTrip,
+    resetLocations: resetLocations
   }, dispatch)
 }
 

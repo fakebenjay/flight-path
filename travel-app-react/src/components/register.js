@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createAccount } from '../actions/account'
+import { Redirect } from 'react-router-dom'
 
 class Register extends React.Component {
   constructor() {
@@ -11,12 +12,14 @@ class Register extends React.Component {
     this.state = {
       username: '',
       password: '',
-      email: ''
+      email: '',
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
   }
+
 
   handleChange(e) {
     let target = e.target.name
@@ -29,9 +32,15 @@ class Register extends React.Component {
     this.props.createAccount(this.state)
   }
 
+  handleRedirect() {
+    return <Redirect to="/mytrips" />
+  }
+
+
   render() {
     return(
       <div>
+        {this.props.account.account_id ? this.handleRedirect() : null }
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
           <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
@@ -44,12 +53,20 @@ class Register extends React.Component {
   }
 }
 
+
+const mapStateToProps = (state) => {
+  return {
+    account: state.Account
+  }
+}
+
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     createAccount: createAccount
   }, dispatch)
 }
 
-const ConnectedRegister = connect(null, mapDispatchToProps)(Register)
+const ConnectedRegister = connect(mapStateToProps, mapDispatchToProps)(Register)
 
 export default ConnectedRegister
