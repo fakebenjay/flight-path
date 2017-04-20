@@ -9,7 +9,7 @@ class MyTrips extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      token: localStorage.getItem("token"),
+      token: localStorage.getItem("token")
     }
   }
   componentWillMount() {
@@ -25,7 +25,6 @@ class MyTrips extends Component {
   render() {
     return (
       <div>
-        <ConnectedNavbar />
         <ul>
           {this.listTrips()}
         </ul>

@@ -12,6 +12,8 @@ import { setToken, setAccount } from './actions/account'
 import PrivateRoute from './components/PrivateRoute'
 import { bindActionCreators } from 'redux'
 import ConnectedLogout from './components/Logout'
+import ConnectedTrip from './components/trip'
+
 const history=createHistory()
 
 class App extends Component {
@@ -34,7 +36,8 @@ class App extends Component {
             <Route path='/register' component={ConnectedRegister}/>
             <Route path="/logout" component={ConnectedLogout} />
             <PrivateRoute path='/addtrip' component={ConnectedAddTrip}/>
-            <PrivateRoute path ='/mytrips' component={ConnectedMyTrips}/>
+            <PrivateRoute path='/mytrips' component={ConnectedMyTrips}/>
+            <PrivateRoute path='/trips/:id' component={ConnectedTrip}/>
           </Switch>
         </div>
       </Router>
