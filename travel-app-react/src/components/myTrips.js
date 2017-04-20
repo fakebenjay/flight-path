@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrips } from '../actions/trips'
-import ConnectedAuth from '../utils/auth'
+import { fetchTrips, fetchTripImage } from '../actions/trips'
 import ConnectedNavbar from './Navbar'
 import TripTile from './tripTile'
 
@@ -45,7 +44,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchTrips: fetchTrips
+    fetchTrips: fetchTrips,
+    fetchTripImage: fetchTripImage
   }, dispatch)
 }
 

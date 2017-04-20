@@ -10,19 +10,14 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      redirect: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.account.account_id !== null) {
-      this.setState({
-        redirect: true
-      })
-    }
+  handleRedirect() {
+    return <Redirect to="/mytrips" />
   }
 
   handleChange(e) {
@@ -35,19 +30,12 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.login(this.state)
-    this.setState({
-        redirect: true
-      })
-  }
-
-  handleRedirect() {
-    return <Redirect to="/mytrips" />
   }
 
   render() {
     return(
       <div>
-        {this.state.redirect ? this.handleRedirect() : null}
+        {this.props.account.account_id ? this.handleRedirect() : null }
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
           <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
@@ -67,7 +55,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    login: login
+    login: login,
   }, dispatch)
 }
 

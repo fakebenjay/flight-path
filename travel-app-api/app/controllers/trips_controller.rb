@@ -2,6 +2,7 @@ class TripsController < ApplicationController
 
   def create
     trip = Trip.new(trip_params)
+    trip.retreive_lng_lat
     account = Account.from_token(params["token"])
     friends = params["friends"]
     account.trips << trip
@@ -11,7 +12,6 @@ class TripsController < ApplicationController
         account.trips << trip
       end
     end
-
     if trip.save
       render json: trip, serializer: TripSerializer
     else
@@ -34,7 +34,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date)
+    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date, :img_url, :google_id)
   end
 
 end
