@@ -23,3 +23,14 @@ export const fetchTrips = (token) => {
       })
   }
 }
+
+export const fetchTripImage = (trip) => {
+  return (dispatch) => {
+    debugger
+    axios.get(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=${trip.googleId}&key=AIzaSyDOnb3A_Rz8r3FzCcQThWEN82lUQDGcLBA`)
+    .then(response => {
+      debugger
+      return response
+    })
+  }
+}

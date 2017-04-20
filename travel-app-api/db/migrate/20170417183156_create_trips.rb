@@ -7,6 +7,8 @@ class CreateTrips < ActiveRecord::Migration[5.0]
       t.string :formatted_name
       t.date :start_date
       t.date :end_date
+      t.string :img_url
+      t.string :google_id
       t.timestamps
     end
   end

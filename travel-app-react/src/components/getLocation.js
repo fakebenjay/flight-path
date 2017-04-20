@@ -1,76 +1,56 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { setLocation, clearLocation } from '../actions/location'
+import { setLocation, clearLocations, fetchLocations } from '../actions/location'
 import { connect } from 'react-redux'
-import Modal from 'react-modal'
-import { customStyles } from '../stylesheets/modal'
+import { Location } from './location'
 
 
 class GetLocation extends Component {
   constructor() {
     super()
     this.state = {
-      query: '',
-      isModalOpen: false
+      query: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleYes = this.handleYes.bind(this)
-    this.handleNo = this.handleNo.bind(this)
+    this.listLocations = this.listLocations.bind(this)
 
   }
 
-  handleNo() {
-    this.setState({
-      query: '',
-      isModalOpen: false
-    })
-  }
-
-  handleYes() {
-    this.setState({
-      isModalOpen: false,
-      query: this.props.location.formattedName
-    })
-  }
-
-  handleClose() {
-    this.setState({
-      isModalOpen: false
-    })
-    this.props.clearLocation()
-  }
 
   handleChange(e) {
-    this.setState({
-      query: e.target.value
+    if (this.state.query.length > e.target.value.length) {
+      this.setState({
+        query: e.target.value
+      })
+      this.props.clearLocations()
+    } else {
+      this.setState({
+        query: e.target.value
+      })
+    if (this.state.query.length > 0) {
+      this.props.fetchLocations(this.state.query)
+    }
+    }
+  }
+
+  handleClick(e) {
+    this.props.setLocation(e)
+    this.props.clearLocations()
+  }
+
+  listLocations() {
+    return this.props.location.locations.map((location) => {
+      return <Location key={location.google_id} handleClick={this.handleClick.bind(null, location)} location={location}/>
     })
   }
 
-  handleClick() {
-    this.props.setLocation(this.state.query)
-    this.setState({
-      isModalOpen: true
-    })
-  }
 
   render() {
-
     return (
       <div>
-        <input type="text" onChange={this.handleChange} value={this.state.query} />
-        <input type="submit" onClick={this.handleClick} value="Find Location" />
-        <Modal
-          isOpen={this.state.isModalOpen}
-          onRequestClose={this.handleClose}
-          style={customStyles}
-          contentLabel="Modal"
-          >
-            <h2>Did You Mean?</h2>
-            <p>{this.props.location.formattedName} ? </p>
-            <input type="submit" onClick={this.handleYes} value="Yes" />
-            <input type="submit" onClick={this.handleNo} value="No" />
-          </Modal>
+        <input type="text" onChange={this.handleChange} value={this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query} />
+        {this.props.location.locations.length > 0 ? this.listLocations() : null}
       </div>
     )
   }
@@ -85,7 +65,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setLocation: setLocation,
-    clearLocation: clearLocation
+    clearLocations: clearLocations,
+    fetchLocations: fetchLocations
   }, dispatch)
 }
 

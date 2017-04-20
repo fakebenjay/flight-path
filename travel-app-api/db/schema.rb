@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20170417191555) do
     t.string   "formatted_name"
     t.date     "start_date"
     t.date     "end_date"
+    t.string   "img_url"
+    t.string   "google_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["name"], name: "index_trips_on_name", using: :btree

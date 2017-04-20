@@ -9,6 +9,7 @@ import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
 import { addTrip } from '../actions/trips'
 import ConnectedNavbar from './Navbar'
+import { resetLocations } from '../actions/location'
 
 class AddTrip extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class AddTrip extends React.Component {
       lat: this.props.location.lat,
       lng: this.props.location.lng,
       formattedName: this.props.location.formattedName,
-      redirect: false
+      redirect: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -28,6 +29,8 @@ class AddTrip extends React.Component {
     this.handleDateStart = this.handleDateStart.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
   }
+
+
   handleChange(e) {
     let target = e.target.name
     this.setState({
@@ -36,22 +39,27 @@ class AddTrip extends React.Component {
   }
   handleClick(e) {
     e.preventDefault()
-    let trip = {}
-    trip.formatted_name = this.props.location.formattedName
-    trip.lng = this.props.location.lng
-    trip.lat = this.props.location.lat
-    trip.name = this.state.name
-    trip.start_date = this.state.startDate.utc()
-    trip.end_date = this.state.endDate.utc()
-    let token = localStorage.getItem("token")
-    let friends = []
-    this.props.friends.forEach((friend) => {
-      friends.push(friend.id)
-    })
-    this.props.addTrip(trip, token, friends)
-    this.setState({
-      redirect: true
-    })
+    if (this.props.location.hasBeenFound) {
+      let trip = {}
+      trip.formatted_name = this.props.location.formattedName
+      trip.google_id = this.props.location.googleId
+      trip.name = this.state.name
+      trip.start_date = this.state.startDate.utc()
+      trip.end_date = this.state.endDate.utc()
+      let token = localStorage.getItem("token")
+      let friends = []
+      this.props.friends.forEach((friend) => {
+        friends.push(friend.id)
+      })
+      this.props.addTrip(trip, token, friends)
+      this.props.resetLocations()
+      this.setState({
+        redirect: true
+      })
+    }
+    else {
+      alert("Please find a location first!")
+    }
   }
   handleRedirect() {
     return (
@@ -86,7 +94,8 @@ class AddTrip extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    addTrip: addTrip
+    addTrip: addTrip,
+    resetLocations: resetLocations
   }, dispatch)
 }
 
