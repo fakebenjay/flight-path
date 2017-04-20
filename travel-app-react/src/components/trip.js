@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux'
 import { fetchTrip } from '../actions/trips'
 import { authorize } from '../actions/account'
 import ConnectedNavbar from './Navbar'
-import ConnectedActvities from './activitiesList'
-// import ConnectedAddActivity from './addActivity'
+import ConnectedActivities from './activitiesList'
+import ConnectedAddActivity from './addActivity'
 
 class Trip extends React.Component {
   constructor() {
