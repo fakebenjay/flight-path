@@ -25,7 +25,6 @@ class MyTrips extends Component {
   render() {
     return (
       <div>
-        <ConnectedNavbar />
         <ul>
           {this.listTrips()}
         </ul>

@@ -22,12 +22,14 @@ class AddTrip extends React.Component {
       lng: this.props.location.lng,
       formattedName: this.props.location.formattedName,
       redirect: false,
+      error: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.handleDateStart = this.handleDateStart.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
+    this.renderError = this.renderError.bind(this)
   }
 
 
@@ -39,7 +41,7 @@ class AddTrip extends React.Component {
   }
   handleClick(e) {
     e.preventDefault()
-    if (this.props.location.hasBeenFound) {
+    if (this.props.location.hasBeenFound || this.state.name === '' || this.state.endDate === moment()) {
       let trip = {}
       trip.formatted_name = this.props.location.formattedName
       trip.google_id = this.props.location.googleId
@@ -54,11 +56,14 @@ class AddTrip extends React.Component {
       this.props.addTrip(trip, token, friends)
       this.props.resetLocations()
       this.setState({
+        error: false,
         redirect: true
       })
     }
     else {
-      alert("Please find a location first!")
+      this.setState({
+        error: true
+      })
     }
   }
   handleRedirect() {
@@ -76,6 +81,11 @@ class AddTrip extends React.Component {
       endDate: date
     })
   }
+
+  renderError() {
+    return <h4>Please make sure you fill out all of the fields!</h4>
+  }
+
   render() {
     return (
       <div>
@@ -86,6 +96,7 @@ class AddTrip extends React.Component {
         <ConnectedGetLocation />
         <ConnectedAddFriend />
         <input type='submit' value='Create Trip' onClick={this.handleClick}/>
+        {this.state.error ? this.renderError() : null }
       </div>
     )
   }

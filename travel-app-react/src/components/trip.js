@@ -10,6 +10,9 @@ import ConnectedAddActivity from './addActivity'
 class Trip extends React.Component {
   constructor() {
     super()
+    this.state = {
+      toggle: 0
+    }
   }
   componentWillMount() {
     let token = localStorage.getItem('token')
@@ -25,8 +28,8 @@ class Trip extends React.Component {
     }
     return (
       <div>
-        <ConnectedNavbar />
-        <ConnectedActvities />
+        {this.state.toggle === 0 ? <ConnectedActivities /> : <ConnectedAddActivity/>}
+        <ConnectedActivities />
         <ConnectedAddActivity />
         <div>Hi {this.props.account.username}, here's details of your trip:</div>
         <div>{trip.name}</div>
