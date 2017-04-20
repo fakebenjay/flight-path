@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createAccount } from '../actions/account'
+import { Redirect } from 'react-router-dom'
 
 class Register extends React.Component {
   constructor() {
@@ -11,11 +12,21 @@ class Register extends React.Component {
     this.state = {
       username: '',
       password: '',
-      email: ''
+      email: '',
+      redirect: false
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
+  }
+
+  componentDidMount() {
+    if (this.props.account.account_id) {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   handleChange(e) {
@@ -27,11 +38,23 @@ class Register extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.createAccount(this.state)
+    this.setState({
+      redirect: true
+    })
+  }
+
+  handleRedirect() {
+    return <Redirect to="/mytrips" />
+  }
+
+  handleFalseRedirect() {
+    return <Redirect to="/login" />
   }
 
   render() {
     return(
       <div>
+        {this.state.redirect ? this.handleRedirect() : null }
         <h1>Register</h1>
         <form onSubmit={this.handleSubmit}>
           <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
