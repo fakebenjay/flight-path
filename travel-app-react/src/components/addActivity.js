@@ -4,17 +4,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setRadius, setKeyword } from '../actions/activitySearch'
 
-class addActivity extends Component {
-  constructor(props) {
-    super(props)
-    this.setState = {
+class AddActivity extends Component {
+  constructor() {
+    super()
+    this.state = {
       toggle: false,
       step: 1,
       max: 50,
-      min: 1,
-      radius: this.props.activitySearch.radius,
-      keyword: this.props.activitySearch.keyword
+      min: 1
     }
+
     this.handleToggle = this.handleToggle.bind(this)
     this.changeValue = this.changeValue.bind(this)
     this.renderSearchFields = this.renderSearchFields.bind(this)
@@ -40,7 +39,6 @@ class addActivity extends Component {
   renderSearchFields() {
     return (
       <div>
-
       <input type="text" onChange={this.handleChange} value={this.state.keyword} />
     </div>
     )
@@ -66,6 +64,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    activitySearch: state.actvitiySearch
+    activitySearch: state.activitySearch
   }
 }
+
+const ConnectedAddActivity = connect(mapStateToProps, mapDispatchToProps)(AddActivity)
+
+export default ConnectedAddActivity

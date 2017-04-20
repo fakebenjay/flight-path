@@ -23,13 +23,14 @@ class Trip extends React.Component {
   handleClick() {
     let toggleId = this.state.toggle
     if (toggleId === 0) {
-      toggleId = 1
+      this.setState({
+        toggle: 1
+      })
     } else {
-      toggleId = 0
+      this.setState({
+        toggle: 0
+      })
     }
-    this.setState({
-      toggle: toggleId
-    })
   }
 
   render() {
