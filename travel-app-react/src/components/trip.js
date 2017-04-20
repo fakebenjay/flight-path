@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { createAccount } from '../actions/account'
-import ConnectedNavbar from './Navbar'
 import { fetchTrip } from '../actions/trips'
 import { authorize } from '../actions/account'
+import ConnectedNavbar from './Navbar'
+import ConnectedActvities from './activitesList'
+import ConnectedAddActivity from './addActivity'
 
 class Trip extends React.Component {
   constructor() {
@@ -25,6 +26,8 @@ class Trip extends React.Component {
     return (
       <div>
         <ConnectedNavbar />
+        <ConnectedActvities />
+        <ConnectedAddActivity />
         <div>Hi {this.props.account.username}, here's details of your trip:</div>
         <div>{trip.name}</div>
         <div>{trip.formatted_name}</div>
