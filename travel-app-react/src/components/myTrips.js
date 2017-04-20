@@ -6,14 +6,12 @@ import ConnectedNavbar from './Navbar'
 import TripTile from './tripTile'
 
 class MyTrips extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      token: localStorage.getItem("token"),
-    }
+  constructor() {
+    super()
+
   }
   componentWillMount() {
-    let token = localStorage.getItem('token')
+    let token = this.props.account.token
     this.props.fetchTrips(token)
   }
   listTrips() {
@@ -37,7 +35,8 @@ class MyTrips extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    trips: state.Trip
+    trips: state.Trip,
+    account: state.Account
   }
 }
 

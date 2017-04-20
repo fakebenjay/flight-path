@@ -15,8 +15,12 @@ class AccountsController < ApplicationController
   def mytrips
     token = params["token"]
     account = Account.from_token(token)
-    trips = account.trips
-    render json: trips, each_serialzer: TripSerializer
+    if account
+      trips = account.trips
+      render json: trips, each_serialzer: TripSerializer
+    else
+      render json: "Not Permitted", status: 401
+    end 
   end
 
   def fetchtrip
