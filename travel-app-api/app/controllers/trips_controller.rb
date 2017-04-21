@@ -26,6 +26,10 @@ class TripsController < ApplicationController
   end
 
   def update
+    account = Account.find(trip_params["friend_id"])
+    trip = Trip.find(trip_params["id"])
+    trip.accounts << account
+    render json: trip, serializer: TripSerializer
   end
 
   def destroy
@@ -34,7 +38,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date, :google_id)
+    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date, :img_url, :google_id, :id, :friend_id)
   end
 
 end

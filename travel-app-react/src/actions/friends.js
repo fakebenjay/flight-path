@@ -19,6 +19,20 @@ export const addFriend = (friend) => {
   }
 }
 
+export const addFriendToTrip = (friend, tripObj) => {
+  let trip = {id: tripObj.id, friend_id: friend.id}
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .patch(`${prefix}/trips/${trip.id}`, {trip: trip})
+      .then(response => {
+        let payload = response.data
+        debugger
+        dispatch({type: 'FETCH_TRIP', payload})
+      })
+  }
+}
+
 export const removeFriend = (friend) => {
   return {
     type: "REMOVE_FRIEND",

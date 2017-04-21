@@ -15,6 +15,7 @@ class EditActivity extends Component {
   handleSubmit(e) {
     e.preventDefault()
     this.props.editActivity(this.state.input, this.props.activity, this.props.account)
+    this.props.updateState(this.state.input)
   }
   handleChange(e) {
     this.setState({
