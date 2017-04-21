@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ConnectedRouter as Router } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import ConnectedLogin from './components/login'
 import ConnectedRegister from './components/register'
 import createHistory from 'history/createBrowserHistory'
@@ -32,8 +32,9 @@ class App extends Component {
         <div>
         <Route path="/" component={ConnectedNavbar} />
           <Switch>
-            <Route path='/login' component={ConnectedLogin}/>
-            <Route path='/register' component={ConnectedRegister}/>
+            {this.props.account.account_id ? <Redirect exact from="/" to="/login" /> : <Redirect exact from="/" to="/login" />}
+            {this.props.account.account_id ? <Redirect from="/login" to="/mytrips" /> : <Route path='/login' component={ConnectedLogin}/>}
+            {this.props.account.account_id ? <Redirect from="/register" to="/mytrips" /> : <Route path='/register' component={ConnectedRegister}/>}
             <Route path="/logout" component={ConnectedLogout} />
             <PrivateRoute path='/addtrip' component={ConnectedAddTrip}/>
             <PrivateRoute path='/mytrips' component={ConnectedMyTrips}/>

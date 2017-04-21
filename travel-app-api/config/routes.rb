@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :trips, except: [:new, :edit] do
+  resources :trips, only: [:create, :update] do
     resources :activities, except: [:new, :edit] do
-      resources :comments
+      resources :comments, only: [:create]
     end
   end
-
+  resources :activities, only: :create
   resources :registrations, only: :create
   resources :sessions, only: [:create, :destroy]
   post '/friends', to: 'accounts#friends'
@@ -14,5 +14,4 @@ Rails.application.routes.draw do
   post '/authorize', to: 'accounts#authorize'
   post '/fetchtrip', to: 'accounts#fetchtrip'
   post '/searchactivities', to: 'activities#fetch'
-  post '/activities', to: 'activities#add'
 end

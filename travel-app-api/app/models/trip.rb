@@ -3,7 +3,7 @@ class Trip < ApplicationRecord
   has_many :accounts, through: :planned_trips
   has_many :activities
 
-  def retreive_lng_lat
+  def retreive_lng_lat_img_url
     search_url = "https://maps.googleapis.com/maps/api/place/details/json?reference=#{self.google_id}&key=AIzaSyDOnb3A_Rz8r3FzCcQThWEN82lUQDGcLBA"
     response = RestClient.send("get", search_url)
     raw_data = JSON.parse(response)

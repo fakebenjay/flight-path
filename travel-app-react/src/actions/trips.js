@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { resetLocations } from './location'
 
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
@@ -8,6 +9,9 @@ export const addTrip = (trip, token, friends) => {
       .then(response => {
         let trip = response.data
         dispatch({type: 'ADD_TRIP', trip})
+      }).then(() => {
+        dispatch({type: "SET_REDIRECT_TRUE"})
+        dispatch(resetLocations())
       })
   }
 }

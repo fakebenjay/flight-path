@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
 
-  def add
+  def create
     activity = Activity.new
     activity.name = params["activity"]["name"]
     activity.lng = params["activity"]["lng"]
@@ -14,7 +14,7 @@ class ActivitiesController < ApplicationController
       render json: activity, serializer: SavedActivitySerializer
     else
       render json: "There was an issue saving this activity", status: 401
-    end 
+    end
   end
 
   def fetch

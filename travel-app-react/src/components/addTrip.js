@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
 import { addTrip } from '../actions/trips'
-import { resetLocations } from '../actions/location'
 
 class AddTrip extends React.Component {
   constructor(props) {
@@ -20,7 +19,6 @@ class AddTrip extends React.Component {
       lat: this.props.location.lat,
       lng: this.props.location.lng,
       formattedName: this.props.location.formattedName,
-      redirect: false,
       error: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -38,6 +36,13 @@ class AddTrip extends React.Component {
       [target]: e.target.value
     })
   }
+
+  handleRedirect() {
+    return (
+      <Redirect to={'/mytrips'}/>
+    )
+  }
+
   handleClick() {
     let today = moment()
     if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today) {
@@ -53,10 +58,8 @@ class AddTrip extends React.Component {
         friends.push(friend.id)
       })
       this.props.addTrip(trip, token, friends)
-      this.props.resetLocations()
       this.setState({
         error: false,
-        redirect: true
       })
     }
     else {
@@ -65,11 +68,8 @@ class AddTrip extends React.Component {
       })
     }
   }
-  handleRedirect() {
-    return (
-      <Redirect to={'/mytrips'}/>
-    )
-  }
+
+
   handleDateStart(date) {
     this.setState({
       startDate: date
@@ -88,7 +88,7 @@ class AddTrip extends React.Component {
   render() {
     return (
       <div>
-        {this.state.redirect ? this.handleRedirect() : null}
+        {this.props.location.redirect ? this.handleRedirect() : null}
         <input type='text' placeholder='Trip Name' onChange={this.handleChange} name='name'/>
         <DatePicker selected={this.state.startDate} onChange={this.handleDateStart}/>
         <DatePicker selected={this.state.endDate} onChange={this.handleDateEnd}/>
@@ -104,7 +104,6 @@ class AddTrip extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     addTrip: addTrip,
-    resetLocations: resetLocations
   }, dispatch)
 }
 

@@ -1,4 +1,4 @@
-export default function Location(state = {locations: [], formattedName: '', googleId: null, hasBeenFound: false}, action) {
+export default function Location(state = {locations: [], formattedName: '', googleId: null, hasBeenFound: false, redirect: false}, action) {
   switch (action.type) {
     case "SET_LOCATION":
       let newState = Object.assign({}, state)
@@ -14,6 +14,8 @@ export default function Location(state = {locations: [], formattedName: '', goog
       return Object.assign({}, state, {locations: []})
     case "RESET_LOCATIONS":
       return {locations: [], formattedName: '', googleId: null, hasBeenFound: false}
+    case "SET_REDIRECT_TRUE":
+      return Object.assign({}, state, {redirect: true})
     default:
       return state
   }
