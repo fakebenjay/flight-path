@@ -11,3 +11,8 @@ export const saveActivity = (activity) => {
     })
   }
 }
+
+export const removePotentialActivity = (activity) => {
+
+  
+}

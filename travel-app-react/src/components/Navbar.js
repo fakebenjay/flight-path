@@ -8,7 +8,7 @@ class Navbar extends Component  {
     return (
       <div>
         {this.props.token ? <NavLink to="/mytrips">My Trips</NavLink> : null }
-        {this.props.token ? <NavLink to="/addtrip">Add Trip</NavLink> : null }
+        {this.props.token ? <NavLink to="/addtrip">Add Trip</NavLink> : null   }
         {this.props.token ? <NavLink to="/logout">Log Out</NavLink> : null }
       </div>
     )
