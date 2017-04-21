@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
 import { addTrip } from '../actions/trips'
+import '../stylesheets/addtrip.css'
+import '../stylesheets/submit_and_input.css'
 
 class AddTrip extends React.Component {
   constructor(props) {
@@ -88,15 +90,52 @@ class AddTrip extends React.Component {
   render() {
     return (
       <div>
-        {this.props.location.redirect ? this.handleRedirect() : null}
-        <input type='text' placeholder='Trip Name' onChange={this.handleChange} name='name'/>
-        <DatePicker selected={this.state.startDate} onChange={this.handleDateStart}/>
-        <DatePicker selected={this.state.endDate} onChange={this.handleDateEnd}/>
-        <ConnectedGetLocation />
-        <ConnectedAddFriend />
-        <input type='submit' value='Create Trip' onClick={this.handleClick}/>
-        {this.state.error ? this.renderError() : null }
+      <div className="col-md-1"></div>
+      <div className="col-md-10">
+        <div className="container-fluid">
+          {this.props.location.redirect ? this.handleRedirect() : null}
+          <div className="row add-trip-row">
+            <h1 className="add-trip-title">Begin Your Journey</h1>
+          </div>
+          <div className="row">
+            <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
+          </div>
+        <div className="row add-trip-row">
+          <div className="col-md-3">
+            <ConnectedGetLocation />
+          </div>
+          <div className="col-md-3">
+            <DatePicker className="custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
+          </div>
+          <div className="col-md-3">
+            <DatePicker className="custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          </div>
+          <div className="col-md-3">
+            <ConnectedAddFriend />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-3">
+            <p className="date-label">Departure Date</p>
+          </div>
+          <div className="col-md-3">
+            <p className="date-label">Return Date</p>
+          </div>
+          <div className="col-md-3"></div>
+        </div>
+        <div className="row add-trip-row"></div>
+        <div className="row add-trip-row"></div>
+          <div className="row add-trip-row">
+            <input type='submit' className="col-md-2 col-md-offset-5 custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
+          </div>
+        <div className="row add-trip-row">
+          {this.state.error ? this.renderError() : null }
+        </div>
       </div>
+    </div>
+    <div className="col-md-1"></div>
+    </div>
     )
   }
 }

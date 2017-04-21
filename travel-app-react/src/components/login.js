@@ -38,7 +38,7 @@ class Login extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="login-register-background">
         <div className="col-md-12 text-center login-register-form">
           {this.props.account.account_id ? this.handleRedirect() : null }
           <div className="row login-register">
