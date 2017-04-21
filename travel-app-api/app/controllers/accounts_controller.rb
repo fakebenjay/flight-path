@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
   def friends
     account = Account.from_token(params["token"])
     search_term = params["search_term"].downcase
-    accounts = Account.where('lower(username) LIKE ? ', "%#{search_term}%").where('id != ?', "%#{account.id}%").limit(10)
+    accounts = Account.where('lower(username) LIKE ? ', "%#{search_term}%").where('id != ?', "#{account.id}").limit(10)
     if accounts
       render json: accounts, each_serializer: AccountSerializer
     else

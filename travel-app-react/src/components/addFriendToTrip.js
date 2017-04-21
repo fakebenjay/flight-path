@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchFriends, addFriend, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
+import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
 
-class AddFriend extends React.Component {
+class AddFriendToTrip extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -52,7 +52,7 @@ class AddFriend extends React.Component {
   }
 
   handleClick(e) {
-    this.props.addFriend(e)
+    this.props.addFriendToTrip(e, this.props.trip)
     this.props.removeFriend(e)
   }
 
@@ -79,7 +79,7 @@ class AddFriend extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchFriends: fetchFriends,
-    addFriend: addFriend,
+    addFriendToTrip: addFriendToTrip,
     removeFriend: removeFriend,
     removeAddedFriend: removeAddedFriend,
     clearFriends: clearFriends
@@ -89,10 +89,11 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     friends: state.Friends,
-    account: state.Account
+    account: state.Account,
+    trip: state.CurrentTrip
   }
 }
 
-const ConnectedAddFriend = connect(mapStateToProps, mapDispatchToProps)(AddFriend)
+const ConnectedAddFriendToTrip = connect(mapStateToProps, mapDispatchToProps)(AddFriendToTrip)
 
-export default ConnectedAddFriend
+export default ConnectedAddFriendToTrip

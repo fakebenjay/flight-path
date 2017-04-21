@@ -5,9 +5,10 @@ import { fetchTrip } from '../actions/trips'
 import { authorize } from '../actions/account'
 import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
+import ConnectedAddFriendToTrip from './addFriendToTrip'
 
 class Trip extends React.Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
       toggle: 0
@@ -31,11 +32,6 @@ class Trip extends React.Component {
       })
     }
   }
-
-  handleActivityClick() {
-
-  }
-
   render() {
     let trip = this.props.trip
     let friends = []
@@ -60,7 +56,8 @@ class Trip extends React.Component {
         </li>
         <button onClick={this.handleClick}>Planned Activities</button>
         <button onClick={this.handleClick}>Add Activity</button>
-        {this.state.toggle === 0 ? <ConnectedActivities /> : <ConnectedAddActivity/>}
+        <ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/>
+        {this.state.toggle === 0 ? <ConnectedActivities/> : <ConnectedAddActivity/>}
       </div>
     )
   }

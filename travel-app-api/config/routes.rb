@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :trips, except: [:new, :edit] do
-    resources :activities, except: [:new, :edit]
+    resources :activities, except: [:new, :edit] do
+      resources :comments
+    end
   end
 
   resources :registrations, only: :create

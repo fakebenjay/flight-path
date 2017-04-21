@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchTrips, fetchTripImage } from '../actions/trips'
 import { NavLink } from 'react-router-dom'
-import ConnectedNavbar from './Navbar'
 import TripTile from './tripTile'
 
 class MyTrips extends Component {
