@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createAccount } from '../actions/account'
 import { Redirect, NavLink } from 'react-router-dom'
+import { Clouds } from './clouds'
 
 class Register extends React.Component {
   constructor() {
@@ -39,15 +40,31 @@ class Register extends React.Component {
   render() {
     return(
       <div>
-        {this.props.account.account_id ? this.handleRedirect() : null }
-        <h1>Register</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
-          <input type='text' name='email' value={this.state.email} placeholder='E-mail' onChange={this.handleChange}/>
-          <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
-          <input type='submit' value='Register'/>
-        </form>
-         <p>Have an account already? <NavLink to="/login">Login</NavLink> here</p>
+        <div className="col-md-12 text-center login-register-form">
+          {this.props.account.account_id ? this.handleRedirect() : null }
+          <div className="row login-register">
+            <h1 className="intro">Welcome to Waltzing Matilda</h1>
+            <h2 className="tagline">Plan your perfect get-away</h2>
+          </div>
+          <form onSubmit={this.handleSubmit}>
+            <div className="row login-register">
+              <input className="col-md-2 col-md-offset-5 text-center custom-input login-input" type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
+            </div>
+            <div className="row login-register">
+              <input className="col-md-2 col-md-offset-5 text-center custom-input login-input" type='text' name='email' value={this.state.email} placeholder='E-mail' onChange={this.handleChange}/>
+            </div>
+            <div className="row login-register">
+              <input className="col-md-2 col-md-offset-5 text-center custom-input login-input" type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
+            </div>
+            <div className="row login-register">
+              <input className="custom-button login-button" type='submit' value='Register'/>
+            </div>
+          </form>
+          <div className="row login-register">
+            <p className="instructions">Have an account, already? <NavLink className="instructions-link" to="/login">Sign in</NavLink> here!</p>
+          </div>
+        </div>
+        <Clouds />
       </div>
     )
   }

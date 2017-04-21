@@ -1,6 +1,7 @@
 /*Impacts the vertical alignment of all fields */
 .login-register-form {
   margin-top: 8%;
+  z-index: 5;
 }
 
 /*Padding between each of the rows; spacing*/
@@ -11,49 +12,42 @@
 /*Primary brand header*/
 .intro {
   font-size: 60px;
+  color: black;
 }
 
 /*Brand Slogan*/
 .tagline {
   font-size: 40px;
   font-style: italic;
+  color: black;
 }
 
 /*Subtext under submit*/
 .instructions {
   font-size: 20px;
+  color: black;
 }
 
 .instructions-link {
-  color: white;
+  color: black;
 }
 
 .instructions-link:hover {
   color: black;
 }
 
-
-/* styling for inputs*/
-.custom-input {
-  border-radius: 4px;
-  height: 30px;
-  background: white;
+.login-button {
   color: #CBE5F9;
-  border: 0;
-  box-shadow:none;
+  background: black !important;
 }
 
-/*Custom styling for button */
-.custom-button {
-  border-radius: 4px;
-  height: 30px;
-  background: white;
-  color: #CBE5F9;
-  border: 0;
-  box-shadow:none;
+.login-input {
+  color: black;
+  font-weight: bold;
 }
 
 /*Placeholder text*/
 ::-webkit-input-placeholder {
   color: #CBE5F9;
+  font-weight: bold;
 }
