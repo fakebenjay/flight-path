@@ -12,7 +12,6 @@ class TripsController < ApplicationController
         account.trips << trip
       end
     end
-    byebug
     if trip.save
       render json: trip, serializer: TripSerializer
     else
