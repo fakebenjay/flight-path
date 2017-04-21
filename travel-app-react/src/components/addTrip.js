@@ -40,7 +40,7 @@ class AddTrip extends React.Component {
   }
   handleClick() {
     let today = moment()
-    if (this.props.location.hasBeenFound && this.state.name != '' &&  this.state.endDate !== today) {
+    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today) {
       let trip = {}
       trip.formatted_name = this.props.location.formattedName
       trip.google_id = this.props.location.googleId
