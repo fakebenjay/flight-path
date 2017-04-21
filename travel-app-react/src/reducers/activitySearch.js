@@ -1,4 +1,4 @@
-export default function activitySearch(state = { keyword: '', radius: 25, activities: []}, action) {
+export default function activitySearch(state = { keyword: 'attraction', radius: 25, activities: []}, action) {
   switch (action.type) {
     case "SET_RADIUS":
       return Object.assign({}, state, {radius: action.radius})

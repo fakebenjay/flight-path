@@ -53,7 +53,7 @@ class ActivityTile extends React.Component {
           </div>
           <div><em>Click to view or add comments</em></div>
           <div>
-            <img src={activity.img_url} alt=":(" className="img-responsive"/>
+            <img src={activity.img_url} className="img-responsive"/>
           </div>
         </div>
         <Modal isOpen={this.state.modalStatus} style={customStyles} contentLabel="Activity Modal">
