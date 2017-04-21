@@ -2,7 +2,7 @@ class TripsController < ApplicationController
 
   def create
     trip = Trip.new(trip_params)
-    trip.retreive_lng_lat
+    trip.retreive_lng_lat_img_url
     account = Account.from_token(params["token"])
     friends = params["friends"]
     account.trips << trip
@@ -12,6 +12,7 @@ class TripsController < ApplicationController
         account.trips << trip
       end
     end
+    byebug
     if trip.save
       render json: trip, serializer: TripSerializer
     else
@@ -19,20 +20,11 @@ class TripsController < ApplicationController
     end
   end
 
-  def index
-  end
-
-  def show
-  end
-
   def update
     account = Account.find(trip_params["friend_id"])
     trip = Trip.find(trip_params["id"])
     trip.accounts << account
     render json: trip, serializer: TripSerializer
-  end
-
-  def destroy
   end
 
   private

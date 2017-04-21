@@ -3,7 +3,7 @@ export default function Trip(state = [], action) {
     case "ADD_TRIP":
       return [...state, action.trip]
     case "FETCH_TRIPS":
-      return action.payload
+      return action.payload.reverse()
     default:
       return state
   }
