@@ -27,7 +27,6 @@ export const addFriendToTrip = (friend, tripObj) => {
       .patch(`${prefix}/trips/${trip.id}`, {trip: trip})
       .then(response => {
         let payload = response.data
-        debugger
         dispatch({type: 'FETCH_TRIP', payload})
       })
   }
