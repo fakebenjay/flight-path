@@ -1,0 +1,18 @@
+/*General styling for inputs*/
+.custom-input {
+  border-radius: 4px;
+  height: 30px;
+  background: white;
+  color: #CBE5F9;
+  border: 0;
+  box-shadow:none;
+}
+
+.custom-button {
+  border-radius: 4px;
+  height: 30px;
+  background: white;
+  color: #CBE5F9;
+  border: 0;
+  box-shadow:none;
+}

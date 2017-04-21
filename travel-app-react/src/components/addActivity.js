@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { bindActionCreators } from 'redux'
-import { setRadius, setKeyword, fetchActivities } from '../actions/activitySearch'
+import { setRadius, setKeyword, fetchActivities, removePotentialActivity } from '../actions/activitySearch'
 import PreviewActivityTile from './previewActivityTile'
-import { saveActivity, removePotentialActivity } from '../actions/activity'
+import { saveActivity } from '../actions/activity'
 
 class AddActivity extends Component {
   constructor() {
@@ -57,9 +57,14 @@ class AddActivity extends Component {
     })
   }
 
+  isAdded(activity) {
+    let filteredList = this.props.tripActivities.filter((plannedActivity) => plannedActivity.name === activity.name)
+    return filteredList.length !== 0
+  }
+
   renderPreviewActivities() {
     return this.props.activitySearch.activities.map((activity, index) => {
-      return <PreviewActivityTile key={index} activity={activity} handleClick={this.handleClick.bind(null, activity)} tripActivities={this.props.tripActivities}/>
+      return <PreviewActivityTile key={index} activity={activity} isDisabled={this.isAdded(activity)} handleClick={this.handleClick.bind(null, activity)} tripActivities={this.props.tripActivities}/>
     })
   }
 

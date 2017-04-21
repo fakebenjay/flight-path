@@ -19,3 +19,8 @@ export const fetchActivities = (radius, keyword, lng, lat, id) => {
     })
   }
   }
+
+
+  export const removePotentialActivity = (activity) => ({
+    type: "REMOVE_POTENTIAL_ACTIVITY", activity
+  })

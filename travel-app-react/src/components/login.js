@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import { login } from '../actions/account'
 import { Redirect, NavLink } from 'react-router-dom'
 import '../stylesheets/clouds.css'
+import '../stylesheets/login_register.css'
+import '../stylesheets/submit_and_input.css'
 
 class Login extends React.Component {
   constructor() {
@@ -36,7 +38,6 @@ class Login extends React.Component {
   render() {
     return(
       <div>
-
         <div id="Clouds">
           <div className="Cloud Foreground"></div>
           <div className="Cloud Background"></div>
@@ -48,8 +49,6 @@ class Login extends React.Component {
           <div className="Cloud Foreground"></div>
           <div className="Cloud Background"></div>
           <div className="Cloud Background"></div>
-
-
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
           	 width="40px" height="24px" viewBox="0 0 40 24" enable- xmlSpace="preserve">
             <defs>
@@ -60,15 +59,25 @@ class Login extends React.Component {
           	C38.409,16.43,36.368,14.388,33.85,14.388z"/>
             </defs>
           </svg>
-
-          {this.props.account.account_id ? this.handleRedirect() : null }
-          <h1>Login</h1>
-          <form onSubmit={this.handleSubmit}>
-            <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
-            <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
-            <input type='submit' value='Login'/>
-          </form>
-          <p>Need an account <NavLink to="/register">Register</NavLink> here</p>
+      <div className="col-md-12 text-center login-register-form">
+        {this.props.account.account_id ? this.handleRedirect() : null }
+        <div className="row login-register">
+          <h1 className="intro">Welcome to Waltzing Matilda</h1>
+          <h2 className="tagline">Plan your perfect get-away</h2>
+        </div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="row login-register">
+            <input className="col-md-2 col-md-offset-5 text-center custom-input" type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
+          </div>
+          <div className="row login-register">
+            <input className="col-md-2 col-md-offset-5 text-center custom-input" type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
+          </div>
+          <div className="row login-register">
+            <input className="custom-button" type='submit' value='Login'/>
+          </div>
+        </form>
+        <div className="row login-register">
+          <p className="instructions">Need an account? <NavLink className="instructions-link" to="/register">Register</NavLink> now!</p>
         </div>
       </div>
     )
