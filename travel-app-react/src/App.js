@@ -17,7 +17,6 @@ import ConnectedTrip from './components/trip'
 const history=createHistory()
 
 class App extends Component {
-
   componentWillMount() {
     let token = localStorage.getItem('token')
     if (token) {
