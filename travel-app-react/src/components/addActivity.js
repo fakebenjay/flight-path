@@ -14,7 +14,8 @@ class AddActivity extends Component {
       toggle: false,
       step: 1,
       max: 50,
-      min: 1
+      min: 1,
+      addedActivities: []
     }
 
     this.handleToggle = this.handleToggle.bind(this)
@@ -50,11 +51,14 @@ class AddActivity extends Component {
 
   handleClick(activity) {
     this.props.saveActivity(activity)
+    this.setState({
+      addedActivities: [...this.state.addedActivities, activity]
+    })
   }
 
   renderPreviewActivities() {
-    return this.props.activitySearch.activities.map((activity) => {
-      return <PreviewActivityTile activity={activity} handleClick={this.handleClick.bind(null, activity)}/>
+    return this.props.activitySearch.activities.map((activity, index) => {
+      return <PreviewActivityTile key={index} activity={activity} handleClick={this.handleClick.bind(null, activity)} tripActivities={this.props.tripActivities}/>
     })
   }
 
@@ -99,7 +103,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     activitySearch: state.activitySearch,
-    currentTrip: state.CurrentTrip
+    currentTrip: state.CurrentTrip,
+    tripActivities: state.CurrentTrip.activities
   }
 }
 

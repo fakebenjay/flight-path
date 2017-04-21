@@ -31,6 +31,7 @@ class Trip extends React.Component {
         toggle: 0
       })
     }
+    this.props.fetchTrip(this.props.match.params.id)
   }
   render() {
     let trip = this.props.trip
