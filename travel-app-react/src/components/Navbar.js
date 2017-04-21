@@ -7,8 +7,8 @@ class Navbar extends Component  {
   render() {
     return (
       <div>
-        {this.props.token ? <NavLink to="/mytrips">My Trips</NavLink> : <NavLink to="/login">Login</NavLink> }
-        {this.props.token ? <NavLink to="/addtrip">Add Trip</NavLink> : <NavLink to="/register">Register</NavLink> }
+        {this.props.token ? <NavLink to="/mytrips">My Trips</NavLink> : null }
+        {this.props.token ? <NavLink to="/addtrip">Add Trip</NavLink> : null }
         {this.props.token ? <NavLink to="/logout">Log Out</NavLink> : null }
       </div>
     )

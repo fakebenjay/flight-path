@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { login } from '../actions/account'
-import { Redirect } from 'react-router-dom'
+import { Redirect, NavLink } from 'react-router-dom'
 
 class Login extends React.Component {
   constructor() {
@@ -42,6 +42,7 @@ class Login extends React.Component {
           <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
           <input type='submit' value='Login'/>
         </form>
+        <p>Need an account <NavLink to="/register">Register</NavLink> here</p>
       </div>
     )
   }
