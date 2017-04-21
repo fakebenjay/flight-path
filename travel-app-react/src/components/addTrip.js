@@ -101,16 +101,34 @@ class AddTrip extends React.Component {
             <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
           </div>
         <div className="row add-trip-row">
+          <div className="col-md-3">
             <ConnectedGetLocation />
-            <DatePicker className="col-md-2 col-md-offset-5 text-center custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
-            <DatePicker className="col-md-2 col-md-offset-5 text-center custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          </div>
+          <div className="col-md-3">
+            <DatePicker className="custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
+          </div>
+          <div className="col-md-3">
+            <DatePicker className="custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          </div>
+          <div className="col-md-3">
             <ConnectedAddFriend />
-        </div>
-        <div className="col-md-12">
-          <div className="row add-trip-row">
-            <input type='submit' className="custom-submit" value='Create Trip' onClick={this.handleClick}/>
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-3">
+            <p className="date-label">Departure Date</p>
+          </div>
+          <div className="col-md-3">
+            <p className="date-label">Return Date</p>
+          </div>
+          <div className="col-md-3"></div>
+        </div>
+        <div className="row add-trip-row"></div>
+        <div className="row add-trip-row"></div>
+          <div className="row add-trip-row">
+            <input type='submit' className="col-md-2 col-md-offset-5 custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
+          </div>
         <div className="row add-trip-row">
           {this.state.error ? this.renderError() : null }
         </div>

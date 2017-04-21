@@ -12,6 +12,9 @@
 .trip-planning-field {
   height: 50px;
   text-align: center;
+  width: 200px;
+  font-size: 1.5em;
+  color: black;
 }
 
 .date-label {
@@ -21,4 +24,10 @@
 .add-trip-title {
   text-align: center;
   font-size: 48px;
+}
+
+.add-trip-button {
+  width: 200px !important;
+  height: 70px !important;
+  font-size: 1.7em;
 }

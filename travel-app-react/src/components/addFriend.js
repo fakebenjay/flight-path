@@ -64,7 +64,7 @@ class AddFriend extends React.Component {
   render() {
     return (
       <div>
-        <input type='text' className="col-md-2 col-md-offset-5 text-center custom-input trip-planning-field" placeholder="Find Friends" onChange={this.handleChange}/>
+        <input type='text' className="custom-input trip-planning-field" placeholder="Find Friends" onChange={this.handleChange}/>
         <ul>
           {this.props.friends.potentialFriends.length > 0 ? (
             <h4>Users Matching Your Search</h4>, this.listPotentialFriends() ) : null}
