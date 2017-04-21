@@ -1,0 +1,24 @@
+.title-field {
+  height: 80px;
+  width: 400px;
+  font-size: 2em;
+  margin-top: 50px;
+}
+
+.add-trip-row {
+  margin-top: 50px;
+}
+
+.trip-planning-field {
+  height: 50px;
+  text-align: center;
+}
+
+.date-label {
+  font-size: 16px;
+}
+
+.add-trip-title {
+  text-align: center;
+  font-size: 48px;
+}
