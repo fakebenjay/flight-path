@@ -55,5 +55,8 @@ export const createAccount = (params) => {
           dispatch(setToken(token))
           dispatch(setAccount(token))
         })
+        .catch((error)=> {
+          dispatch({type: "ADD_ERROR", error: error })
+        })
     }
 }

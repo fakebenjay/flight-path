@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrips, fetchTripImage } from '../actions/trips'
+import { fetchTrips } from '../actions/trips'
 import { NavLink } from 'react-router-dom'
 import TripTile from './tripTile'
 
@@ -39,7 +39,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchTrips: fetchTrips,
-    fetchTripImage: fetchTripImage
   }, dispatch)
 }
 

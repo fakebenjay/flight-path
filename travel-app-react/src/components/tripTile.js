@@ -16,6 +16,7 @@ class TripTile extends React.Component {
         <div>
           to {trip.formatted_name}
         </div>
+        <img src={trip.img_url} alt=":(" className="img-responsive"/>
       </div>
     )
   }
