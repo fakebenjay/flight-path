@@ -5,7 +5,7 @@ import 'rc-slider/assets/index.css';
 import { bindActionCreators } from 'redux'
 import { setRadius, setKeyword, fetchActivities } from '../actions/activitySearch'
 import PreviewActivityTile from './previewActivityTile'
-import { saveActivity } from '../actions/activity'
+import { saveActivity, removePotentialActivity } from '../actions/activity'
 
 class AddActivity extends Component {
   constructor() {
@@ -50,6 +50,7 @@ class AddActivity extends Component {
   }
 
   handleClick(activity) {
+    this.props.removePotentialActivity(activity)
     this.props.saveActivity(activity)
     this.setState({
       addedActivities: [...this.state.addedActivities, activity]
@@ -96,7 +97,8 @@ const mapDispatchToProps = (dispatch) => {
     setRadius: setRadius,
     setKeyword: setKeyword,
     fetchActivities: fetchActivities,
-    saveActivity: saveActivity
+    saveActivity: saveActivity,
+    removePotentialActivity: removePotentialActivity
   }, dispatch)
 }
 
