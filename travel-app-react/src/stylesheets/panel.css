@@ -1,0 +1,33 @@
+.tile {
+  width: 320px;
+}
+
+.panel {
+  height: 300px;
+  width: 300px;
+  border: 0px;
+  box-shadow: -2px 2px 9px #ccc;
+}
+
+.panel-heading {
+  height: 40px;
+}
+
+.fill {
+  /*display: flex;*/
+  /*margin-left: -100px;*/
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 260px;
+  border-radius: 0px 0px 4px 4px
+}
+
+.img {
+  height: 100%;
+  width: auto;
+  /*margin-left: -20%;*/
+  overflow: hidden;
+  min-width: 100%;
+  display: inline-block;
+}

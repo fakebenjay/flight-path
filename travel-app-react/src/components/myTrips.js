@@ -18,10 +18,8 @@ class MyTrips extends Component {
 
   render() {
     return (
-      <div>
-        <ul>
-          {this.props.trips.length === 0 ? <h3>No trips planned yet? Get moving, <NavLink to="/addtrip">add</NavLink> one now</h3> : this.listTrips()}
-        </ul>
+      <div className='container-flex'>
+        {this.props.trips.length === 0 ? <h3>No trips planned yet? Get moving, <NavLink to="/addtrip">add</NavLink> one now</h3> : this.listTrips()}
       </div>
     )
   }

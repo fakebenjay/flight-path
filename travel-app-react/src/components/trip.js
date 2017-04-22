@@ -40,25 +40,34 @@ class Trip extends React.Component {
       friends = trip.accounts
     }
     return (
-      <div>
-        <div>Hi {this.props.account.username}, here's details of your trip:</div>
-        <div>{trip.name}</div>
-        <div>{trip.formatted_name}</div>
-        <li>
-          Who's Going:
-          <ul>{friends.map((account) => <li key={account.id}>{account.username}</li>)}</ul>
-        </li>
-        <li>
-          Dates:
-          <ul>
-            <li>{trip.start_date}</li>
-            <li>{trip.end_date}</li>
-          </ul>
-        </li>
-        <button onClick={this.handleClick}>Planned Activities</button>
-        <button onClick={this.handleClick}>Add Activity</button>
-        <ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/>
-        {this.state.toggle === 0 ? <ConnectedActivities/> : <ConnectedAddActivity/>}
+      <div className='container-flex'>
+        <div className='col-sm-4'>
+          <h2>Hi {this.props.account.username}, here's details of your trip:</h2>
+          <h4>{trip.name}</h4>
+          <div>{trip.formatted_name}</div>
+          <div>
+            Who's Going:
+            <ul>{friends.map((account) => <li key={account.id}>{account.username}</li>)}</ul>
+          </div>
+          <div>
+            Dates:
+            <ul>
+              <li>{trip.start_date}</li>
+              <li>{trip.end_date}</li>
+            </ul>
+          </div>
+          <h5>Add a Friend:</h5>
+          <ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/>
+        </div>
+        <div className='col-sm-8'>
+          <div className='row'>
+            <div className="col-sm-4 col-sm-offset-4">
+              <button onClick={this.handleClick}>Planned Activities</button>
+              <button onClick={this.handleClick}>Add Activity</button>
+            </div>
+          </div>
+          {this.state.toggle === 0 ? <ConnectedActivities/> : <ConnectedAddActivity/>}
+        </div>
       </div>
     )
   }

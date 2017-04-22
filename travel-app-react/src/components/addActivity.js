@@ -87,12 +87,17 @@ class AddActivity extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.handleToggle}>Refine Search</button>
-        {this.state.toggle ? this.renderSearchFields() : null}
-        {this.props.activitySearch.activities.length === 0 ? null : this.renderPreviewActivities()}
+      <div className="container-flex">
+        <div className='row'>
+          <div className="col-sm-4 col-sm-offset-4">
+            <button onClick={this.handleToggle}>Refine Search</button>
+            {this.state.toggle ? this.renderSearchFields() : null}
+          </div>
+        </div>
+        <div className="container-flex">
+          {this.props.activitySearch.activities.length === 0 ? null : this.renderPreviewActivities()}
+        </div>
       </div>
-
     )
   }
 }
