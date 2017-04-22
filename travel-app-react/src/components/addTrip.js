@@ -84,17 +84,16 @@ class AddTrip extends React.Component {
   }
 
   renderError() {
-    return <h4>Please make sure you fill out all of the fields!</h4>
+    return <h3 className="error">Please make sure you fill out all of the fields!</h3>
   }
 
   render() {
     return (
       <div>
-      <div className="col-md-1"></div>
-      <div className="col-md-10">
+      <div className="col-md-10 col-md-offset-1">
         <div className="container-fluid">
           {this.props.location.redirect ? this.handleRedirect() : null}
-          <div className="row add-trip-row">
+          <div className="row add-trip-row title-row">
             <h1 className="add-trip-title">Begin Your Journey</h1>
           </div>
           <div className="row">
@@ -114,16 +113,7 @@ class AddTrip extends React.Component {
             <ConnectedAddFriend />
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-3">
-            <p className="date-label">Departure Date</p>
-          </div>
-          <div className="col-md-3">
-            <p className="date-label">Return Date</p>
-          </div>
-          <div className="col-md-3"></div>
-        </div>
+        <div className="row add-trip-row"></div>
         <div className="row add-trip-row"></div>
         <div className="row add-trip-row"></div>
           <div className="row add-trip-row">
@@ -134,7 +124,6 @@ class AddTrip extends React.Component {
         </div>
       </div>
     </div>
-    <div className="col-md-1"></div>
     </div>
     )
   }

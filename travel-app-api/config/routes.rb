@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   post '/authorize', to: 'accounts#authorize'
   post '/fetchtrip', to: 'accounts#fetchtrip'
   post '/searchactivities', to: 'activities#fetch'
+  post '/change-date', to: 'trips#change_date'
 end
