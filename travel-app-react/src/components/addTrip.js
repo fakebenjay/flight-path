@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
 import { addTrip } from '../actions/trips'
+import '../stylesheets/addtrip.css'
+import '../stylesheets/submit_and_input.css'
 
 class AddTrip extends React.Component {
   constructor(props) {
@@ -45,13 +47,14 @@ class AddTrip extends React.Component {
 
   handleClick() {
     let today = moment()
-    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today) {
+    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today && moment(this.state.endDate, "YYYY-MM-DD").isAfter(this.state.startDate, "YYYY-MM-DD")) {
       let trip = {}
       trip.formatted_name = this.props.location.formattedName
       trip.google_id = this.props.location.googleId
       trip.name = this.state.name
       trip.start_date = this.state.startDate.utc()
       trip.end_date = this.state.endDate.utc()
+      trip.creator_id = this.props.account.account_id
       let token = localStorage.getItem("token")
       let friends = []
       this.props.friends.forEach((friend) => {
@@ -82,21 +85,48 @@ class AddTrip extends React.Component {
   }
 
   renderError() {
-    return <h4>Please make sure you fill out all of the fields!</h4>
+    return <h3 className="error">Please make sure you fill out all of the fields correctly!</h3>
   }
 
   render() {
     return (
       <div>
-        {this.props.location.redirect ? this.handleRedirect() : null}
-        <input type='text' placeholder='Trip Name' onChange={this.handleChange} name='name'/>
-        <DatePicker selected={this.state.startDate} onChange={this.handleDateStart}/>
-        <DatePicker selected={this.state.endDate} onChange={this.handleDateEnd}/>
-        <ConnectedGetLocation />
-        <ConnectedAddFriend />
-        <input type='submit' value='Create Trip' onClick={this.handleClick}/>
-        {this.state.error ? this.renderError() : null }
+      <div className="col-md-10 col-md-offset-1">
+        <div className="container-fluid">
+          {this.props.location.redirect ? this.handleRedirect() : null}
+          <div className="row add-trip-row title-row">
+            <h1 className="add-trip-title">Begin Your Journey</h1>
+          </div>
+          <div className="add-trip-name-row">
+            <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
+          </div>
+        <div className="row add-trip-row">
+          <div className="col-md-3">
+            <p className="date-label">Where would you like to go?</p>
+            <ConnectedGetLocation />
+          </div>
+          <div className="col-md-3">
+            <p className="date-label">Departure Date</p>
+            <DatePicker className="custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
+          </div>
+          <div className="col-md-3">
+            <p className="date-label">Return Date</p>
+            <DatePicker className="custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          </div>
+          <div className="col-md-3">
+            <p className="date-label">Who would you like to go with?</p>
+            <ConnectedAddFriend />
+          </div>
+        </div>
+          <div className="row add-trip-row">
+            <input type='submit' className="col-md-2 col-md-offset-5 custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
+          </div>
+        <div className="row add-trip-row">
+          {this.state.error ? this.renderError() : null }
+        </div>
       </div>
+    </div>
+    </div>
     )
   }
 }
@@ -109,6 +139,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
+    account: state.Account,
     location: state.Location,
     friends: state.Friends.addedFriends
   }

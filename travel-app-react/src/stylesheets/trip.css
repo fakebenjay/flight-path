@@ -1,0 +1,29 @@
+.sub-title {
+  color: #36454f;
+}
+
+.trip-edit-field {
+  height: 30px;
+  text-align: center;
+  border-color: #36454f !important;
+  width: 150px;
+  font-size: 1em;
+  color: #36454f;
+}
+
+.date {
+  text-indent: 50px;
+}
+
+.delete {
+  background-color: red;
+  font-weight: bold;
+}
+
+.leave {
+  font-weight: bold;
+}
+
+.centered {
+  margin-left: 20%;
+}
