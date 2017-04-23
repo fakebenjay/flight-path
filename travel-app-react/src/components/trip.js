@@ -32,7 +32,8 @@ class Trip extends React.Component {
     this.handleDateStart = this.handleDateStart.bind(this)
     this.listFriends = this.listFriends.bind(this)
     this.renderDateFields = this.renderDateFields.bind(this)
-    // this.leaveTripClick = this.leaveTripClick.bind(this)
+    this.leaveTripClick = this.leaveTripClick.bind(this)
+    this.ownerLeaveTripClick = this.ownerLeaveTripClick.bind(this)
     this.renderDelete = this.renderDelete.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.deleteTripClick = this.deleteTripClick.bind(this)
@@ -124,20 +125,30 @@ class Trip extends React.Component {
     })
   }
 
+  openConfirmationModal() {
+    this.setState({
+      isConfirmationModalOpen: true,
+    })
+  }
+
 
   deleteTripClick() {
     this.props.deleteTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
   }
 
-  // leaveTripClick() {
-  //   if (this.state.newOwner) {
-  //     this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
-  //   } else {
-  //     this.setState({
-  //       isTransferOwnershipError: true
-  //     })
-  //   }
-  // }
+  ownerLeaveTripClick() {
+    if (this.state.newOwner) {
+      this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
+    } else {
+      this.setState({
+        isTransferOwnershipError: true
+      })
+    }
+  }
+
+  leaveTripClick() {
+    this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
+  }
 
   onOwnerSelect(e) {
     debugger
@@ -157,8 +168,9 @@ class Trip extends React.Component {
         <div className="col-md-4">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
-            <button onClick={this.openTransferOwnershipModal}>Delete Trip</button>
-            {/* <button onClick={this.leaveTripClick}>Leave Trip</button> */}
+            <button onClick={this.openConfirmationModal}>Delete Trip</button>
+            <button onClick={this.openTransferOwnershipModal}>(Owner) Leave Trip</button>
+            <button onClick={this.leaveTripClick}>Leave Trip</button>
           </div>
           <div className="row add-trip-row">
             <div className="row"><h4 className="sub-title date">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</h4></div>
@@ -186,7 +198,7 @@ class Trip extends React.Component {
       <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
         <h2>Please Pick A New Trip Owner</h2>
         <Dropdown options={this.listFriends()} onChange={this.onOwnerSelect} placeholder="Select an option" />
-        <button onClick={this.leaveTripClick}>Submit</button>
+        <button onClick={this.ownerLeaveTripClick}>Submit</button>
         <button onClick={this.closeModal}>Close</button>
         {this.isTransferOwnershipError ? <h4 className="error">Please pick a valid owner!</h4> : null}
       </Modal>
