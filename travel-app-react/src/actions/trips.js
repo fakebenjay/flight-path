@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { resetLocations } from './location'
+import { setRedirectTrue } from './redirect'
 
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
@@ -85,14 +86,18 @@ export const leaveTrip = (account_id, token, trip_id) => {
     axios
       .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id})
       .then(() => {
-        dispatch({type: "SET_REDIRECT"})
+        dispatch(setRedirectTrue())
       })
     }
 }
 
-export const removeTrip = (trip_id) => {
-  return {
-    type: "REMOVE_TRIP",
-    trip_id
-  }
+export const deleteTrip = (account_id, token, trip_id) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/deletetrip`, {account_id: account_id, token: token, trip_id: trip_id})
+      .then(() => {
+        dispatch(setRedirectTrue())
+      })
+    }
 }

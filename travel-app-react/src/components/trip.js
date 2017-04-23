@@ -2,7 +2,8 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, removeTrip } from '../actions/trips'
+import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../actions/trips'
+import { setRedirectTrue } from '../actions/redirect'
 import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
@@ -17,7 +18,7 @@ class Trip extends React.Component {
       toggle: 0,
       startDate: moment(),
       endDate: moment(),
-      redirect: false
+      redirect: props.redirect.redirect
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
@@ -25,8 +26,9 @@ class Trip extends React.Component {
     this.listFriends = this.listFriends.bind(this)
     this.renderDateFields = this.renderDateFields.bind(this)
     this.leaveTripClick = this.leaveTripClick.bind(this)
-    this.renderDeleteOrLeave = this.renderDeleteOrLeave.bind(this)
+    this.renderDelete = this.renderDelete.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
+    this.deleteTripClick = this.deleteTripClick.bind(this)
   }
   componentWillMount() {
     let tripID = this.props.match.params.id
@@ -90,20 +92,19 @@ class Trip extends React.Component {
         )}
   }
 
-  renderDeleteOrLeave() {
-    if (this.props.trip.creator_id === this.props.account.id) {
-      return <button onClick={this.leaveTripClick}>Delete Trip</button>
-    } else {
-      return <button onClick={this.leaveTripClick}>Leave Trip</button>
+  renderDelete() {
+    let trip = this.props.trip
+    if (trip.creator_id == this.props.account.id) {
+      return <button onClick={this.deleteTripClick}>Delete Trip</button>
     }
+  }
+
+  deleteTripClick() {
+    this.props.deleteTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
   }
 
   leaveTripClick() {
     this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
-    this.props.removeTrip(this.props.trip.id)
-    this.setState({
-      redirect: true
-    })
   }
 
     handleRedirect() {
@@ -111,7 +112,6 @@ class Trip extends React.Component {
         <Redirect to={'/mytrips'}/>
       )
     }
-
 
   render() {
     let trip = this.props.trip
@@ -121,7 +121,8 @@ class Trip extends React.Component {
         <div className="col-md-4">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
-            {this.renderDeleteOrLeave()}
+            <button onClick={this.deleteTripClick}>Delete Trip</button>
+            <button onClick={this.leaveTripClick}>Leave Trip</button>
           </div>
           <div className="row add-trip-row">
             <div className="row"><h4 className="sub-title date">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</h4></div>
@@ -150,6 +151,7 @@ const mapStateToProps = (state) => {
   return {
     trip: state.CurrentTrip,
     account: state.Account,
+    redirect: state.Redirect
   }
 }
 
@@ -159,7 +161,8 @@ const mapDispatchToProps = (dispatch) => {
     updateEndDate: updateEndDate,
     updateStartDate: updateStartDate,
     leaveTrip: leaveTrip,
-    removeTrip: removeTrip
+    deleteTrip: deleteTrip,
+    redirect: setRedirectTrue
   }, dispatch)
 }
 

@@ -57,9 +57,25 @@ class TripsController < ApplicationController
     if account
       trip = Trip.find(params["trip_id"])
       if trip.creator_id == account.id
-        trip.destroy
+        trip.creator_id = trip.accounts[1].id
+        trip.accounts.delete(account)
       else
         trip.accounts.delete(account)
+      end
+    else
+      render json: "You are not permitted to leave this trip", status: 401
+    end
+  end
+
+  def delete
+    account = Account.from_token(params["token"])
+    byebug
+    if account
+      trip = Trip.find(params["trip_id"])
+      if trip
+        trip.destroy
+      else
+        render json: "We could not locate this trip", status: 401
       end
     else
       render json: "You are not permitted to leave this trip", status: 401

@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   post '/searchactivities', to: 'activities#fetch'
   post '/change-date', to: 'trips#change_date'
   post '/leavetrip', to: 'trips#leave'
+  post '/deletetrip', to: 'trips#delete'
 end
