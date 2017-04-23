@@ -7,7 +7,6 @@ import Trip from './trips'
 import Activity from './activity'
 import CurrentTrip from './currentTrip'
 import activitySearch from './activitySearch'
-
 const rootReducer = combineReducers({
   Account, Friends, Location, Trip, router: routerReducer, activitySearch, CurrentTrip, Activity
 })

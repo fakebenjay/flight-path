@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   post '/fetchtrip', to: 'accounts#fetchtrip'
   post '/searchactivities', to: 'activities#fetch'
   post '/change-date', to: 'trips#change_date'
+  post '/leavetrip', to: 'trips#leave'
 end

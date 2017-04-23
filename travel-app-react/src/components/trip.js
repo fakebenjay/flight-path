@@ -1,8 +1,8 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrip, updateStartDate, updateEndDate } from '../actions/trips'
-import { authorize } from '../actions/account'
+import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, removeTrip } from '../actions/trips'
 import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
@@ -16,12 +16,17 @@ class Trip extends React.Component {
     this.state = {
       toggle: 0,
       startDate: moment(),
-      endDate: moment()
+      endDate: moment(),
+      redirect: false
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
     this.handleDateStart = this.handleDateStart.bind(this)
     this.listFriends = this.listFriends.bind(this)
+    this.renderDateFields = this.renderDateFields.bind(this)
+    this.leaveTripClick = this.leaveTripClick.bind(this)
+    this.renderDeleteOrLeave = this.renderDeleteOrLeave.bind(this)
+    this.handleRedirect = this.handleRedirect.bind(this)
   }
   componentWillMount() {
     let tripID = this.props.match.params.id
@@ -68,19 +73,59 @@ class Trip extends React.Component {
     this.props.updateEndDate(date, this.props.trip.id, this.props.account.token)
   }
 
+  renderDateFields() {
+    let trip = this.props.trip
+    if (this.props.account.account_id == trip.creator_id) {
+      return (
+        <div>
+          <DatePicker className="custom-input trip-edit-field" selected={moment(trip.start_date, "YYYY-MM-DD")} onChange={this.handleDateStart}/>
+          <DatePicker className="custom-input trip-edit-field" selected={moment(trip.end_date, "YYYY-MM-DD")} onChange={this.handleDateEnd}/>
+        </div>
+      )} else {
+        return (
+          <div>
+            <input className="custom-input trip-edit-field" value={trip.start_date} disabled="true"/>
+            <input className="custom-input trip-edit-field" value={trip.end_date} disabled="true"/>
+          </div>
+        )}
+  }
+
+  renderDeleteOrLeave() {
+    if (this.props.trip.creator_id === this.props.account.id) {
+      return <button onClick={this.leaveTripClick}>Delete Trip</button>
+    } else {
+      return <button onClick={this.leaveTripClick}>Leave Trip</button>
+    }
+  }
+
+  leaveTripClick() {
+    this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
+    this.props.removeTrip(this.props.trip.id)
+    this.setState({
+      redirect: true
+    })
+  }
+
+    handleRedirect() {
+      return (
+        <Redirect to={'/mytrips'}/>
+      )
+    }
+
 
   render() {
     let trip = this.props.trip
     return (
       <div className="col-md-12">
+        {this.state.redirect ? this.handleRedirect() : null}
         <div className="col-md-4">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
+            {this.renderDeleteOrLeave()}
           </div>
           <div className="row add-trip-row">
             <div className="row"><h4 className="sub-title date">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</h4></div>
-            <DatePicker className="custom-input trip-edit-field" selected={moment(trip.start_date, "YYYY-MM-DD")} onChange={this.handleDateStart}/>
-            <DatePicker className="custom-input trip-edit-field" selected={moment(trip.end_date, "YYYY-MM-DD")} onChange={this.handleDateEnd}/>
+            {this.renderDateFields()}
           </div>
           <div className="row add-trip-row">
             <h4 className="sub-title">Travelers</h4>
@@ -104,16 +149,17 @@ class Trip extends React.Component {
 const mapStateToProps = (state) => {
   return {
     trip: state.CurrentTrip,
-    account: state.Account
+    account: state.Account,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchTrip: fetchTrip,
-    authorize: authorize,
     updateEndDate: updateEndDate,
-    updateStartDate: updateStartDate
+    updateStartDate: updateStartDate,
+    leaveTrip: leaveTrip,
+    removeTrip: removeTrip
   }, dispatch)
 }
 

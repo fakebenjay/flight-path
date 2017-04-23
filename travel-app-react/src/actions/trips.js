@@ -78,3 +78,21 @@ export const editStartDate = (date) => {
     date
   }
 }
+
+export const leaveTrip = (account_id, token, trip_id) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id})
+      .then(() => {
+        dispatch({type: "SET_REDIRECT"})
+      })
+    }
+}
+
+export const removeTrip = (trip_id) => {
+  return {
+    type: "REMOVE_TRIP",
+    trip_id
+  }
+}
