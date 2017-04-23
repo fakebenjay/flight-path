@@ -2,11 +2,14 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Modal from 'react-modal'
 import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../actions/trips'
 import { setRedirectTrue } from '../actions/redirect'
 import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
+import { customStyles } from '../stylesheets/modal'
+import Dropdown from 'react-dropdown'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -16,20 +19,28 @@ class Trip extends React.Component {
     super(props)
     this.state = {
       toggle: 0,
-      startDate: moment(),
-      endDate: moment(),
-      redirect: props.redirect.redirect
+      startDate: moment(props.trip.start_date),
+      endDate: moment(props.trip.start_date),
+      redirect: props.redirect.redirect,
+      isConfirmationModalOpen: false,
+      isTransferOwnershipModalOpen: false,
+      newOwner: null,
+      isTransferOwnershipError: false,
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
     this.handleDateStart = this.handleDateStart.bind(this)
     this.listFriends = this.listFriends.bind(this)
     this.renderDateFields = this.renderDateFields.bind(this)
-    this.leaveTripClick = this.leaveTripClick.bind(this)
+    // this.leaveTripClick = this.leaveTripClick.bind(this)
     this.renderDelete = this.renderDelete.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.deleteTripClick = this.deleteTripClick.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.openTransferOwnershipModal = this.openTransferOwnershipModal.bind(this)
+    this.onOwnerSelect = this.onOwnerSelect.bind(this)
   }
+
   componentWillMount() {
     let tripID = this.props.match.params.id
     this.props.fetchTrip(tripID)
@@ -52,7 +63,7 @@ class Trip extends React.Component {
   listFriends() {
     let friends = []
       if (this.props.trip.accounts) {
-        friends = this.props.trip.accounts
+        friends = this.props.trip.accounts.filter((friend) => friend.id !== this.props.account.account_id)
       }
     if (friends.length === 0) {
       return <h4 className="sub-title">You haven't added any friends yet!</h4>
@@ -68,6 +79,7 @@ class Trip extends React.Component {
     })
     this.props.updateStartDate(date, this.props.trip.id, this.props.account.token)
   }
+
   handleDateEnd(date) {
     this.setState({
       endDate: date
@@ -80,8 +92,8 @@ class Trip extends React.Component {
     if (this.props.account.account_id == trip.creator_id) {
       return (
         <div>
-          <DatePicker className="custom-input trip-edit-field" selected={moment(trip.start_date, "YYYY-MM-DD")} onChange={this.handleDateStart}/>
-          <DatePicker className="custom-input trip-edit-field" selected={moment(trip.end_date, "YYYY-MM-DD")} onChange={this.handleDateEnd}/>
+          <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
+          <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
         </div>
       )} else {
         return (
@@ -99,12 +111,36 @@ class Trip extends React.Component {
     }
   }
 
+  closeModal() {
+    this.setState({
+      isConfirmationModalOpen: false,
+      isTransferOwnershipModalOpen: false
+    })
+  }
+
+  openTransferOwnershipModal() {
+    this.setState({
+      isTransferOwnershipModalOpen: true,
+    })
+  }
+
+
   deleteTripClick() {
     this.props.deleteTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
   }
 
-  leaveTripClick() {
-    this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
+  // leaveTripClick() {
+  //   if (this.state.newOwner) {
+  //     this.props.leaveTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
+  //   } else {
+  //     this.setState({
+  //       isTransferOwnershipError: true
+  //     })
+  //   }
+  // }
+
+  onOwnerSelect(e) {
+    debugger
   }
 
     handleRedirect() {
@@ -121,8 +157,8 @@ class Trip extends React.Component {
         <div className="col-md-4">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
-            <button onClick={this.deleteTripClick}>Delete Trip</button>
-            <button onClick={this.leaveTripClick}>Leave Trip</button>
+            <button onClick={this.openTransferOwnershipModal}>Delete Trip</button>
+            {/* <button onClick={this.leaveTripClick}>Leave Trip</button> */}
           </div>
           <div className="row add-trip-row">
             <div className="row"><h4 className="sub-title date">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</h4></div>
@@ -142,6 +178,18 @@ class Trip extends React.Component {
         <button onClick={this.handleClick}>Add Activity</button>
         {this.state.toggle === 0 ? <ConnectedActivities/> : <ConnectedAddActivity/>}
       </div>
+      <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} contentLabel="Confirmation Modal">
+        <h2>Are You Sure?</h2>
+        <button onClick={this.deleteTripClick}>Submit</button>
+        <button onClick={this.closeModal}>Nevermind</button>
+      </Modal>
+      <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
+        <h2>Please Pick A New Trip Owner</h2>
+        <Dropdown options={this.listFriends()} onChange={this.onOwnerSelect} placeholder="Select an option" />
+        <button onClick={this.leaveTripClick}>Submit</button>
+        <button onClick={this.closeModal}>Close</button>
+        {this.isTransferOwnershipError ? <h4 className="error">Please pick a valid owner!</h4> : null}
+      </Modal>
       </div>
     )
   }

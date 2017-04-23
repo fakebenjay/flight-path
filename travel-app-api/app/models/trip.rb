@@ -13,7 +13,6 @@ class Trip < ApplicationRecord
     img_response = RestClient.send("get", img_search_url)
     img_data = JSON.parse(img_response)
     photo_ref = img_data["results"][0]["photos"][0]["photo_reference"]
-    byebug
     self.img_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{photo_ref}&key=AIzaSyBw8FxFBj6YcZHcc-6RKvAh1mpnVP7VRvM"
     self
   end

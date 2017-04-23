@@ -69,7 +69,6 @@ class TripsController < ApplicationController
 
   def delete
     account = Account.from_token(params["token"])
-    byebug
     if account
       trip = Trip.find(params["trip_id"])
       if trip
