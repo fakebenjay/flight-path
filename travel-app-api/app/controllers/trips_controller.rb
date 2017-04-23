@@ -56,8 +56,10 @@ class TripsController < ApplicationController
     account = Account.from_token(params["token"])
     if account
       trip = Trip.find(params["trip_id"])
-      if trip.creator_id == account.id
-        trip.creator_id = trip.accounts[1].id
+      if trip.creator_id != ''
+        byebug
+        new_owner = Account.find_by(username: params["new_owner"])
+        trip.creator_id = new_owner.id
         trip.accounts.delete(account)
       else
         trip.accounts.delete(account)

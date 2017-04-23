@@ -80,11 +80,11 @@ export const editStartDate = (date) => {
   }
 }
 
-export const leaveTrip = (account_id, token, trip_id) => {
+export const leaveTrip = (account_id, token, trip_id, newOwner) => {
   return (dispatch) => {
     let prefix = 'http://localhost:3001'
     axios
-      .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id})
+      .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id, new_owner: newOwner})
       .then(() => {
         dispatch(setRedirectTrue())
       })
