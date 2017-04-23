@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from 'react-modal'
 import customStyles from '../stylesheets/modal'
 import ConnectedEditActivity from './editActivity'
+import '../stylesheets/panel.css'
 
 class ActivityTile extends React.Component {
   constructor(props) {
@@ -46,14 +47,13 @@ class ActivityTile extends React.Component {
 
     })
     return (
-      <div>
-        <div onClick={this.handleClick}>
-          <div>
+      <div className="col-sm-4 tile">
+        <div onClick={this.handleClick} className="panel panel-default">
+          <div className="panel-heading">
             <strong>{activity.name}</strong>
           </div>
-          <div><em>Click to view or add comments</em></div>
-          <div>
-            <img src={activity.img_url} className="img-responsive"/>
+          <div className="fill">
+              <img src={activity.img_url} className='img' alt=':('/>
           </div>
         </div>
         <Modal isOpen={this.state.modalStatus} style={customStyles} contentLabel="Activity Modal">

@@ -16,15 +16,18 @@ class ActivitiesList extends Component {
     let actprops = this.props.trip.activities
     let activities = []
     if (actprops) {
-      activities = actprops.map((activity) => {
-        return <li key={activity.id}><ActivityTile activity={activity} friends={this.props.trip.accounts} account={this.props.account} refreshCurrentTrip={this.refreshCurrentTrip}/></li>
+      activities = actprops.map((activity, index) => {
+        return <ActivityTile activity={activity} friends={this.props.trip.accounts} account={this.props.account} refreshCurrentTrip={this.refreshCurrentTrip}/>
       })
     }
     return (
-      <div>
-        <ul>
+      <div className="container-flex">
+        <div className='row'>
+          <div className="col-sm-4 col-sm-offset-4"><h5><em>Click to view or add comments</em></h5></div>
+        </div>
+        <div className="container-flex">
           {activities}
-        </ul>
+        </div>
       </div>
     )
   }

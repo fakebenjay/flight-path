@@ -168,7 +168,7 @@ class Trip extends React.Component {
   render() {
     let trip = this.props.trip
     return (
-      <div className="col-md-12">
+      <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
         <div className="col-md-4">
           <div className="row">
