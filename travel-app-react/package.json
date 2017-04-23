@@ -11,6 +11,7 @@
     "npm": "^4.5.0",
     "rc-slider": "^7.0.1",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.30.10",
     "react-bootstrap-slider": "^1.1.7",
     "react-datepicker": "^0.46.0",
     "react-dom": "^15.5.4",

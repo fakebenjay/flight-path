@@ -96,26 +96,27 @@ class AddTrip extends React.Component {
           <div className="row add-trip-row title-row">
             <h1 className="add-trip-title">Begin Your Journey</h1>
           </div>
-          <div className="row">
+          <div className="add-trip-name-row">
             <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
           </div>
         <div className="row add-trip-row">
           <div className="col-md-3">
+            <p className="date-label">Where would you like to go?</p>
             <ConnectedGetLocation />
           </div>
           <div className="col-md-3">
+            <p className="date-label">Departure Date</p>
             <DatePicker className="custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
           </div>
           <div className="col-md-3">
+            <p className="date-label">Return Date</p>
             <DatePicker className="custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
           </div>
           <div className="col-md-3">
+            <p className="date-label">Who would you like to go with?</p>
             <ConnectedAddFriend />
           </div>
         </div>
-        <div className="row add-trip-row"></div>
-        <div className="row add-trip-row"></div>
-        <div className="row add-trip-row"></div>
           <div className="row add-trip-row">
             <input type='submit' className="col-md-2 col-md-offset-5 custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
           </div>

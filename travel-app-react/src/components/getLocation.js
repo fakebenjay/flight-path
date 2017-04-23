@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { setLocation, clearLocations, fetchLocations } from '../actions/location'
 import { connect } from 'react-redux'
+import ReactBootstrap from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import { Location } from './location'
 
 
@@ -49,8 +51,10 @@ class GetLocation extends Component {
   render() {
     return (
       <div>
-        <input type="text" className="custom-input trip-planning-field" placeholder="Pick A Destination" onChange={this.handleChange} value={this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query} />
-        {this.props.location.locations.length > 0 ? this.listLocations() : null}
+        <ButtonGroup vertical>
+        <input type="text" className="custom-input trip-planning-field" placeholder="Find A City" onChange={this.handleChange} value={this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query} />
+          {this.props.location.locations.length > 0 ? this.listLocations() : null}
+        </ButtonGroup>
       </div>
     )
   }
