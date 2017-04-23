@@ -47,13 +47,14 @@ class AddTrip extends React.Component {
 
   handleClick() {
     let today = moment()
-    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today) {
+    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today && moment(this.state.endDate, "YYYY-MM-DD").isAfter(this.state.startDate, "YYYY-MM-DD")) {
       let trip = {}
       trip.formatted_name = this.props.location.formattedName
       trip.google_id = this.props.location.googleId
       trip.name = this.state.name
       trip.start_date = this.state.startDate.utc()
       trip.end_date = this.state.endDate.utc()
+      trip.creator_id = this.props.account.account_id
       let token = localStorage.getItem("token")
       let friends = []
       this.props.friends.forEach((friend) => {
@@ -84,7 +85,7 @@ class AddTrip extends React.Component {
   }
 
   renderError() {
-    return <h3 className="error">Please make sure you fill out all of the fields!</h3>
+    return <h3 className="error">Please make sure you fill out all of the fields correctly!</h3>
   }
 
   render() {
@@ -138,6 +139,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
+    account: state.Account,
     location: state.Location,
     friends: state.Friends.addedFriends
   }

@@ -14,3 +14,16 @@
 .date {
   text-indent: 50px;
 }
+
+.delete {
+  background-color: red;
+  font-weight: bold;
+}
+
+.leave {
+  font-weight: bold;
+}
+
+.centered {
+  margin-left: 20%;
+}

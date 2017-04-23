@@ -1,7 +1,7 @@
 class Trip < ApplicationRecord
-  has_many :planned_trips
+  has_many :planned_trips, :dependent => :delete_all
   has_many :accounts, through: :planned_trips
-  has_many :activities
+  has_many :activities, :dependent => :delete_all
 
   def retreive_lng_lat_img_url
     search_url = "https://maps.googleapis.com/maps/api/place/details/json?reference=#{self.google_id}&key=AIzaSyBw8FxFBj6YcZHcc-6RKvAh1mpnVP7VRvM"
@@ -14,6 +14,7 @@ class Trip < ApplicationRecord
     img_data = JSON.parse(img_response)
     photo_ref = img_data["results"][0]["photos"][0]["photo_reference"]
     self.img_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{photo_ref}&key=AIzaSyBw8FxFBj6YcZHcc-6RKvAh1mpnVP7VRvM"
+    self
   end
 
 end

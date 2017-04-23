@@ -52,10 +52,41 @@ class TripsController < ApplicationController
     end
   end
 
+  def leave
+    account = Account.from_token(params["token"])
+    if account
+      trip = Trip.find(params["trip_id"])
+      if trip.creator_id != ''
+        byebug
+        new_owner = Account.find_by(username: params["new_owner"])
+        trip.creator_id = new_owner.id
+        trip.accounts.delete(account)
+      else
+        trip.accounts.delete(account)
+      end
+    else
+      render json: "You are not permitted to leave this trip", status: 401
+    end
+  end
+
+  def delete
+    account = Account.from_token(params["token"])
+    if account
+      trip = Trip.find(params["trip_id"])
+      if trip
+        trip.destroy
+      else
+        render json: "We could not locate this trip", status: 401
+      end
+    else
+      render json: "You are not permitted to leave this trip", status: 401
+    end
+  end
+
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date, :img_url, :google_id, :id, :friend_id)
+    params.require(:trip).permit(:name, :lng, :lat, :formatted_name, :start_date, :end_date, :img_url, :google_id, :id, :friend_id, :creator_id)
   end
 
 end

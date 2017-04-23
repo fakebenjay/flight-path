@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { resetLocations } from './location'
+import { setRedirectTrue } from './redirect'
 
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
@@ -77,4 +78,26 @@ export const editStartDate = (date) => {
     type: "EDIT_END_DATE",
     date
   }
+}
+
+export const leaveTrip = (account_id, token, trip_id, newOwner) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id, new_owner: newOwner})
+      .then(() => {
+        dispatch(setRedirectTrue())
+      })
+    }
+}
+
+export const deleteTrip = (account_id, token, trip_id) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/deletetrip`, {account_id: account_id, token: token, trip_id: trip_id})
+      .then(() => {
+        dispatch(setRedirectTrue())
+      })
+    }
 }
