@@ -26,6 +26,32 @@ class TripsController < ApplicationController
     render json: trip, serializer: TripSerializer
   end
 
+  def change_date
+    account = Account.from_token(params["token"])
+    if account
+      trip = Trip.find(params["trip_id"])
+      if trip
+        if params["end_date"]
+          if trip.update(end_date: params["end_date"])
+            render json: trip, serializer: TripSerializer
+          else
+            render json: "There was an error updating the end date", status: 401
+          end
+        else
+          if trip.update(start_date: params["start_date"])
+            render json: trip, serializer: TripSerializer
+          else
+            render json: "There was an error updating the start date", status: 401
+          end
+        end
+      else
+        render json: "We could not locate this trip", status: 401
+      end
+    else
+      render json: 'You are not permitted to update this trip', status:401
+    end
+  end
+
   private
 
   def trip_params

@@ -49,7 +49,7 @@ class GetLocation extends Component {
   render() {
     return (
       <div>
-        <input type="text" className="custom-input trip-planning-field" placeholder="Find A City" onChange={this.handleChange} value={this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query} />
+        <input type="text" className="custom-input trip-planning-field" placeholder="Pick A Destination" onChange={this.handleChange} value={this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query} />
         {this.props.location.locations.length > 0 ? this.listLocations() : null}
       </div>
     )

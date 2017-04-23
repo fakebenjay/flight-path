@@ -16,6 +16,9 @@ class EditActivity extends Component {
     e.preventDefault()
     this.props.editActivity(this.state.input, this.props.activity, this.props.account)
     this.props.updateState(this.state.input)
+    this.setState({
+      input: ''
+    })
   }
   handleChange(e) {
     this.setState({
@@ -27,7 +30,7 @@ class EditActivity extends Component {
       <div>
         <div>Add a Comment:</div>
         <form onSubmit={this.handleSubmit}>
-          <input type='text' onChange={this.handleChange}/>
+          <input type='text' value={this.state.input} onChange={this.handleChange}/>
           <input type='submit' value='Add'/>
         </form>
       </div>
