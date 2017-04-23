@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
+import '../stylesheets/trip.css'
 
 class AddFriendToTrip extends React.Component {
   constructor() {
@@ -64,7 +65,7 @@ class AddFriendToTrip extends React.Component {
   render() {
     return (
       <div>
-        <input type='text' onChange={this.handleChange}/>
+        <input type='text' className="custom-input trip-edit-field" onChange={this.handleChange}/>
         <ul>
           {this.props.friends.potentialFriends.length > 0 ? (
             <h4>Users Matching Your Search</h4>, this.listPotentialFriends() ) : null}

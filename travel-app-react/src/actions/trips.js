@@ -40,3 +40,41 @@ export const fetchTrip = (trip_id) => {
       })
     }
   }
+
+export const updateStartDate = (date, trip, token) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/change-date`, {start_date: date, trip_id: trip, token: token})
+      .then(response => {
+        let payload = response.data
+        dispatch({type: 'EDIT_START_DATE', payload})
+      })
+    }
+}
+
+export const updateEndDate = (date, trip, token) => {
+  return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    axios
+      .post(`${prefix}/change-date`, {end_date: date, trip_id: trip, token: token})
+      .then(response => {
+        let payload = response.data
+        dispatch({type: 'EDIT_END_DATE', payload})
+      })
+    }
+}
+
+export const editEndDate = (date) => {
+  return {
+    type: "EDIT_START_DATE",
+    date
+  }
+}
+
+export const editStartDate = (date) => {
+  return {
+    type: "EDIT_END_DATE",
+    date
+  }
+}
