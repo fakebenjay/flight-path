@@ -91,7 +91,7 @@ class AddActivity extends Component {
         </div>
         <div className='col-sm-4'>
           <br/>
-          <button className="btn btn-primary" onClick={this.handleSearch}>Filter</button>
+          <button className="btn btn-primary active filter" onClick={this.handleSearch}>Filter</button>
         </div>
       </div>
     )
