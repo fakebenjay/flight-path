@@ -27,10 +27,16 @@ class ActivitiesController < ApplicationController
     render json: activities, each_serializer: ActivitySerializer
   end
 
+  def destroy
+    activity = Activity.find(params['id'])
+    activity.destroy
+  end
+
   private
 
   def activity_params
-    params.require(:activity).permit(:name, :lng, :lat, :img_url, :rating, :address)
+    params.require(:activity).permit(:id, :name, :lng, :lat, :img_url, :rating, :address)
+    # render json: 
   end
 
 end
