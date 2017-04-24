@@ -7,9 +7,11 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ConnectedAddFriend from './addFriend'
 import ConnectedGetLocation from './getLocation'
+import { resetSearch } from '../actions/location'
 import { addTrip } from '../actions/trips'
 import '../stylesheets/addtrip.css'
 import '../stylesheets/submit_and_input.css'
+
 
 class AddTrip extends React.Component {
   constructor(props) {
@@ -134,6 +136,7 @@ class AddTrip extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     addTrip: addTrip,
+    resetSearch: resetSearch
   }, dispatch)
 }
 

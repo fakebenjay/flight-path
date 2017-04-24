@@ -23,3 +23,7 @@ export const clearLocations = () => ({
 export const resetLocations = () => ({
   type: "RESET_LOCATIONS"
 })
+
+export const resetSearch = () => ({
+  type: "RESET_SEARCH"
+})

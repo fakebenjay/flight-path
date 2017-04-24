@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { setLocation, clearLocations, fetchLocations } from '../actions/location'
+import { setLocation, clearLocations, fetchLocations, resetSearch } from '../actions/location'
 import { connect } from 'react-redux'
 import ReactBootstrap from 'react-bootstrap';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import { Location } from './location'
+import FontAwesome from 'react-fontawesome'
 
 
 class GetLocation extends Component {
@@ -16,7 +17,8 @@ class GetLocation extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.listLocations = this.listLocations.bind(this)
-
+    this.renderResetButton = this.renderResetButton.bind(this)
+    this.handleSearchReset = this.handleSearchReset.bind(this)
   }
 
 
@@ -47,6 +49,20 @@ class GetLocation extends Component {
     })
   }
 
+  handleSearchReset() {
+    this.props.resetSearch()
+    this.setState({
+      query: ''
+    })
+  }
+
+
+  renderResetButton () {
+    return (
+        <button className="no-border" onClick={this.handleSearchReset}><FontAwesome className="larger-times" name='times'/></button>
+    )
+  }
+
 
   render() {
     return (
@@ -55,6 +71,7 @@ class GetLocation extends Component {
         <input type="text" className="custom-input trip-planning-field" placeholder="Find A City" onChange={this.handleChange} value={this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query} />
           {this.props.location.locations.length > 0 ? this.listLocations() : null}
         </ButtonGroup>
+        {this.props.location.hasBeenFound ? this.renderResetButton() : null }
       </div>
     )
   }
@@ -70,7 +87,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setLocation: setLocation,
     clearLocations: clearLocations,
-    fetchLocations: fetchLocations
+    fetchLocations: fetchLocations,
+    resetSearch: resetSearch
   }, dispatch)
 }
 

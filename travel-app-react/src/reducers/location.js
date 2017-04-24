@@ -16,6 +16,8 @@ export default function Location(state = {locations: [], formattedName: '', goog
       return {locations: [], formattedName: '', googleId: null, hasBeenFound: false}
     case "SET_REDIRECT_TRUE":
       return Object.assign({}, state, {redirect: true})
+    case "RESET_SEARCH":
+      return Object.assign({}, state, {locations: [], formattedName: '', googleId: null, hasBeenFound: false, redirect: false})
     default:
       return state
   }
