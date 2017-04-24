@@ -84,7 +84,6 @@ class Trip extends React.Component {
 
 
   handleDateStart(date) {
-    moment
     this.setState({
       startDate: date
     })

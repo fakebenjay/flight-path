@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { resetLocations } from './location'
-import { push } from 'react-router-redux'
 import { history } from '../App'
 
 export const addTrip = (trip, token, friends) => {
