@@ -1,9 +1,10 @@
-function errorMessage(state = null, action) {
-  const { type, error } = action
-  if (type === ActionTypes.RESET_ERROR_MESSAGE) {
-    return null
-  } else if (error) {
-    return action.error
+export default function Errors(state = null, action) {
+  switch (action.type) {
+    case "ADD_ERRORS":
+      return action.payload
+    case "CLEAR_ERRORS":
+      return []
+    default:
+      return state
   }
-  return state
 }

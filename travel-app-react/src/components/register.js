@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { createAccount } from '../actions/account'
+import { createAccount, clearErrors} from '../actions/account'
 import { Redirect, NavLink } from 'react-router-dom'
 import { Clouds } from './clouds'
+
 
 class Register extends React.Component {
   constructor() {
@@ -13,15 +14,18 @@ class Register extends React.Component {
       username: '',
       password: '',
       email: '',
+      errors: null
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
+    this.listErrors = this.listErrors.bind(this)
   }
 
 
   handleChange(e) {
+    this.props.clearErrors()
     let target = e.target.name
     this.setState({
       [target]: e.target.value
@@ -34,6 +38,18 @@ class Register extends React.Component {
 
   handleRedirect() {
     return <Redirect to="/mytrips" />
+  }
+
+  listErrors() {
+    return this.state.errors.map((error, i) => {
+      return <h4 key={i} className="error">{error}</h4>
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      errors: nextProps.errors
+    })
   }
 
 
@@ -61,6 +77,7 @@ class Register extends React.Component {
             </div>
           </form>
           <div className="row login-register">
+            {this.state.errors !== null ? this.listErrors() : null}
             <p className="instructions">Have an account, already? <NavLink className="instructions-link" to="/login">Sign in</NavLink> here!</p>
           </div>
         </div>
@@ -73,14 +90,16 @@ class Register extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    account: state.Account
+    account: state.Account,
+    errors: state.Errors
   }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    createAccount: createAccount
+    createAccount: createAccount,
+    clearErrors: clearErrors
   }, dispatch)
 }
 
