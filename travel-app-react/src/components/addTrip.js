@@ -96,34 +96,35 @@ class AddTrip extends React.Component {
       <div className="col-md-10 col-md-offset-1">
         <div className="container-fluid">
           {this.props.location.redirect ? this.handleRedirect() : null}
-          <div className="row add-trip-row title-row">
+          <div className="row add-trip-title-row">
             <h1 className="add-trip-title">Begin Your Journey</h1>
           </div>
           <div className="add-trip-name-row">
-            <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
+            <div className="col-md-6">
+              <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
+            </div>
+            <div className="col-md-6">
+              <ConnectedGetLocation />
+            </div>
           </div>
-        <div className="row add-trip-row">
-          <div className="col-md-3">
-            <p className="date-label">Where would you like to go?</p>
-            <ConnectedGetLocation />
-          </div>
-          <div className="col-md-3">
+        <div className="add-trip-row row">
+          <div className="col-md-4">
             <p className="date-label">Departure Date</p>
             <DatePicker className="custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <p className="date-label">Return Date</p>
             <DatePicker className="custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <p className="date-label">Who would you like to go with?</p>
             <ConnectedAddFriend />
           </div>
         </div>
-          <div className="row add-trip-row">
-            <input type='submit' className="col-md-2 col-md-offset-5 custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
+          <div className="add-trip-row">
+            <input type='submit' className="custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
           </div>
-        <div className="row add-trip-row">
+        <div className="add-trip-row">
           {this.state.error ? this.renderError() : null }
         </div>
       </div>
