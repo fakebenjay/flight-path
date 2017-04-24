@@ -1,0 +1,26 @@
+.tab {
+  border-bottom: 0px;
+  border-radius: 4px 4px 0px 0px;
+  width: 200px;
+}
+
+.tab:disabled {
+  border-bottom: 0px;
+  border-radius: 4px 4px 0px 0px;
+  color: black;
+  font-weight: bold;
+}
+
+
+.row.tabs {
+  float: left;
+  padding: 5px;
+  padding-bottom: 30px;
+  margin: auto;
+}
+
+.row.search {
+  padding: 30px;
+  padding-left: 50px;
+  margin: auto;
+}
