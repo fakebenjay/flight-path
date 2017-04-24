@@ -70,7 +70,6 @@ class AddActivity extends Component {
     })
   }
 
-
   renderSearchFields() {
     return (
       <div className='row'>
