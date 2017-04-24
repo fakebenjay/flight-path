@@ -38,7 +38,7 @@ class App extends Component {
             <Route path="/logout" component={ConnectedLogout} />
             <PrivateRoute path='/addtrip' component={ConnectedAddTrip}/>
             <PrivateRoute path='/mytrips' component={ConnectedMyTrips}/>
-            <PrivateRoute path='/trips/:id' component={ConnectedTrip}/>
+            <ProtectedTripRoute path='/trips/:id' component={ConnectedTrip}/>
           </Switch>
         </div>
       </Router>

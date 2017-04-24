@@ -2,10 +2,10 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const ProtectedTripRoute = ({ trips, token, component: Component, ...rest }) => {
+const ProtectedTripRoute = ({ trips, token, computedMatch, component: Component, ...rest }) => {
   return (
       <Route {...rest} render={props => (
-    (token && trips.find((trip) => trip.id === parseInt(arguments[0].computedMatch.params.id, 10))) ? (
+    (token && trips.find((trip) => trip.id === parseInt(computedMatch.params.id, 10))) ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
