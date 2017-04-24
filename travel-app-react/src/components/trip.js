@@ -176,8 +176,8 @@ class Trip extends React.Component {
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
             <input type="submit" value="Delete Trip" className="custom-input delete" onClick={this.openConfirmationModal}/>
-            <input type="submit" value="(Owner) Leave Trip" className="custom-input leave" onClick={this.openTransferOwnershipModal} />
-            <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} />
+            {trip.creator_id === this.props.account.account_id ? <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.openTransferOwnershipModal} /> :
+            <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
           </div>
           <div className="row add-trip-row">
             <div className="row"><h4 className="sub-title date">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</h4></div>
