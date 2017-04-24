@@ -19,8 +19,8 @@ class Trip extends React.Component {
     super(props)
     this.state = {
       toggle: 'planned',
-      startDate: moment(props.trip.start_date),
-      endDate: moment(props.trip.end_date),
+      startDate: moment(),
+      endDate: moment(),
       isConfirmationModalOpen: false,
       isTransferOwnershipModalOpen: false,
       newOwner: '',
@@ -47,6 +47,13 @@ class Trip extends React.Component {
   componentWillMount() {
     let tripID = this.props.match.params.id
     this.props.fetchTrip(tripID)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      startDate: moment(nextProps.trip.start_date),
+      endDate: moment(nextProps.trip.end_date)
+    })
   }
 
   handleClickPlan() {
@@ -77,6 +84,7 @@ class Trip extends React.Component {
 
 
   handleDateStart(date) {
+    moment
     this.setState({
       startDate: date
     })

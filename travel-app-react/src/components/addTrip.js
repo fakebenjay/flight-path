@@ -49,7 +49,7 @@ class AddTrip extends React.Component {
 
   handleClick() {
     let today = moment()
-    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today && moment(this.state.endDate, "YYYY-MM-DD").isAfter(this.state.startDate, "YYYY-MM-DD")) {
+    if (this.props.location.hasBeenFound && this.state.name !== '' &&  this.state.endDate !== today && moment(this.state.endDate, "YYYY-MM-DD").isAfter(this.state.startDate, "YYYY-MM-DD") && moment(this.state.startDate, "YYYY-MM-DD").isAfter(moment().add(-1, 'days'))) {
       let trip = {}
       trip.formatted_name = this.props.location.formattedName
       trip.google_id = this.props.location.googleId
