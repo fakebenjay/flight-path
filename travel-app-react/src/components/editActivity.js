@@ -14,11 +14,13 @@ class EditActivity extends Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-    this.props.editActivity(this.state.input, this.props.activity, this.props.account)
-    this.props.updateState(this.state.input)
-    this.setState({
+    if (this.state.input !== '') {
+      this.props.editActivity(this.state.input, this.props.activity, this.props.account)
+      this.props.updateState(this.state.input)
+      this.setState({
       input: ''
-    })
+      })
+    }
   }
   handleChange(e) {
     this.setState({
