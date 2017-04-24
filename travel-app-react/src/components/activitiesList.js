@@ -3,21 +3,26 @@ import { connect } from 'react-redux'
 import { fetchTrip } from '../actions/trips'
 import { bindActionCreators } from 'redux'
 import ActivityTile from './activityTile'
+import { removePotentialActivity } from '../actions/activitySearch'
 
 class ActivitiesList extends Component {
   constructor() {
     super()
     this.refreshCurrentTrip = this.refreshCurrentTrip.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
   refreshCurrentTrip() {
     this.props.fetchTrip(this.props.trip.id)
+  }
+  handleRemove(activity) {
+    this.props.removeActivity(activity)
   }
   render() {
     let actprops = this.props.trip.activities
     let activities = []
     if (actprops) {
       activities = actprops.map((activity, index) => {
-        return <ActivityTile activity={activity} friends={this.props.trip.accounts} account={this.props.account} refreshCurrentTrip={this.refreshCurrentTrip}/>
+        return <ActivityTile activity={activity} trip={this.props.trip} onRemove={this.handleRemove} friends={this.props.trip.accounts} account={this.props.account} refreshCurrentTrip={this.refreshCurrentTrip}/>
       })
     }
     return (
@@ -42,7 +47,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchTrip: fetchTrip
+    fetchTrip: fetchTrip,
+    removeActivity: removePotentialActivity
   }, dispatch)
 }
 
