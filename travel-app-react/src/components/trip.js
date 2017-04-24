@@ -73,7 +73,7 @@ class Trip extends React.Component {
   listFriends() {
     let friends = []
       if (this.props.trip.accounts) {
-        friends = this.props.trip.accounts.filter((friend) => friend.id !== this.props.account.account_id)
+        friends = this.props.trip.accounts
       }
     if (friends.length === 0) {
       return <h4 className="sub-title">You haven't added any friends yet!</h4>
@@ -84,7 +84,6 @@ class Trip extends React.Component {
 
 
   handleDateStart(date) {
-    moment
     this.setState({
       startDate: date
     })
@@ -175,12 +174,15 @@ class Trip extends React.Component {
     }
 
     renderOwnerFields() {
+      if (this.props.trip.accounts.length === 1) {
+        return <input type="submit" value="Delete Trip" className="custom-input delete" onClick={this.openConfirmationModal}/>
+      } else {
       return (
         <div>
           <input type="submit" value="Delete Trip" className="custom-input delete" onClick={this.openConfirmationModal}/>
           <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.openTransferOwnershipModal} />
         </div>
-      )
+      )}
     }
 
   render() {
@@ -188,7 +190,7 @@ class Trip extends React.Component {
     return (
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
-        <div className="col-md-4">
+        <div className="col-md-4 yellow-background">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
             {trip.creator_id === this.props.account.account_id ?  this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }

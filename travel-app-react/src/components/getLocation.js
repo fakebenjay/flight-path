@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { setLocation, clearLocations, fetchLocations, resetSearch } from '../actions/location'
 import { connect } from 'react-redux'
-import ReactBootstrap from 'react-bootstrap';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { ButtonGroup } from 'react-bootstrap';
 import { Location } from './location'
 import FontAwesome from 'react-fontawesome'
 
