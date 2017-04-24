@@ -22,7 +22,7 @@ class ActivitiesList extends Component {
     let activities = []
     if (actprops) {
       activities = actprops.map((activity, index) => {
-        return <ActivityTile activity={activity} trip={this.props.trip} onRemove={this.handleRemove} friends={this.props.trip.accounts} account={this.props.account} refreshCurrentTrip={this.refreshCurrentTrip}/>
+        return <ActivityTile key={activity.id} activity={activity} trip={this.props.trip} onRemove={this.handleRemove} friends={this.props.trip.accounts} account={this.props.account} refreshCurrentTrip={this.refreshCurrentTrip}/>
       })
     }
     return (
