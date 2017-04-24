@@ -32,6 +32,11 @@ class AddActivity extends Component {
     this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
   }
 
+  componentWillUnmount() {
+    debugger
+    this.props.dispatch({type: "RESET_SEARCH"})
+  }
+
   changeValue(e) {
     this.props.setRadius(e)
   }
@@ -69,7 +74,6 @@ class AddActivity extends Component {
       return <ConnectedPreviewActivityTile key={index} activity={activity} isDisabled={this.isAdded(activity)} handleClick={this.handleClick.bind(null, activity)} tripActivities={this.props.tripActivities}/>
     })
   }
-
 
   renderSearchFields() {
     return (
@@ -116,7 +120,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchTrip: fetchTrip,
     fetchActivities: fetchActivities,
     saveActivity: saveActivity,
-    removePotentialActivity: removePotentialActivity
+    removePotentialActivity: removePotentialActivity,
+    dispatch
   }, dispatch)
 }
 

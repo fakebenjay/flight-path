@@ -1,4 +1,5 @@
-export default function activitySearch(state = { keyword: 'attraction', radius: 25, activities: []}, action) {
+const defaultState = { keyword: 'attraction', radius: 25, activities: []}
+export default function activitySearch(state = defaultState, action) {
   switch (action.type) {
     case "SET_RADIUS":
       return Object.assign({}, state, {radius: action.radius})
@@ -7,6 +8,8 @@ export default function activitySearch(state = { keyword: 'attraction', radius: 
       case "FETCH_ACTIVITIES":
         let newActivites = action.payload
         return Object.assign({}, state, {activities: newActivites})
+      case "RESET_SEARCH":
+          return defaultState  
       default:
         return state
   }
