@@ -10,7 +10,15 @@
 }
 
 .add-trip-row {
+  margin-top: 175px;
+  text-align: center;
+  height: 100px;
+}
+
+.add-trip-title-row {
   margin-top: 50px;
+  text-align: center;
+  height: 100px;
 }
 
 .trip-planning-field {
