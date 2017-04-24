@@ -6,9 +6,10 @@
 }
 
 .navbar-link {
-  color: #FFFFAA  !important;
+  color: #FFFFAA !important;
   font-size: 2.0em;
   margin-right: 20px;
+  text-shadow: 1px 1px #565656;
 }
 
 .navbar-center-text {

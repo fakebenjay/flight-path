@@ -11,6 +11,10 @@
   color: #36454f;
 }
 
+.padding {
+  margin-top: 5%;
+}
+
 .date {
   text-indent: 50px;
 }

@@ -73,7 +73,7 @@ class Trip extends React.Component {
   listFriends() {
     let friends = []
       if (this.props.trip.accounts) {
-        friends = this.props.trip.accounts.filter((friend) => friend.id !== this.props.account.account_id)
+        friends = this.props.trip.accounts
       }
     if (friends.length === 0) {
       return <h4 className="sub-title">You haven't added any friends yet!</h4>
