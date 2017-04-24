@@ -2,6 +2,7 @@ import React from 'react'
 import Modal from 'react-modal'
 import customStyles from '../stylesheets/modal'
 import ConnectedEditActivity from './editActivity'
+import FontAwesome from 'react-fontawesome'
 import '../stylesheets/panel.css'
 
 class ActivityTile extends React.Component {
@@ -14,11 +15,16 @@ class ActivityTile extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.updateState = this.updateState.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
   handleClick() {
     this.setState({
       modalStatus: true
     })
+  }
+  handleRemove(e) {
+    e.preventDefault()
+    this.props.onRemove(this.props.activity)
   }
   closeModal() {
     this.setState({
@@ -46,14 +52,21 @@ class ActivityTile extends React.Component {
       }
 
     })
-    let nameShort = activity.name.substring(0,40)
+    let nameShort = activity.name.substring(0,35)
+    let disabled = this.props.trip.creator_id !== this.props.account.account_id
     return (
       <div className="col-sm-4 tile">
-        <div onClick={this.handleClick} className="panel panel-default">
+        <div className="panel panel-default">
           <div className="panel-heading">
-            <strong>{nameShort}</strong>
+            <span onClick={this.handleClick}>
+              <strong>{nameShort}</strong>
+            </span>
+            {disabled ? null : <button className="btn btn-danger btn-xs" href="" onClick={this.handleRemove}>
+              <FontAwesome className='icon' name='minus'/>
+            </button>
+          }
           </div>
-          <div className="fill">
+          <div onClick={this.handleClick} className="fill">
               <img src={activity.img_url} className='img' alt=':('/>
           </div>
         </div>

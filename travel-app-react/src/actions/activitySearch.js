@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { fetchTrip } from './trips'
 
 export const setRadius = (radius) => ({
   type: "SET_RADIUS", radius
@@ -21,6 +22,17 @@ export const fetchActivities = (radius, keyword, lng, lat, id) => {
   }
 
 
-  export const removePotentialActivity = (activity) => ({
-    type: "REMOVE_POTENTIAL_ACTIVITY", activity
-  })
+  export const removePotentialActivity = (activity) => {
+    return (dispatch) => {
+    let prefix = 'http://localhost:3001'
+    let trip_id = activity.trip_id
+    axios
+      .delete(`${prefix}/trips/${trip_id}/activities/${activity.id}`)
+      .then(response => {
+        dispatch(fetchTrip(trip_id))
+      })
+      .then(response => {
+        dispatch({type: 'CLEAR_ACTIVITIES'})
+      })
+    }
+    }
