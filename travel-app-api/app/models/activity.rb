@@ -8,9 +8,10 @@ class Activity < ApplicationRecord
     url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{lat},#{lng}&radius=#{radius}&keyword=#{keyword}&type=point_of_interest&rankBy=prominence&key=#{ENV["google_api_key"]}"
     response = RestClient.send("get", url)
     raw_data = JSON.parse(response)
+    set_trip = Trip.find(trip_id)
     raw_data["results"].map do |r|
       activity = Activity.new
-      activity.trip = Trip.find(trip_id)
+      activity.trip = set_trip
       activity.name = r["name"]
       activity.lat = r["geometry"]["location"]["lat"]
       activity.lng = r["geometry"]["location"]["lng"]

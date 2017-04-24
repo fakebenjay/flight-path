@@ -37,7 +37,9 @@
 }
 
 .login-button {
-  color: #CBE5F9;
+  color: white;
+  height: 35px !important;
+  width: 150px !important;
   background: black !important;
 }
 

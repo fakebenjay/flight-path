@@ -16,14 +16,47 @@
 }
 
 .delete {
-  background-color: red;
   font-weight: bold;
+  height: 40px;
+  width: 120px;
+  border: none;
+  background: #F2473F;
+  margin-left: 25px;
 }
 
 .leave {
   font-weight: bold;
+  margin-left: 25px;
+  height: 40px;
+  width: 120px;
+  border: none;
+  background: #F2473F;
+}
+
+.filter {
+    font-weight: bold;
+    margin-left: 25px;
+    height: 40px;
+    width: 120px;
+    border: none;
+    background: #CBE5F9;
 }
 
 .centered {
   margin-left: 20%;
+}
+
+.add {
+  height: 25px !important;
+  width: 40px !important;
+  margin-left: 10px;
+}
+
+.confirm {
+  font-weight: bold;
+  margin-left: 15px;
+  margin-right: 15px;
+  height: 40px;
+  width: 120px;
+  border: none;
 }

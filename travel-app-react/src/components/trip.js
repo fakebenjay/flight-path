@@ -218,16 +218,17 @@ class Trip extends React.Component {
         </div>
       </div>
       <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} contentLabel="Confirmation Modal">
-        <h2>Are You Sure?</h2>
-        <input type="submit" value="Confirm" className="custom-input centered" onClick={this.deleteTripClick} />
-        <input type="submit" value="Cancel" className="custom-input" onClick={this.closeModal}/>
+        <h2 className="centered">Are You Sure?</h2>
+        <br />
+        <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.deleteTripClick} />
+        <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal}/>
       </Modal>
       <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
-        <h2>Please Pick A New Trip Owner</h2>
+        <h2 className="centered">Please Pick A New Trip Owner</h2>
         <Dropdown options={this.listFriends()} onChange={this.onOwnerSelect} value={this.state.newOwner} placeholder="Select an option" />
         <br></br>
-        <input type="submit" value="Confirm" className="custom-input" onClick={this.ownerLeaveTripClick} />
-        <input type="submit" value="Cancel" className="custom-input" onClick={this.closeModal} />
+        <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.ownerLeaveTripClick} />
+        <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal} />
         {this.state.isTransferOwnershipError ? <h4 className="error">Please pick a valid owner!</h4> : null}
       </Modal>
       </div>

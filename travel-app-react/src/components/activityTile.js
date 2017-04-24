@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'react-modal'
-import customStyles from '../stylesheets/modal'
+import { customStyles } from '../stylesheets/modal'
 import ConnectedEditActivity from './editActivity'
 import FontAwesome from 'react-fontawesome'
 import '../stylesheets/panel.css'
@@ -46,9 +46,9 @@ class ActivityTile extends React.Component {
         return friend.id === comment.account_id
       })
       if (author[0] && author[0].username !== this.props.account.username) {
-        return <li key={comment.id}>{comment.comment} - {author[0].username}</li>
+        return <li key={comment.id}><strong>{author[0].username}</strong> : {comment.comment}</li>
       } else {
-        return <li key={comment.id}>{comment.comment} - me</li>
+        return <li key={comment.id}><strong>Me: </strong> {comment.comment}</li>
       }
 
     })
@@ -76,7 +76,8 @@ class ActivityTile extends React.Component {
             {comments}
           </ul>
           <ConnectedEditActivity activity={activity} updateState={this.updateState}/>
-          <button onClick={this.closeModal}>Close</button>
+          <br />
+          <button className="custom-input login-button" onClick={this.closeModal}>Close</button>
         </Modal>
       </div>
     )
