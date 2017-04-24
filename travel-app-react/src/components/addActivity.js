@@ -4,8 +4,9 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { bindActionCreators } from 'redux'
 import { setRadius, setKeyword, fetchActivities, removePotentialActivity } from '../actions/activitySearch'
-import PreviewActivityTile from './previewActivityTile'
+import ConnectedPreviewActivityTile from './previewActivityTile'
 import { saveActivity } from '../actions/activity'
+import { fetchTrip } from '../actions/trips'
 
 class AddActivity extends Component {
   constructor() {
@@ -41,6 +42,7 @@ class AddActivity extends Component {
 
   handleSearch() {
     this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
+    // this.props.fetchTrip(this.props.currentTrip.id)
   }
 
   handleToggle() {
@@ -50,7 +52,7 @@ class AddActivity extends Component {
   }
 
   handleClick(activity) {
-    this.props.removePotentialActivity(activity)
+    // this.props.removePotentialActivity(activity)
     this.props.saveActivity(activity)
     this.setState({
       addedActivities: [...this.state.addedActivities, activity]
@@ -64,34 +66,39 @@ class AddActivity extends Component {
 
   renderPreviewActivities() {
     return this.props.activitySearch.activities.map((activity, index) => {
-      return <PreviewActivityTile key={index} activity={activity} isDisabled={this.isAdded(activity)} handleClick={this.handleClick.bind(null, activity)} tripActivities={this.props.tripActivities}/>
+      return <ConnectedPreviewActivityTile key={index} activity={activity} isDisabled={this.isAdded(activity)} handleClick={this.handleClick.bind(null, activity)} tripActivities={this.props.tripActivities}/>
     })
   }
 
 
   renderSearchFields() {
     return (
-      <div>
-      Keyword: <input type="text" onChange={this.handleChange} value={this.state.keyword} />
-      Radius: {this.props.activitySearch.radius}
-      <Slider
-        defaultValue={this.props.activitySearch.radius}
-        onChange={this.changeValue}
-        max={this.state.max}
-        min={this.state.min}
-       />
-       <input type="submit" value="Search" onClick={this.handleSearch}/>
-    </div>
+      <div className='row'>
+        <div className='col-sm-8'>
+          Keyword: <input type="text" onChange={this.handleChange} value={this.state.keyword} />
+          <br/>
+          Radius: {this.props.activitySearch.radius}
+          <Slider
+            defaultValue={this.props.activitySearch.radius}
+            onChange={this.changeValue}
+            max={this.state.max}
+            min={this.state.min}
+           />
+        </div>
+        <div className='col-sm-4'>
+          <br/>
+          <button className="btn btn-primary" onClick={this.handleSearch}>Filter</button>
+        </div>
+      </div>
     )
   }
 
   render() {
     return (
       <div className="container-flex">
-        <div className='row'>
-          <div className="col-sm-4 col-sm-offset-4">
-            <button onClick={this.handleToggle}>Refine Search</button>
-            {this.state.toggle ? this.renderSearchFields() : null}
+        <div className='row search'>
+          <div className="col-sm-8">
+            {this.renderSearchFields()}
           </div>
         </div>
         <div className="container-flex">
@@ -106,6 +113,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setRadius: setRadius,
     setKeyword: setKeyword,
+    fetchTrip: fetchTrip,
     fetchActivities: fetchActivities,
     saveActivity: saveActivity,
     removePotentialActivity: removePotentialActivity

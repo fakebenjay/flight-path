@@ -13,12 +13,13 @@ import Dropdown from 'react-dropdown'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
+import '../stylesheets/button_tab.css'
 
 class Trip extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      toggle: 0,
+      toggle: 'planned',
       startDate: moment(props.trip.start_date),
       endDate: moment(props.trip.start_date),
       redirect: props.redirect.redirect,
@@ -27,7 +28,8 @@ class Trip extends React.Component {
       newOwner: '',
       isTransferOwnershipError: false,
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClickPlan = this.handleClickPlan.bind(this)
+    this.handleClickAdd = this.handleClickAdd.bind(this)
     this.handleDateEnd = this.handleDateEnd.bind(this)
     this.handleDateStart = this.handleDateStart.bind(this)
     this.listFriends = this.listFriends.bind(this)
@@ -48,17 +50,17 @@ class Trip extends React.Component {
     this.props.fetchTrip(tripID)
   }
 
-  handleClick() {
-    let toggleId = this.state.toggle
-    if (toggleId === 0) {
-      this.setState({
-        toggle: 1
-      })
-    } else {
-      this.setState({
-        toggle: 0
-      })
-    }
+  handleClickPlan() {
+    this.setState({
+      toggle: 'planned'
+    })
+    this.props.fetchTrip(this.props.match.params.id)
+  }
+
+  handleClickAdd() {
+    this.setState({
+      toggle: 'add'
+    })
     this.props.fetchTrip(this.props.match.params.id)
   }
 
@@ -91,7 +93,7 @@ class Trip extends React.Component {
 
   renderDateFields() {
     let trip = this.props.trip
-    if (this.props.account.account_id == trip.creator_id) {
+    if (this.props.account.account_id === trip.creator_id) {
       return (
         <div>
           <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
@@ -108,7 +110,7 @@ class Trip extends React.Component {
 
   renderDelete() {
     let trip = this.props.trip
-    if (trip.creator_id == this.props.account.id) {
+    if (trip.creator_id === this.props.account.id) {
       return <button onClick={this.deleteTripClick}>Delete Trip</button>
     }
   }
@@ -191,9 +193,13 @@ class Trip extends React.Component {
         <div className="row"><ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/></div>
       </div>
       <div className="col-md-8">
-        <button onClick={this.handleClick}>Planned Activities</button>
-        <button onClick={this.handleClick}>Add Activity</button>
-        {this.state.toggle === 0 ? <ConnectedActivities/> : <ConnectedAddActivity/>}
+        <div className="row tabs">
+          <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
+          <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>
+        </div>
+        <div className="row">
+          {this.state.toggle !== 'planned' ? <ConnectedAddActivity/> : <ConnectedActivities/>}
+        </div>
       </div>
       <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} contentLabel="Confirmation Modal">
         <h2>Are You Sure?</h2>

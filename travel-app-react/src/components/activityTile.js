@@ -46,11 +46,12 @@ class ActivityTile extends React.Component {
       }
 
     })
+    let nameShort = activity.name.substring(0,40)
     return (
       <div className="col-sm-4 tile">
         <div onClick={this.handleClick} className="panel panel-default">
           <div className="panel-heading">
-            <strong>{activity.name}</strong>
+            <strong>{nameShort}</strong>
           </div>
           <div className="fill">
               <img src={activity.img_url} className='img' alt=':('/>
