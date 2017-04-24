@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       token = Auth.issue({account_id: account.id})
       render json: {token: token, account: account}
     else
-      render json: "We can't find that account", status: 401
+      render :json => { :errors => account.errors.full_messages }, status: 401
     end
   end
 
