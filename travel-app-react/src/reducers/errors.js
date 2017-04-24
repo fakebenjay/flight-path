@@ -1,10 +1,9 @@
-function errors(state = [], action) {
-  switch (action.type) {
-    case "ADD_ERROR":
-      return state.concat([action.error]);
-    case "REMOVE_ERROR":
-      return state.filter((error, i) => i !== action.index);
-    default:
-      return state;
+function errorMessage(state = null, action) {
+  const { type, error } = action
+  if (type === ActionTypes.RESET_ERROR_MESSAGE) {
+    return null
+  } else if (error) {
+    return action.error
   }
+  return state
 }

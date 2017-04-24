@@ -6,7 +6,7 @@ class Location
   end
 
   def self.new_from_search(search_term)
-    url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=#{search_term}&types=(cities)&language=EN&key=#{Figaro.env.google_api_key}vM"
+    url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=#{search_term}&types=(cities)&language=EN&key=#{ENV["google_api_key"]}"
     response = RestClient.send("get", url)
     raw_data = JSON.parse(response)
     raw_data["predictions"].map do |location|

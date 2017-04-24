@@ -5,7 +5,7 @@ class Activity < ApplicationRecord
   has_many :comments, :dependent => :destroy
 
   def self.new_from_search(keyword, radius, lng, lat, trip_id)
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{lat},#{lng}&radius=#{radius}&keyword=#{keyword}&type=point_of_interest&rankBy=prominence&key=#{Figaro.env.google_api_key}vM"
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{lat},#{lng}&radius=#{radius}&keyword=#{keyword}&type=point_of_interest&rankBy=prominence&key=#{ENV["google_api_key"]}vM"
     response = RestClient.send("get", url)
     raw_data = JSON.parse(response)
     raw_data["results"].map do |r|
@@ -15,7 +15,7 @@ class Activity < ApplicationRecord
       activity.lat = r["geometry"]["location"]["lat"]
       activity.lng = r["geometry"]["location"]["lng"]
       if r['photos']
-        activity.img_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{r['photos'][0]['photo_reference']}&key=#{Figaro.env.google_api_key}vM"
+        activity.img_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{r['photos'][0]['photo_reference']}&key=#{ENV["google_api_key"]}vM"
       else
         activity.img_url = 'https://i0.wp.com/www.historyconfidential.com/wp-content/uploads/2013/04/old_holiday_inn.png'
       end
