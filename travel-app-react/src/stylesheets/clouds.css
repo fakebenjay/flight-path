@@ -8,8 +8,6 @@
   margin: auto;
   height: 100%;
   overflow: hidden;
-  -webkit-animation: FadeIn 3s ease-out;
-          animation: FadeIn 3s ease-out;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
