@@ -13,8 +13,9 @@ import PrivateRoute from './components/PrivateRoute'
 import { bindActionCreators } from 'redux'
 import ConnectedLogout from './components/Logout'
 import ConnectedTrip from './components/trip'
+import ProtectedTripRoute from './components/ProtectedTripRoute'
 
-const history=createHistory()
+export const history=createHistory()
 
 class App extends Component {
   componentWillMount() {
@@ -37,7 +38,7 @@ class App extends Component {
             <Route path="/logout" component={ConnectedLogout} />
             <PrivateRoute path='/addtrip' component={ConnectedAddTrip}/>
             <PrivateRoute path='/mytrips' component={ConnectedMyTrips}/>
-            <PrivateRoute path='/trips/:id' component={ConnectedTrip}/>
+            <ProtectedTripRoute path='/trips/:id' component={ConnectedTrip}/>
           </Switch>
         </div>
       </Router>

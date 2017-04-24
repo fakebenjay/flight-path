@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { resetLocations } from './location'
-import { setRedirectTrue } from './redirect'
+import { push } from 'react-router-redux'
+import { history } from '../App'
 
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
@@ -86,7 +87,7 @@ export const leaveTrip = (account_id, token, trip_id, newOwner) => {
     axios
       .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id, new_owner: newOwner})
       .then(() => {
-        dispatch(setRedirectTrue())
+        dispatch(history.push('/mytrips'))
       })
     }
 }
@@ -97,7 +98,7 @@ export const deleteTrip = (account_id, token, trip_id) => {
     axios
       .post(`${prefix}/deletetrip`, {account_id: account_id, token: token, trip_id: trip_id})
       .then(() => {
-        dispatch(setRedirectTrue())
+        dispatch(history.push('/mytrips'))
       })
     }
 }

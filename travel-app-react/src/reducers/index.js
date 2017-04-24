@@ -7,10 +7,9 @@ import Trip from './trips'
 import Activity from './activity'
 import CurrentTrip from './currentTrip'
 import activitySearch from './activitySearch'
-import Redirect from './redirect'
 
 const rootReducer = combineReducers({
-  Account, Friends, Location, Trip, router: routerReducer, activitySearch, CurrentTrip, Activity, Redirect
+  Account, Friends, Location, Trip, router: routerReducer, activitySearch, CurrentTrip, Activity
 })
 
 export default rootReducer

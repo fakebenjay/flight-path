@@ -46,3 +46,13 @@
   text-align: center;
   color: #FF0000;
 }
+
+.larger-times {
+  font-size: 35px;
+}
+
+.no-border {
+  border: 0;
+   background: none;
+  -webkit-appearance: none;
+}
