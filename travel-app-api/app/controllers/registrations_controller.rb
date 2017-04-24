@@ -3,10 +3,11 @@ class RegistrationsController < ApplicationController
   def create
     account = Account.new(account_params)
     if account.save
+      byebug
       token = Auth.issue({account_id: account.id})
       render json: {token: token}
     else
-      render :json => { :errors => account.errors.full_messages }, status: 401
+      render json: { errors: account.errors.full_messages }, status: 401
     end
   end
 
