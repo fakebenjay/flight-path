@@ -10,7 +10,7 @@ class Trip < ApplicationRecord
     raw_data = JSON.parse(response)
     self.lat = raw_data["result"]["geometry"]["location"]["lat"]
     self.lng = raw_data["result"]["geometry"]["location"]["lng"]
-    img_search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{self.lat},#{self.lng}&radius=50000&rankBy=prominence&key=#{ENV["google_api_key"]}vM"
+    img_search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{self.lat},#{self.lng}&radius=50000&rankBy=prominence&key=#{ENV["google_api_key"]}"
     img_response = RestClient.send("get", img_search_url)
     img_data = JSON.parse(img_response)
     photo_ref = img_data["results"][0]["photos"][0]["photo_reference"]
