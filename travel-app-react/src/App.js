@@ -13,8 +13,9 @@ import PrivateRoute from './components/PrivateRoute'
 import { bindActionCreators } from 'redux'
 import ConnectedLogout from './components/Logout'
 import ConnectedTrip from './components/trip'
+import ProtectedTripRoute from './components/ProtectedTripRoute'
 
-const history=createHistory()
+export const history=createHistory()
 
 class App extends Component {
   componentWillMount() {

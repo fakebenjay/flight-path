@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Modal from 'react-modal'
 import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../actions/trips'
-import { setRedirectTrue } from '../actions/redirect'
 import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
@@ -22,7 +21,6 @@ class Trip extends React.Component {
       toggle: 'planned',
       startDate: moment(props.trip.start_date),
       endDate: moment(props.trip.end_date),
-      redirect: props.redirect.redirect,
       isConfirmationModalOpen: false,
       isTransferOwnershipModalOpen: false,
       newOwner: '',
@@ -230,8 +228,7 @@ class Trip extends React.Component {
 const mapStateToProps = (state) => {
   return {
     trip: state.CurrentTrip,
-    account: state.Account,
-    redirect: state.Redirect
+    account: state.Account
   }
 }
 
@@ -241,8 +238,7 @@ const mapDispatchToProps = (dispatch) => {
     updateEndDate: updateEndDate,
     updateStartDate: updateStartDate,
     leaveTrip: leaveTrip,
-    deleteTrip: deleteTrip,
-    redirect: setRedirectTrue
+    deleteTrip: deleteTrip
   }, dispatch)
 }
 

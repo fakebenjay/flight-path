@@ -2,6 +2,7 @@ class Trip < ApplicationRecord
   has_many :planned_trips, :dependent => :delete_all
   has_many :accounts, through: :planned_trips
   has_many :activities, :dependent => :delete_all
+  has_many :comments, through: :activities
 
   def retreive_lng_lat_img_url
     search_url = "https://maps.googleapis.com/maps/api/place/details/json?reference=#{self.google_id}&key=AIzaSyBw8FxFBj6YcZHcc-6RKvAh1mpnVP7VRvM"

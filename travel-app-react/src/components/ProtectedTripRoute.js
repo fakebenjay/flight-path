@@ -2,9 +2,10 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const PrivateRoute = ({ token, component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    token ? (
+const ProtectedTripRoute = ({ trips, token, component: Component, ...rest }) => {
+  return (
+      <Route {...rest} render={props => (
+    (token && trips.find((trip) => trip.id === parseInt(arguments[0].computedMatch.params.id, 10))) ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
@@ -13,12 +14,14 @@ const PrivateRoute = ({ token, component: Component, ...rest }) => (
       }}/>
     )
   )}/>
-)
+  )
+}
 
 const mapStateToProps = (state) => ({
-    token: state.Account.token
+    token: state.Account.token,
+    trips: state.Trip
 })
 
-const ConnectedPrivateRoute = connect(mapStateToProps, null)(PrivateRoute)
+const ConnectedProtectedTripRoute = connect(mapStateToProps, null)(ProtectedTripRoute)
 
-export default ConnectedPrivateRoute
+export default ConnectedProtectedTripRoute
