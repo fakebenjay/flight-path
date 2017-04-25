@@ -77,7 +77,7 @@ class AddActivity extends Component {
   renderSearchFields() {
     return (
       <div className='row'>
-        <div className='col-sm-8'>
+        <div className='col-xs-8'>
           Keyword: <input type="text" onChange={this.handleChange} value={this.state.keyword} />
           <br/>
           Radius: {this.props.activitySearch.radius} kilometers
@@ -88,7 +88,7 @@ class AddActivity extends Component {
             min={this.state.min}
            />
         </div>
-        <div className='col-sm-4'>
+        <div className='col-xs-4'>
           <br/>
           <button className="btn btn-primary active filter" onClick={this.handleSearch}>Filter</button>
         </div>
@@ -100,7 +100,7 @@ class AddActivity extends Component {
     return (
       <div className="container-flex">
         <div className='row search'>
-          <div className="col-sm-8">
+          <div className="col-xs-8">
             {this.renderSearchFields()}
           </div>
         </div>

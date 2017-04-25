@@ -54,7 +54,7 @@ class Login extends React.Component {
   render() {
     return(
       <div className="login-register-background">
-        <div className="col-md-12 text-center login-register-form">
+        <div className="col-xs-12 text-center login-register-form">
           {this.props.account.account_id ? this.handleRedirect() : null }
           <div className="row login-register">
             <h1 className="intro">Welcome to Waltzing Matilda</h1>
@@ -62,10 +62,10 @@ class Login extends React.Component {
           </div>
           <form onSubmit={this.handleSubmit}>
             <div className="row login-register">
-              <input className="col-md-2 col-md-offset-5 text-center custom-input login-input" type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
+              <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
             </div>
             <div className="row login-register">
-              <input className="col-md-2 col-md-offset-5 text-center custom-input login-input" type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
+              <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
             </div>
             <div className="row login-register">
               <input className="custom-button login-button" type='submit' value='Login'/>

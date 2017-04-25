@@ -14,6 +14,7 @@ import 'react-select/dist/react-select.css';
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../stylesheets/button_tab.css'
+import '../stylesheets/background.css'
 import { ButtonGroup } from 'react-bootstrap';
 
 class Trip extends React.Component {
@@ -258,7 +259,7 @@ class Trip extends React.Component {
             <div className="col-md-2"></div>
         </div>
       </div>
-      <div className="col-xs-8">
+      <div className="col-xs-8 panels">
         <div className="row tabs">
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>

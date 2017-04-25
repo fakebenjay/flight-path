@@ -55,7 +55,7 @@
   width: 200px !important;
   height: 70px !important;
   font-size: 1.7em;
-  background-color: #CBE5F9;
+  background-color: #5cb85c;
   font-weight: bold;
   color: #36454f;
 }
@@ -73,4 +73,9 @@
   border: 0;
    background: none;
   -webkit-appearance: none;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ccc;
+  font-style: italic;
 }

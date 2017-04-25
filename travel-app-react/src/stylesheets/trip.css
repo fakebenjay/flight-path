@@ -12,7 +12,7 @@
 }
 
 .padding {
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 .date {
@@ -67,4 +67,8 @@
   border: none;
   background: black;
   color: white;
+}
+
+.col-xs-8.panels {
+  padding-top: 20px;
 }
