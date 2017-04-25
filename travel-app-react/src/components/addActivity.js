@@ -32,6 +32,11 @@ class AddActivity extends Component {
     this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
   }
 
+  componentWillUnmount() {
+    debugger
+    this.props.dispatch({type: "RESET_SEARCH"})
+  }
+
   changeValue(e) {
     this.props.setRadius(e)
   }
@@ -70,7 +75,6 @@ class AddActivity extends Component {
     })
   }
 
-
   renderSearchFields() {
     return (
       <div className='row'>
@@ -87,7 +91,7 @@ class AddActivity extends Component {
         </div>
         <div className='col-xs-4'>
           <br/>
-          <button className="btn btn-primary" onClick={this.handleSearch}>Filter</button>
+          <button className="btn btn-primary active filter" onClick={this.handleSearch}>Filter</button>
         </div>
       </div>
     )
@@ -116,7 +120,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchTrip: fetchTrip,
     fetchActivities: fetchActivities,
     saveActivity: saveActivity,
-    removePotentialActivity: removePotentialActivity
+    removePotentialActivity: removePotentialActivity,
+    dispatch
   }, dispatch)
 }
 

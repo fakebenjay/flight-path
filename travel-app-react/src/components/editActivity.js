@@ -30,10 +30,11 @@ class EditActivity extends Component {
   render() {
     return (
       <div>
-        <div>Add a Comment:</div>
+        <br />
+        <div><strong>Add a Comment:</strong></div>
         <form onSubmit={this.handleSubmit}>
-          <input type='text' value={this.state.input} onChange={this.handleChange}/>
-          <input type='submit' value='Add'/>
+          <input type='text' className='custom-input' value={this.state.input} onChange={this.handleChange}/>
+          <input type='submit' className='custom-input login-button add' value='Add'/>
         </form>
       </div>
     )

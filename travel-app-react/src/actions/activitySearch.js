@@ -19,20 +19,19 @@ export const fetchActivities = (radius, keyword, lng, lat, id) => {
       dispatch({type: 'FETCH_ACTIVITIES', payload})
     })
   }
+}
+
+export const removePotentialActivity = (activity) => {
+  return (dispatch) => {
+  let prefix = 'http://localhost:3001'
+  let trip_id = activity.trip_id
+  axios
+    .delete(`${prefix}/trips/${trip_id}/activities/${activity.id}`)
+    .then(response => {
+      dispatch(fetchTrip(trip_id))
+    })
+    .then(response => {
+      dispatch({type: 'CLEAR_ACTIVITIES'})
+    })
   }
-
-
-  export const removePotentialActivity = (activity) => {
-    return (dispatch) => {
-    let prefix = 'http://localhost:3001'
-    let trip_id = activity.trip_id
-    axios
-      .delete(`${prefix}/trips/${trip_id}/activities/${activity.id}`)
-      .then(response => {
-        dispatch(fetchTrip(trip_id))
-      })
-      .then(response => {
-        dispatch({type: 'CLEAR_ACTIVITIES'})
-      })
-    }
-    }
+}

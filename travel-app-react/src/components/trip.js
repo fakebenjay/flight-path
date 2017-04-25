@@ -8,8 +8,9 @@ import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
 import { customStyles } from '../stylesheets/modal'
-import Dropdown from 'react-dropdown'
+import Select from 'react-select';
 import DatePicker from 'react-datepicker'
+import 'react-select/dist/react-select.css';
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../stylesheets/button_tab.css'
@@ -25,6 +26,7 @@ class Trip extends React.Component {
       isTransferOwnershipModalOpen: false,
       newOwner: '',
       isTransferOwnershipError: false,
+      friends: []
     }
     this.handleClickPlan = this.handleClickPlan.bind(this)
     this.handleClickAdd = this.handleClickAdd.bind(this)
@@ -50,9 +52,14 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
+    let friendNames = potentialFriendNames.map((account) => {
+      return {value: account.username, label: account.username}
+    })
     this.setState({
       startDate: moment(nextProps.trip.start_date),
-      endDate: moment(nextProps.trip.end_date)
+      endDate: moment(nextProps.trip.end_date),
+      friends: friendNames
     })
   }
 
@@ -73,7 +80,7 @@ class Trip extends React.Component {
   listFriends() {
     let friends = []
       if (this.props.trip.accounts) {
-        friends = this.props.trip.accounts.filter((friend) => friend.id !== this.props.account.account_id)
+         friends = this.props.trip.accounts
       }
     if (friends.length === 0) {
       return <h4 className="sub-title">You haven't added any friends yet!</h4>
@@ -162,9 +169,15 @@ class Trip extends React.Component {
   }
 
   onOwnerSelect(e) {
+    if (e) {
     this.setState({
       newOwner: e.value
-    })
+    })}
+    else {
+      this.setState({
+        newOwner: ''
+      })
+    }
   }
 
     handleRedirect() {
@@ -174,12 +187,15 @@ class Trip extends React.Component {
     }
 
     renderOwnerFields() {
+      if (this.props.trip.accounts.length === 1) {
+        return <input type="submit" value="Delete Trip" className="custom-input delete" onClick={this.openConfirmationModal}/>
+      } else {
       return (
         <div>
           <input type="submit" value="Delete Trip" className="custom-input delete" onClick={this.openConfirmationModal}/>
           <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.openTransferOwnershipModal} />
         </div>
-      )
+      )}
     }
 
   render() {
@@ -187,7 +203,7 @@ class Trip extends React.Component {
     return (
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
-        <div className="col-xs-4">
+        <div className="col-xs-4 yellow-background">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
             {trip.creator_id === this.props.account.account_id ?  this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
@@ -215,16 +231,22 @@ class Trip extends React.Component {
         </div>
       </div>
       <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} contentLabel="Confirmation Modal">
-        <h2>Are You Sure?</h2>
-        <input type="submit" value="Confirm" className="custom-input centered" onClick={this.deleteTripClick} />
-        <input type="submit" value="Cancel" className="custom-input" onClick={this.closeModal}/>
+        <h2 className="centered">Are You Sure?</h2>
+        <br />
+        <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.deleteTripClick} />
+        <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal}/>
       </Modal>
       <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
         <h2>Please Pick A New Trip Owner</h2>
-        <Dropdown options={this.listFriends()} onChange={this.onOwnerSelect} value={this.state.newOwner} placeholder="Select an option" />
+        <Select
+          name="form-field-name"
+          value={this.state.newOwner}
+          options={this.state.friends}
+          onChange={this.onOwnerSelect}
+        />
         <br></br>
-        <input type="submit" value="Confirm" className="custom-input" onClick={this.ownerLeaveTripClick} />
-        <input type="submit" value="Cancel" className="custom-input" onClick={this.closeModal} />
+        <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.ownerLeaveTripClick} />
+        <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal} />
         {this.state.isTransferOwnershipError ? <h4 className="error">Please pick a valid owner!</h4> : null}
       </Modal>
       </div>
