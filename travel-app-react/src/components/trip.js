@@ -55,7 +55,6 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
     let friendNames = potentialFriendNames.map((account) => {
       return {value: account.username, label: account.username}
