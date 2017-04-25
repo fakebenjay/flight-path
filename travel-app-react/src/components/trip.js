@@ -95,30 +95,29 @@ class Trip extends React.Component {
 
 
   handleDateStart(startDate) {
-    debugger
-    if (startDate.isBefore(moment(this.state.endDate))) {
-      this.setState({
-        error: ''
-      })
+    // if (startDate.isBefore(moment(this.state.endDate))) {
+      // this.setState({
+      //   error: ''
+      // })
       this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
-      }
-      this.setState({
-        error: "Start Date must be before the End Date"
-      })
+      // }
+      // this.setState({
+      //   error: "Start Date must be before the End Date"
+      // })
   }
 
   handleDateEnd(endDate) {
-    if (moment(endDate).isAfter(moment(this.state.startDate))) {
-      this.setState({
-        error: ''
-      })
+    // if (moment(endDate).isAfter(moment(this.state.startDate))) {
+    //   this.setState({
+    //     error: ''
+    //   })
       this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
-    }
-    else {
-      this.setState({
-        error: "End Date must be after Start Date"
-      })
-    }
+    // }
+    // else {
+    //   this.setState({
+    //     error: "End Date must be after Start Date"
+    //   })
+    // }
   }
 
   renderDateFields() {
