@@ -60,6 +60,7 @@ export const updateEndDate = (date, trip, token) => {
     axios
       .post(`${prefix}/change-date`, {end_date: date, trip_id: trip, token: token})
       .then(response => {
+        debugger
         let payload = response.data
         dispatch({type: 'EDIT_END_DATE', payload})
       })

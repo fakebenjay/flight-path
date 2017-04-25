@@ -16,6 +16,7 @@ class ActivityTile extends React.Component {
     this.closeModal = this.closeModal.bind(this)
     this.updateState = this.updateState.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+    this.closeModalOnClick = this.closeModalOnClick.bind(this)
   }
   handleClick() {
     this.setState({
@@ -39,6 +40,12 @@ class ActivityTile extends React.Component {
       comments: [...this.state.comments, newComment]
     })
   }
+
+  closeModalOnClick() {
+    this.setState({
+      modalStatus: false
+    })
+  }
   render() {
     let activity = this.props.activity
     let comments = this.state.comments.map((comment) => {
@@ -46,9 +53,9 @@ class ActivityTile extends React.Component {
         return friend.id === comment.account_id
       })
       if (author[0] && author[0].username !== this.props.account.username) {
-        return <li key={comment.id}><strong>{author[0].username}</strong>: {comment.comment}</li>
+        return <li key={comment.id}><strong>{author[0].username}</strong> : {comment.comment}</li>
       } else {
-        return <li key={comment.id}><strong>Me</strong>: {comment.comment}</li>
+        return <li key={comment.id}><strong>Me: </strong> {comment.comment}</li>
       }
 
     })
@@ -70,13 +77,14 @@ class ActivityTile extends React.Component {
               <img src={activity.img_url} className='img' alt=':('/>
           </div>
         </div>
-        <Modal isOpen={this.state.modalStatus} style={customStyles} contentLabel="Activity Modal">
+        <Modal isOpen={this.state.modalStatus} onRequestClose={this.closeModalOnClick} style={customStyles} contentLabel="Activity Modal">
           <h2>{activity.name}</h2>
           <ul>
             {comments}
           </ul>
           <ConnectedEditActivity activity={activity} updateState={this.updateState}/>
-          <button onClick={this.closeModal}>Close</button>
+          <br />
+          <button className="custom-input login-button" onClick={this.closeModal}>Close</button>
         </Modal>
       </div>
     )

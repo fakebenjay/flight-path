@@ -123,9 +123,9 @@ class AddTrip extends React.Component {
         </div>
           <div className="add-trip-button-row row">
             <input type='submit' className="custom-button add-trip-button" value='Add Trip' onClick={this.handleClick}/>
+            {this.state.error ? this.renderError() : null }
           </div>
-        <div className="add-trip-button-row row">
-          {this.state.error ? this.renderError() : null }
+         <div className="add-trip-row">
         </div>
       </div>
     </div>

@@ -8,8 +8,9 @@ import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
 import { customStyles } from '../stylesheets/modal'
-import Dropdown from 'react-dropdown'
+import Select from 'react-select';
 import DatePicker from 'react-datepicker'
+import 'react-select/dist/react-select.css';
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../stylesheets/button_tab.css'
@@ -26,6 +27,8 @@ class Trip extends React.Component {
       isTransferOwnershipModalOpen: false,
       newOwner: '',
       isTransferOwnershipError: false,
+      friends: [],
+      error: ''
     }
     this.handleClickPlan = this.handleClickPlan.bind(this)
     this.handleClickAdd = this.handleClickAdd.bind(this)
@@ -51,9 +54,15 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
+    let friendNames = potentialFriendNames.map((account) => {
+      return {value: account.username, label: account.username}
+    })
     this.setState({
       startDate: moment(nextProps.trip.start_date),
-      endDate: moment(nextProps.trip.end_date)
+      endDate: moment(nextProps.trip.end_date),
+      friends: friendNames
     })
   }
 
@@ -74,7 +83,7 @@ class Trip extends React.Component {
   listFriends() {
     let friends = []
       if (this.props.trip.accounts) {
-        friends = this.props.trip.accounts
+         friends = this.props.trip.accounts
       }
     if (friends.length === 0) {
       return <p className="sub-title">You haven't added any friends yet!</p>
@@ -84,18 +93,31 @@ class Trip extends React.Component {
     }
 
 
-  handleDateStart(date) {
-    this.setState({
-      startDate: date
-    })
-    this.props.updateStartDate(date, this.props.trip.id, this.props.account.token)
+  handleDateStart(startDate) {
+    debugger
+    if (startDate.isBefore(moment(this.state.endDate))) {
+      this.setState({
+        error: ''
+      })
+      this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
+      }
+      this.setState({
+        error: "Start Date must be before the End Date"
+      })
   }
 
-  handleDateEnd(date) {
-    this.setState({
-      endDate: date
-    })
-    this.props.updateEndDate(date, this.props.trip.id, this.props.account.token)
+  handleDateEnd(endDate) {
+    if (moment(endDate).isAfter(moment(this.state.startDate))) {
+      this.setState({
+        error: ''
+      })
+      this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
+    }
+    else {
+      this.setState({
+        error: "End Date must be after Start Date"
+      })
+    }
   }
 
   renderDateFields() {
@@ -172,9 +194,15 @@ class Trip extends React.Component {
   }
 
   onOwnerSelect(e) {
+    if (e) {
     this.setState({
       newOwner: e.value
-    })
+    })}
+    else {
+      this.setState({
+        newOwner: ''
+      })
+    }
   }
 
     handleRedirect() {
@@ -230,26 +258,32 @@ class Trip extends React.Component {
             <div className="col-md-2"></div>
         </div>
       </div>
-      <div className="col-md-8">
+      <div className="col-xs-8">
         <div className="row tabs">
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>
         </div>
-        <div className="row">
+        <div className="row tile-background pre-scrollable">
           {this.state.toggle !== 'planned' ? <ConnectedAddActivity/> : <ConnectedActivities/>}
         </div>
       </div>
-      <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} contentLabel="Confirmation Modal">
-        <h2>Are You Sure?</h2>
-        <input type="submit" value="Confirm" className="custom-input centered" onClick={this.deleteTripClick} />
-        <input type="submit" value="Cancel" className="custom-input" onClick={this.closeModal}/>
+      <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} onRequestClose={this.closeModal} contentLabel="Confirmation Modal">
+        <h2 className="centered">Are You Sure?</h2>
+        <br />
+        <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.deleteTripClick} />
+        <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal}/>
       </Modal>
-      <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
+      <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} onRequestClose={this.closeModal} contentLabel="Transfer Ownership Modal">
         <h2>Please Pick A New Trip Owner</h2>
-        <Dropdown options={this.listFriends()} onChange={this.onOwnerSelect} value={this.state.newOwner} placeholder="Select an option" />
+        <Select
+          name="form-field-name"
+          value={this.state.newOwner}
+          options={this.state.friends}
+          onChange={this.onOwnerSelect}
+        />
         <br></br>
-        <input type="submit" value="Confirm" className="custom-input" onClick={this.ownerLeaveTripClick} />
-        <input type="submit" value="Cancel" className="custom-input" onClick={this.closeModal} />
+        <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.ownerLeaveTripClick} />
+        <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal} />
         {this.state.isTransferOwnershipError ? <h4 className="error">Please pick a valid owner!</h4> : null}
       </Modal>
       </div>
