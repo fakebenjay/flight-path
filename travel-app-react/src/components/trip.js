@@ -76,9 +76,9 @@ class Trip extends React.Component {
         friends = this.props.trip.accounts
       }
     if (friends.length === 0) {
-      return <h4 className="sub-title">You haven't added any friends yet!</h4>
+      return <p className="sub-title">You haven't added any friends yet!</p>
     } else {
-      return friends.map((friend) => friend.username)
+      return friends.map((friend) => <p className="sub-title">{friend.username}</p>)
       }
     }
 
@@ -102,8 +102,18 @@ class Trip extends React.Component {
     if (this.props.account.account_id === trip.creator_id) {
       return (
         <div>
-          <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
-          <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          <div className="row">
+            <div className="col-md-2"></div>
+            <div className="col-md-4">
+              <h4>Start Date</h4>
+              <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
+            </div>
+            <div className="col-md-4">
+              <h4>End Date</h4>
+              <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+            </div>
+            <div className="col-md-2"></div>
+          </div>
         </div>
       )} else {
         return (
@@ -191,22 +201,32 @@ class Trip extends React.Component {
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
         <div className="col-md-4 yellow-background">
-          <div className="row">
-            <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
-            {trip.creator_id === this.props.account.account_id ?  this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
+          <div className="row trip-panel-title">
+            <h1>{trip.name}</h1>
+            <h2>to {trip.formatted_name}</h2>
+            <br/>
+            <br/>
+            {trip.creator_id === this.props.account.account_id ? this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
           </div>
-          <div className="row add-trip-row">
-            <div className="row"><h4 className="sub-title date">Start Date &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; End Date</h4></div>
+          <br/>
+          <br/>
+          <div className="row trip-panel-title">
             {this.renderDateFields()}
           </div>
-          <div className="row add-trip-row">
-            <h4 className="sub-title">Travelers</h4>
-            {this.listFriends()}
-          </div>
-          <div className="row add-trip-row">
-            <h4 className="sub-title">Add some more friends below!</h4>
-          </div>
-        <div className="row"><ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/></div>
+          <br/>
+          <br/>
+          <div className="row trip-panel-title">
+            <div className="col-md-2"></div>
+            <div className="col-md-4">
+              <h4>Travelers</h4>
+              {this.listFriends()}
+            </div>
+            <div className="col-md-4">
+              <h4>Add some friends!</h4>
+              <div className="row"><ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/></div>
+            </div>
+            <div className="col-md-2"></div>
+        </div>
       </div>
       <div className="col-md-8">
         <div className="row tabs">

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
 import '../stylesheets/trip.css'
+import { Button } from 'react-bootstrap';
 
 class AddFriendToTrip extends React.Component {
   constructor() {
