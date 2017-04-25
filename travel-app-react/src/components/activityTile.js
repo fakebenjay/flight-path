@@ -16,6 +16,7 @@ class ActivityTile extends React.Component {
     this.closeModal = this.closeModal.bind(this)
     this.updateState = this.updateState.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+    this.closeModalOnClick = this.closeModalOnClick.bind(this)
   }
   handleClick() {
     this.setState({
@@ -37,6 +38,12 @@ class ActivityTile extends React.Component {
     let newComment = {comment: comment, id: id, author: 'me'}
     this.setState({
       comments: [...this.state.comments, newComment]
+    })
+  }
+
+  closeModalOnClick() {
+    this.setState({
+      modalStatus: false
     })
   }
   render() {
@@ -70,7 +77,7 @@ class ActivityTile extends React.Component {
               <img src={activity.img_url} className='img' alt=':('/>
           </div>
         </div>
-        <Modal isOpen={this.state.modalStatus} style={customStyles} contentLabel="Activity Modal">
+        <Modal isOpen={this.state.modalStatus} onRequestClose={this.closeModalOnClick} style={customStyles} contentLabel="Activity Modal">
           <h2>{activity.name}</h2>
           <ul>
             {comments}

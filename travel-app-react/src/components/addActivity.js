@@ -80,7 +80,7 @@ class AddActivity extends Component {
         <div className='col-xs-8'>
           Keyword: <input type="text" onChange={this.handleChange} value={this.state.keyword} />
           <br/>
-          Radius: {this.props.activitySearch.radius}
+          Radius: {this.props.activitySearch.radius} kilometers
           <Slider
             defaultValue={this.props.activitySearch.radius}
             onChange={this.changeValue}

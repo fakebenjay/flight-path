@@ -18,7 +18,7 @@ class Activity < ApplicationRecord
       if r['photos']
         activity.img_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=#{r['photos'][0]['photo_reference']}&key=#{ENV["google_api_key"]}"
       else
-        activity.img_url = 'https://i0.wp.com/www.historyconfidential.com/wp-content/uploads/2013/04/old_holiday_inn.png'
+        activity.img_url = 'http://pc104.org/wp-content/plugins/userpro/img/placeholder.jpg'
       end
       activity.rating = r["rating"]
       activity.address = r["vicinity"]

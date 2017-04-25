@@ -1,3 +1,7 @@
+.trip-panel-title {
+  text-align: center;
+}
+
 .title-field {
   height: 80px;
   width: 400px;
@@ -11,6 +15,12 @@
 
 .add-trip-row {
   margin-top: 175px;
+  text-align: center;
+  height: 100px;
+}
+
+.add-trip-button-row {
+  margin-top: 25px;
   text-align: center;
   height: 100px;
 }
