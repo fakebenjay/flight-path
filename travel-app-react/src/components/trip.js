@@ -88,7 +88,7 @@ class Trip extends React.Component {
     if (friends.length === 0) {
       return <p className="sub-title">You haven't added any friends yet!</p>
     } else {
-      return friends.map((friend) => <p className="sub-title">{friend.username}</p>)
+      return friends.map((friend, index) => <p key={index} className="sub-title">{friend.username}</p>)
       }
     }
 
