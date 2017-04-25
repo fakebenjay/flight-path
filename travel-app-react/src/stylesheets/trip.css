@@ -26,6 +26,7 @@
   border: none;
   background: #F2473F;
   margin-left: 25px;
+  color: white;
 }
 
 .leave {
@@ -63,4 +64,6 @@
   height: 40px;
   width: 120px;
   border: none;
+  background: black;
+  color: white;
 }

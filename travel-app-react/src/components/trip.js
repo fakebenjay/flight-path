@@ -8,8 +8,9 @@ import ConnectedActivities from './activitiesList'
 import ConnectedAddActivity from './addActivity'
 import ConnectedAddFriendToTrip from './addFriendToTrip'
 import { customStyles } from '../stylesheets/modal'
-import Dropdown from 'react-dropdown'
+import Select from 'react-select';
 import DatePicker from 'react-datepicker'
+import 'react-select/dist/react-select.css';
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../stylesheets/button_tab.css'
@@ -25,6 +26,7 @@ class Trip extends React.Component {
       isTransferOwnershipModalOpen: false,
       newOwner: '',
       isTransferOwnershipError: false,
+      friends: []
     }
     this.handleClickPlan = this.handleClickPlan.bind(this)
     this.handleClickAdd = this.handleClickAdd.bind(this)
@@ -50,9 +52,14 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
+    let friendNames = potentialFriendNames.map((account) => {
+      return {value: account.username, label: account.username}
+    })
     this.setState({
       startDate: moment(nextProps.trip.start_date),
-      endDate: moment(nextProps.trip.end_date)
+      endDate: moment(nextProps.trip.end_date),
+      friends: friendNames
     })
   }
 
@@ -73,7 +80,7 @@ class Trip extends React.Component {
   listFriends() {
     let friends = []
       if (this.props.trip.accounts) {
-        friends = this.props.trip.accounts
+         friends = this.props.trip.accounts
       }
     if (friends.length === 0) {
       return <h4 className="sub-title">You haven't added any friends yet!</h4>
@@ -162,9 +169,15 @@ class Trip extends React.Component {
   }
 
   onOwnerSelect(e) {
+    if (e) {
     this.setState({
       newOwner: e.value
-    })
+    })}
+    else {
+      this.setState({
+        newOwner: ''
+      })
+    }
   }
 
     handleRedirect() {
@@ -224,8 +237,13 @@ class Trip extends React.Component {
         <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal}/>
       </Modal>
       <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
-        <h2 className="centered">Please Pick A New Trip Owner</h2>
-        <Dropdown options={this.listFriends()} onChange={this.onOwnerSelect} value={this.state.newOwner} placeholder="Select an option" />
+        <h2>Please Pick A New Trip Owner</h2>
+        <Select
+          name="form-field-name"
+          value={this.state.newOwner}
+          options={this.state.friends}
+          onChange={this.onOwnerSelect}
+        />
         <br></br>
         <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.ownerLeaveTripClick} />
         <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal} />
