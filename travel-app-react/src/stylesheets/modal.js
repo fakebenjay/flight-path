@@ -7,6 +7,6 @@ export const customStyles = {
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
     borderRadius          : '4px',
-    backgroundColor       : '#CBE5F9'
+    backgroundColor       : '#d8d8d8'
   }
 };
