@@ -19,6 +19,12 @@
   height: 100px;
 }
 
+.add-trip-button-row {
+  margin-top: 25px;
+  text-align: center;
+  height: 100px;
+}
+
 .add-trip-title-row {
   margin-top: 50px;
   text-align: center;

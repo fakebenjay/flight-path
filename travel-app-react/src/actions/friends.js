@@ -39,7 +39,6 @@ export const removeFriend = (friend) => {
   }
 }
 
-
 export const removeAddedFriend = (friend) => {
   return {
     type: "REMOVE_ADDED_FRIEND",

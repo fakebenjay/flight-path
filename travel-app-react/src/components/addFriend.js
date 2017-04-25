@@ -59,7 +59,7 @@ class AddFriend extends React.Component {
   }
 
   componentWillUnmount() {
-    return this.props.friends.addedFriends = []
+    this.props.dispatch({type: "CLEAR_FRIENDS"})
   }
 
   render() {
@@ -83,7 +83,8 @@ const mapDispatchToProps = (dispatch) => {
     addFriend: addFriend,
     removeFriend: removeFriend,
     removeAddedFriend: removeAddedFriend,
-    clearFriends: clearFriends
+    clearFriends: clearFriends,
+    dispatch
   }, dispatch)
 }
 

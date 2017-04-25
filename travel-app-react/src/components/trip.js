@@ -13,6 +13,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../stylesheets/button_tab.css'
+import { ButtonGroup } from 'react-bootstrap';
 
 class Trip extends React.Component {
   constructor(props) {
@@ -152,7 +153,6 @@ class Trip extends React.Component {
     })
   }
 
-
   deleteTripClick() {
     this.props.deleteTrip(this.props.account.account_id, this.props.account.token, this.props.trip.id)
   }
@@ -223,7 +223,9 @@ class Trip extends React.Component {
             </div>
             <div className="col-md-4">
               <h4>Add some friends!</h4>
-              <div className="row"><ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/></div>
+              <ButtonGroup vertical>
+                <ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/>
+              </ButtonGroup>
             </div>
             <div className="col-md-2"></div>
         </div>
