@@ -10,7 +10,7 @@ class TripTile extends React.Component {
   render() {
     let trip = this.props.trip
     return (
-      <div className="col-sm-4 tile trip">
+      <div className="col-xs-4 tile trip">
         <div className="panel panel-default trip">
           <div className="panel-heading trip">
             <Link to={`/trips/${trip.id}`}><strong>{trip.name}</strong> <br/>to {trip.formatted_name}</Link>

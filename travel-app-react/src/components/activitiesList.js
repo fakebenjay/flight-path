@@ -28,7 +28,7 @@ class ActivitiesList extends Component {
     return (
       <div className="container-flex">
         <div className='row search'>
-          <div className="col-sm-8"><h5><em>Click an activity to comment</em></h5></div>
+          <div className="col-xs-8"><h5><em>Click an activity to comment</em></h5></div>
         </div>
         <div className="container-flex">
           {activities}

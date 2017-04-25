@@ -28,7 +28,7 @@ class PreviewActivityTile extends React.Component {
     }
     let nameShort = name.substring(0,30)
     return (
-      <div className="col-sm-4 tile">
+      <div className="col-xs-4 tile">
         <div className="panel panel-default">
           <div className="panel-heading">
             <strong>{nameShort}</strong> - {this.props.activity.rating}

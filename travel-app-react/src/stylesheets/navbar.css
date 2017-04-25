@@ -13,3 +13,13 @@
 .navbar-center-text {
   margin-top: 15px;
 }
+
+.logo-wrapper {
+  text-align: left;
+  margin-top: 12px;
+  margin-left: -25px;
+}
+
+.logo {
+  color: green;
+}
