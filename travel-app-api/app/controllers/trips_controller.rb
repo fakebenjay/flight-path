@@ -22,7 +22,11 @@ class TripsController < ApplicationController
   def update
     account = Account.find(trip_params["friend_id"])
     trip = Trip.find(trip_params["id"])
-    trip.accounts << account
+
+    if !trip.accounts.include?(account)
+      trip.accounts << account
+    end
+
     render json: trip, serializer: TripSerializer
   end
 
