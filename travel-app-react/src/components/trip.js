@@ -134,8 +134,10 @@ class Trip extends React.Component {
               <h4>End Date</h4>
               <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
             </div>
-            {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null}
             <div className="col-md-2"></div>
+            <div className="col-md-12 align-center">
+              {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null}
+            </div>
           </div>
         </div>
       )} else {
