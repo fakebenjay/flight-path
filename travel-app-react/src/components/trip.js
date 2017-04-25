@@ -14,6 +14,7 @@ import 'react-select/dist/react-select.css';
 import moment from 'moment'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../stylesheets/button_tab.css'
+import '../stylesheets/background.css'
 
 class Trip extends React.Component {
   constructor(props) {
@@ -226,7 +227,7 @@ class Trip extends React.Component {
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>
         </div>
-        <div className="row">
+        <div className="row tile-background pre-scrollable">
           {this.state.toggle !== 'planned' ? <ConnectedAddActivity/> : <ConnectedActivities/>}
         </div>
       </div>

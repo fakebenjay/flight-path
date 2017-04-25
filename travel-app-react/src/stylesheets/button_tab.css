@@ -4,6 +4,10 @@
   width: 200px;
 }
 
+.btn.btn-default.tab {
+  border-bottom: -1px;
+}
+
 .tab:disabled {
   border-bottom: 0px;
   border-radius: 4px 4px 0px 0px;
@@ -15,8 +19,9 @@
 .row.tabs {
   float: left;
   padding: 5px;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
   margin: auto;
+  margin-bottom: -1px;
 }
 
 .row.search {

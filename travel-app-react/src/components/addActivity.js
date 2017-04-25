@@ -33,7 +33,6 @@ class AddActivity extends Component {
   }
 
   componentWillUnmount() {
-    debugger
     this.props.dispatch({type: "RESET_SEARCH"})
   }
 

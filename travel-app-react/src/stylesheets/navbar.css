@@ -1,12 +1,19 @@
+
+
 .navbar {
-  background: #CBE5F9;
+  background: #616161;
   height: 70px;
   text-align: right;
   margin-bottom: 0;
+  border-radius: 0px;
+}
+
+.navbar-default {
+  border-color: #616161;
 }
 
 .navbar-link {
-  color: #FFFFAA !important;
+  color: #ff8d00 !important;
   font-size: 2.0em;
   margin-right: 20px;
   text-shadow: 1px 1px #565656;
@@ -14,14 +21,34 @@
 
 .navbar-center-text {
   margin-top: 15px;
+  text-align: right;
+}
+
+.navbar-center-text-left {
+  margin-top: 15px;
+  text-align: left;
+  padding-left: 0px;
 }
 
 .logo-wrapper {
   text-align: left;
-  margin-top: 12px;
-  margin-left: -25px;
+  margin-top: 11px;
+  width: 60px;
+  padding: 0px;
 }
 
 .logo {
-  color: green;
+  color: rgb(101, 129, 132);
+  background: rgb(255, 141, 0);
+  border-radius: 50%;
+  height: .8em;
+  width: .8em;
+  line-height: .8em;
+  -webkit-transition: -webkit-transform 15s;
+          transition:         transform 15s;
+}
+
+.logo:hover {
+  -webkit-transform: rotate(1080deg);
+          transform: rotate(1080deg);
 }

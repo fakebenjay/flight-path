@@ -1,0 +1,16 @@
+.background {
+  background-color: #d8d8d8;
+}
+
+.tile-background {
+  background-color: #ededed;
+  /*margin-top: -2px;*/
+  width: 100%;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.pre-scrollable {
+  max-height: 730px;
+  overflow-y: scroll;
+}
