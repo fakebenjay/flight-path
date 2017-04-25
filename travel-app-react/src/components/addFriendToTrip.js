@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
 import '../stylesheets/trip.css'
+import { Button } from 'react-bootstrap';
 
 class AddFriendToTrip extends React.Component {
   constructor() {
@@ -14,17 +15,11 @@ class AddFriendToTrip extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.listPotentialFriends = this.listPotentialFriends.bind(this)
     this.friendsAdded = this.friendsAdded.bind(this)
-    this.listAddedFriends = this.listAddedFriends.bind(this)
     this.removeAddedFriendClick = this.removeAddedFriendClick.bind(this)
   }
   listPotentialFriends() {
     return this.props.friends.potentialFriends.map((friend) => {
-      return <li key={friend.id}>{friend.username} <input type="submit" value="Add Friend" onClick={this.handleClick.bind(null, friend)}/></li>
-    })
-  }
-  listAddedFriends() {
-    return this.props.friends.addedFriends.map((friend) => {
-      return <li key={friend.id}>{friend.username} <input type="submit" value="Remove Friend" onClick={this.removeAddedFriendClick.bind(null, friend)}/></li>
+      return <Button className='custom-input' key={friend.id} type="submit" onClick={this.handleClick.bind(null, friend)}>{friend.username}</Button>
     })
   }
 
@@ -62,15 +57,17 @@ class AddFriendToTrip extends React.Component {
       return <div><li key={friend.id}>{friend.username}</li></div>
     })
   }
+
+  componentWillUnmount() {
+    this.props.dispatch({type: "CLEAR_FRIENDS"})
+  }
+
   render() {
     return (
       <div>
         <input type='text' className="custom-input trip-edit-field" onChange={this.handleChange}/>
         <ul>
-          {this.props.friends.potentialFriends.length > 0 ? (
-            <h4>Users Matching Your Search</h4>, this.listPotentialFriends() ) : null}
-          {this.props.friends.addedFriends.length > 0 ? (
-            <h4>Friends Added</h4>, this.listAddedFriends() ) : null}
+          {this.props.friends.potentialFriends.length > 0 ? this.listPotentialFriends() : null}
         </ul>
       </div>
     )
@@ -83,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
     addFriendToTrip: addFriendToTrip,
     removeFriend: removeFriend,
     removeAddedFriend: removeAddedFriend,
-    clearFriends: clearFriends
+    clearFriends: clearFriends,
+    dispatch
   }, dispatch)
 }
 

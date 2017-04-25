@@ -14,6 +14,8 @@ import { bindActionCreators } from 'redux'
 import ConnectedLogout from './components/Logout'
 import ConnectedTrip from './components/trip'
 import ProtectedTripRoute from './components/ProtectedTripRoute'
+import './stylesheets/font.css';
+
 
 export const history=createHistory()
 

@@ -39,7 +39,7 @@ export const createAccount = (params) => {
         dispatch(setAccount(token))
       })
       .catch((error) => {
-        dispatch({type: "ADD_ERRORS", payload: error.response.data.errors})
+        dispatch({type: 'ADD_ERRORS', payload: error.response.data.errors})
       })
   }
 }
