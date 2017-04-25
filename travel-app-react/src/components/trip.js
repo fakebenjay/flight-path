@@ -26,7 +26,8 @@ class Trip extends React.Component {
       isTransferOwnershipModalOpen: false,
       newOwner: '',
       isTransferOwnershipError: false,
-      friends: []
+      friends: [],
+      error: ''
     }
     this.handleClickPlan = this.handleClickPlan.bind(this)
     this.handleClickAdd = this.handleClickAdd.bind(this)
@@ -52,6 +53,7 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
     let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
     let friendNames = potentialFriendNames.map((account) => {
       return {value: account.username, label: account.username}
@@ -90,18 +92,31 @@ class Trip extends React.Component {
     }
 
 
-  handleDateStart(date) {
-    this.setState({
-      startDate: date
-    })
-    this.props.updateStartDate(date, this.props.trip.id, this.props.account.token)
+  handleDateStart(startDate) {
+    debugger
+    if (startDate.isBefore(moment(this.state.endDate))) {
+      this.setState({
+        error: ''
+      })
+      this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
+      }
+      this.setState({
+        error: "Start Date must be before the End Date"
+      })
   }
 
-  handleDateEnd(date) {
-    this.setState({
-      endDate: date
-    })
-    this.props.updateEndDate(date, this.props.trip.id, this.props.account.token)
+  handleDateEnd(endDate) {
+    if (moment(endDate).isAfter(moment(this.state.startDate))) {
+      this.setState({
+        error: ''
+      })
+      this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
+    }
+    else {
+      this.setState({
+        error: "End Date must be after Start Date"
+      })
+    }
   }
 
   renderDateFields() {
@@ -111,6 +126,7 @@ class Trip extends React.Component {
         <div>
           <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
           <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null }
         </div>
       )} else {
         return (
