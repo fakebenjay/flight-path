@@ -219,7 +219,7 @@ class Trip extends React.Component {
     return (
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
-        <div className="col-md-4 yellow-background">
+        <div className="col-xs-4 yellow-background">
           <div className="row">
             <h2 className="title-field">{trip.name} to {trip.formatted_name}</h2>
             {trip.creator_id === this.props.account.account_id ?  this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
@@ -237,22 +237,22 @@ class Trip extends React.Component {
           </div>
         <div className="row"><ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/></div>
       </div>
-      <div className="col-md-8">
+      <div className="col-xs-8">
         <div className="row tabs">
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>
         </div>
-        <div className="row">
+        <div className="row tile-background pre-scrollable">
           {this.state.toggle !== 'planned' ? <ConnectedAddActivity/> : <ConnectedActivities/>}
         </div>
       </div>
-      <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} contentLabel="Confirmation Modal">
+      <Modal isOpen={this.state.isConfirmationModalOpen} style={customStyles} onRequestClose={this.closeModal} contentLabel="Confirmation Modal">
         <h2 className="centered">Are You Sure?</h2>
         <br />
         <input type="submit" value="Confirm" className="custom-input confirm" onClick={this.deleteTripClick} />
         <input type="submit" value="Cancel" className="custom-input confirm" onClick={this.closeModal}/>
       </Modal>
-      <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} contentLabel="Transfer Ownership Modal">
+      <Modal isOpen={this.state.isTransferOwnershipModalOpen} style={customStyles} onRequestClose={this.closeModal} contentLabel="Transfer Ownership Modal">
         <h2>Please Pick A New Trip Owner</h2>
         <Select
           name="form-field-name"
