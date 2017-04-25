@@ -222,7 +222,7 @@ class Trip extends React.Component {
           </div>
         <div className="row"><ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/></div>
       </div>
-      <div className="col-xs-8">
+      <div className="col-xs-8 panels">
         <div className="row tabs">
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>

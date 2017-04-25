@@ -68,3 +68,7 @@
   background: black;
   color: white;
 }
+
+.col-xs-8.panels {
+  padding-top: 20px;
+}

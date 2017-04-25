@@ -67,6 +67,10 @@
   float: right;
 }
 
+.btn-danger {
+  float: right;
+}
+
 .icon {
   color: white;
 }
