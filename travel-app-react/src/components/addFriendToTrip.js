@@ -17,8 +17,20 @@ class AddFriendToTrip extends React.Component {
     this.friendsAdded = this.friendsAdded.bind(this)
     this.removeAddedFriendClick = this.removeAddedFriendClick.bind(this)
   }
+
   listPotentialFriends() {
-    return this.props.friends.potentialFriends.map((friend) => {
+    let addedFriendUsernames = this.props.trip.accounts.map((friend) => {
+      return friend.username
+    })
+
+    //The filter below may become inefficient as the site's userbase grows beyond 3 people
+    //This can hypothetically be solved when we differentiate between friends and non-friends of a user
+
+    let unaddedFriends = this.props.friends.potentialFriends.filter((friend) => {
+      return !addedFriendUsernames.includes(friend.username)
+    })
+
+    return unaddedFriends.map((friend) => {
       return <Button className='custom-input' key={friend.id} type="submit" onClick={this.handleClick.bind(null, friend)}>{friend.username}</Button>
     })
   }
