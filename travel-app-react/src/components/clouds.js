@@ -2,6 +2,7 @@ import React from 'react'
 
 export const Clouds = () => (
   <div id="Clouds">
+    <div className="Plane"></div>
     <div className="Cloud Foreground"></div>
     <div className="Cloud Background"></div>
     <div className="Cloud Foreground"></div>
