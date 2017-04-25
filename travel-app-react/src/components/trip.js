@@ -55,7 +55,6 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
     let friendNames = potentialFriendNames.map((account) => {
       return {value: account.username, label: account.username}
@@ -95,26 +94,25 @@ class Trip extends React.Component {
 
 
   handleDateStart(startDate) {
-    debugger
-    if (startDate.isBefore(moment(this.state.endDate))) {
+    if (startDate.isBefore(moment(this.state.endDate, "YYYY-MM-DD"))) {
       this.setState({
         error: ''
       })
       this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
-      }
+    } else {
       this.setState({
         error: "Start Date must be before the End Date"
       })
+    }
   }
 
   handleDateEnd(endDate) {
-    if (moment(endDate).isAfter(moment(this.state.startDate))) {
+    if (endDate.isAfter(moment(this.state.startDate, "YYYY-MM-DD"))) {
       this.setState({
         error: ''
       })
       this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
-    }
-    else {
+    }  else {
       this.setState({
         error: "End Date must be after Start Date"
       })
@@ -136,6 +134,7 @@ class Trip extends React.Component {
               <h4>End Date</h4>
               <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
             </div>
+            {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null}
             <div className="col-md-2"></div>
           </div>
         </div>
