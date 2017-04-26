@@ -53,9 +53,9 @@ class ActivityTile extends React.Component {
         return friend.id === comment.account_id
       })
       if (author[0] && author[0].username !== this.props.account.username) {
-        return <li key={comment.id}><strong>{author[0].username}</strong> : {comment.comment}</li>
+        return <li key={`${comment.id}-${author[0].account_id}`}><strong>{author[0].username}</strong> : {comment.comment}</li>
       } else {
-        return <li key={comment.id}><strong>Me: </strong> {comment.comment}</li>
+        return <li key={`${comment.id}-${this.props.account.account_id}`}><strong>Me: </strong> {comment.comment}</li>
       }
 
     })

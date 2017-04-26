@@ -55,7 +55,6 @@ class Trip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     let potentialFriendNames = nextProps.trip.accounts.filter((account) => account.id !== nextProps.account.account_id)
     let friendNames = potentialFriendNames.map((account) => {
       return {value: account.username, label: account.username}
@@ -89,35 +88,35 @@ class Trip extends React.Component {
     if (friends.length === 0) {
       return <p className="sub-title">You haven't added any friends yet!</p>
     } else {
-      return friends.map((friend) => <p className="sub-title">{friend.username}</p>)
+      return friends.map((friend, index) => <p key={index} className="sub-title">{friend.username}</p>)
       }
     }
 
 
   handleDateStart(startDate) {
-    // if (startDate.isBefore(moment(this.state.endDate))) {
-      // this.setState({
-      //   error: ''
-      // })
+    if (startDate.isBefore(moment(this.state.endDate, "YYYY-MM-DD"))) {
+      this.setState({
+        error: ''
+      })
       this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
-      // }
-      // this.setState({
-      //   error: "Start Date must be before the End Date"
-      // })
+    } else {
+      this.setState({
+        error: "Start Date must be before the End Date"
+      })
+    }
   }
 
   handleDateEnd(endDate) {
-    // if (moment(endDate).isAfter(moment(this.state.startDate))) {
-    //   this.setState({
-    //     error: ''
-    //   })
+    if (endDate.isAfter(moment(this.state.startDate, "YYYY-MM-DD"))) {
+      this.setState({
+        error: ''
+      })
       this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
-    // }
-    // else {
-    //   this.setState({
-    //     error: "End Date must be after Start Date"
-    //   })
-    // }
+    }  else {
+      this.setState({
+        error: "End Date must be after Start Date"
+      })
+    }
   }
 
   renderDateFields() {
@@ -136,6 +135,9 @@ class Trip extends React.Component {
               <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
             </div>
             <div className="col-md-2"></div>
+            <div className="col-md-12 align-center">
+              {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null}
+            </div>
           </div>
         </div>
       )} else {
