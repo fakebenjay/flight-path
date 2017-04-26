@@ -1,7 +1,7 @@
-require 'Auth'
+# require 'Auth'
 
 class ApplicationController < ActionController::API
-include ActionController::HttpAuthentication::Token::ControllerMethods
+# include ActionController::HttpAuthentication::Token::ControllerMethods
 
   protected
 

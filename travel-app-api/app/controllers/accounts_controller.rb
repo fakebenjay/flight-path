@@ -29,7 +29,6 @@ class AccountsController < ApplicationController
   end
 
   def authorize
-    byebug
     token = params["token"]
     account = Account.from_token(token)
     render json: account, serializer: AccountSerializer
