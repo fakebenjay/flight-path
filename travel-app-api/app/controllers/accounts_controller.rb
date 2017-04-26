@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  before_action :authenticate
 
   def friends
     account = Account.from_token(params["token"])

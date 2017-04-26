@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate
-
+  
   def create
     account = Account.find_by(username: params[:username])
     if account && account.authenticate(params[:password])

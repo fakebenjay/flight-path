@@ -1,6 +1,5 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authenticate
-
   def create
     account = Account.new(account_params)
     if account.save

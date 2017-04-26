@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../..stylesheets/panel.css'
+import '../../stylesheets/panel.css'
 
 class TripTile extends React.Component {
   constructor(props) {
