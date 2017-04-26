@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { setRadius, setKeyword, fetchActivities, removePotentialActivity } from '../../actions/activitySearch'
+import { saveActivity } from '../../actions/activity'
+import { fetchTrip } from '../../actions/trips'
+import ConnectedPreviewActivityTile from './previewActivityTile'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { bindActionCreators } from 'redux'
-import { setRadius, setKeyword, fetchActivities, removePotentialActivity } from '../actions/activitySearch'
-import ConnectedPreviewActivityTile from './previewActivityTile'
-import { saveActivity } from '../actions/activity'
-import { fetchTrip } from '../actions/trips'
 
 class AddActivity extends Component {
   constructor() {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
-import '../stylesheets/trip.css'
+import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../../actions/friends'
 import { Button, ButtonGroup } from 'react-bootstrap';
+import '../../stylesheets/trip.css'
 
 class AddFriendToTrip extends React.Component {
   constructor() {

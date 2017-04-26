@@ -1,30 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { login, clearErrors } from '../actions/account'
+import { createAccount, clearErrors} from '../../actions/account'
 import { Redirect, NavLink } from 'react-router-dom'
-import { Clouds } from './clouds'
-import '../stylesheets/clouds.css'
-import '../stylesheets/login_register.css'
-import '../stylesheets/submit_and_input.css'
+import { Clouds } from '../clouds'
 
-class Login extends React.Component {
+
+class Register extends React.Component {
   constructor() {
     super()
+
     this.state = {
       username: '',
       password: '',
+      email: '',
       errors: null
     }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRedirect = this.handleRedirect.bind(this)
     this.listErrors = this.listErrors.bind(this)
   }
 
-  handleRedirect() {
-    return <Redirect to="/mytrips" />
-  }
 
   handleChange(e) {
     this.props.clearErrors()
@@ -33,10 +31,19 @@ class Login extends React.Component {
       [target]: e.target.value
     })
   }
-
   handleSubmit(e) {
     e.preventDefault()
-    this.props.login(this.state)
+    this.props.createAccount(this.state)
+  }
+
+  handleRedirect() {
+    return <Redirect to="/mytrips" />
+  }
+
+  listErrors() {
+    return this.state.errors.map((error, i) => {
+      return <h4 key={i} className="error">{error}</h4>
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,11 +52,6 @@ class Login extends React.Component {
     })
   }
 
-  listErrors() {
-    return this.state.errors.map((error, i) => {
-      return <h4 key={i} className="error">{error}</h4>
-    })
-  }
 
   render() {
     return(
@@ -65,15 +67,18 @@ class Login extends React.Component {
               <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleChange}/>
             </div>
             <div className="row login-register">
+              <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='text' name='email' value={this.state.email} placeholder='E-mail' onChange={this.handleChange}/>
+            </div>
+            <div className="row login-register">
               <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
             </div>
             <div className="row login-register">
-              <input className="custom-button login-button" type='submit' value='Login'/>
+              <input className="custom-button login-button" type='submit' value='Register'/>
             </div>
           </form>
           <div className="row login-register">
             {this.state.errors !== null ? this.listErrors() : null}
-            <p className="instructions">Need an account? <NavLink className="instructions-link" to="/register">Register</NavLink> now!</p>
+            <p className="instructions">Have an account, already? <NavLink className="instructions-link" to="/login">Sign in</NavLink> here!</p>
           </div>
         </div>
         <Clouds />
@@ -90,13 +95,14 @@ const mapStateToProps = (state) => {
   }
 }
 
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    login: login,
+    createAccount: createAccount,
     clearErrors: clearErrors
   }, dispatch)
 }
 
-const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
+const ConnectedRegister = connect(mapStateToProps, mapDispatchToProps)(Register)
 
-export default ConnectedLogin
+export default ConnectedRegister

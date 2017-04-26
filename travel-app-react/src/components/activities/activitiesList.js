@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { fetchTrip } from '../actions/trips'
 import { bindActionCreators } from 'redux'
+import { fetchTrip } from '../../actions/trips'
+import { removePotentialActivity } from '../../actions/activitySearch'
 import ActivityTile from './activityTile'
-import { removePotentialActivity } from '../actions/activitySearch'
+
 
 class ActivitiesList extends Component {
   constructor() {

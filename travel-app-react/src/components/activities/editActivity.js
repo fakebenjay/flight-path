@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { editActivity } from '../actions/editActivity'
+import { editActivity } from '../../actions/editActivity'
 
 class EditActivity extends Component {
   constructor() {

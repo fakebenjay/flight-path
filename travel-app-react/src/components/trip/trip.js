@@ -2,20 +2,20 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Modal from 'react-modal'
-import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../actions/trips'
-import ConnectedActivities from './activitiesList'
-import ConnectedAddActivity from './addActivity'
-import ConnectedAddFriendToTrip from './addFriendToTrip'
-import { customStyles } from '../stylesheets/modal'
+import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../..actions/trips'
+import ConnectedActivities from '../activities/activitiesList'
+import ConnectedAddActivity from '../activities/addActivity'
+import ConnectedAddFriendToTrip from '../friends/addFriendToTrip'
 import Select from 'react-select';
 import DatePicker from 'react-datepicker'
-import 'react-select/dist/react-select.css';
 import moment from 'moment'
-import 'react-datepicker/dist/react-datepicker.css'
-import '../stylesheets/button_tab.css'
-import '../stylesheets/background.css'
 import { ButtonGroup } from 'react-bootstrap';
+import Modal from 'react-modal'
+import { customStyles } from '../../stylesheets/modal'
+import 'react-select/dist/react-select.css';
+import 'react-datepicker/dist/react-datepicker.css'
+import '../../stylesheets/button_tab.css'
+import '../../stylesheets/background.css'
 
 class Trip extends React.Component {
   constructor(props) {

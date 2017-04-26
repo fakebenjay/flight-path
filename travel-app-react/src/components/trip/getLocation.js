@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { setLocation, clearLocations, fetchLocations, resetSearch } from '../actions/location'
 import { connect } from 'react-redux'
-import { ButtonGroup } from 'react-bootstrap';
+import { setLocation, clearLocations, fetchLocations, resetSearch } from '../..actions/location'
 import { Location } from './location'
+import { ButtonGroup } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome'
 
 

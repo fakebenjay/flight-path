@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { resetLocations } from './location'
 import { history } from '../App'
-import api from './api'
+import api from '../config/api'
 
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
@@ -20,7 +20,7 @@ export const addTrip = (trip, token, friends) => {
 
 export const fetchTrips = (token) => {
   return (dispatch) => {
-    let prefix = api 
+    let prefix = api
     axios
       .post(`${prefix}/mytrips`, {token: token})
       .then(response => {

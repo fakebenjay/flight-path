@@ -1,9 +1,9 @@
 import React from 'react'
 import Modal from 'react-modal'
-import { customStyles } from '../stylesheets/modal'
 import ConnectedEditActivity from './editActivity'
 import FontAwesome from 'react-fontawesome'
-import '../stylesheets/panel.css'
+import '../../stylesheets/panel.css'
+import { customStyles } from '../../stylesheets/modal'
 
 class ActivityTile extends React.Component {
   constructor(props) {

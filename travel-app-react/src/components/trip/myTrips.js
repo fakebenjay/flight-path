@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchTrips } from '../actions/trips'
+import { fetchTrips } from '../../actions/trips'
 import { NavLink } from 'react-router-dom'
 import TripTile from './tripTile'
 

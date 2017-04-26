@@ -1,9 +1,10 @@
 import React from 'react'
-import Modal from 'react-modal'
-import '../stylesheets/panel.css'
-import { customStyles } from '../stylesheets/modal'
-import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
+import Modal from 'react-modal'
+import FontAwesome from 'react-fontawesome'
+import { customStyles } from '../../stylesheets/modal'
+import '../../stylesheets/panel.css'
+
 
 class PreviewActivityTile extends React.Component {
   constructor(props) {

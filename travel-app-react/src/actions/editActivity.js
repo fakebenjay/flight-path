@@ -1,5 +1,5 @@
 import axios from 'axios'
-import api from './api'
+import api from '../config/api'
 
 export const editActivity = (input, activity, account) => {
   let activityID = activity.id
