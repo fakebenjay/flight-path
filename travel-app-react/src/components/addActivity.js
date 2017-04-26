@@ -79,7 +79,7 @@ class AddActivity extends Component {
       <div className='row'>
         <div className='col-xs-8'>
           Keyword: <input type="text" onChange={this.handleChange} value={this.state.keyword} />
-          <br/>
+          <br/><br/>
           Radius: {this.props.activitySearch.radius} kilometers
           <Slider
             defaultValue={this.props.activitySearch.radius}
@@ -102,6 +102,9 @@ class AddActivity extends Component {
         <div className='row search'>
           <div className="col-xs-8">
             {this.renderSearchFields()}
+            <div className='row click'>
+              {this.props.activitySearch.activities.length === 0 ? <em>There's nothing to do here!</em> : <em>Click an activity for more information</em>}
+            </div>
           </div>
         </div>
         <div className="container-flex">

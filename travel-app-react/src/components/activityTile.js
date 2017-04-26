@@ -99,7 +99,7 @@ class ActivityTile extends React.Component {
           <h2>{activity.name}</h2>
           <p>Address: {activity.address}</p>
           <p>Rating: {activity.rating}/5</p>
-          <p>For more info and a map, click <a target="_blank" href={`https://www.google.com/maps/place/${activity.name}/@${activity.lat},${activity.lng},17z/`}>here</a>!</p>
+          <p>For more info and to view in Google Maps, click <a target="_blank" href={`https://www.google.com/maps/place/${activity.name}/@${activity.lat},${activity.lng},17z/`}>here</a>!</p>
         </Modal>
       </div>
     )

@@ -1,5 +1,7 @@
 import React from 'react'
+import Modal from 'react-modal'
 import '../stylesheets/panel.css'
+import { customStyles } from '../stylesheets/modal'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
 
@@ -7,9 +9,12 @@ class PreviewActivityTile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isDisabled: false
+      isDisabled: false,
+      infoModalStatus: false
     }
     this.handleClick = this.handleClick.bind(this)
+    this.openInfoModal = this.openInfoModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
   }
   handleClick() {
     this.setState({
@@ -17,8 +22,18 @@ class PreviewActivityTile extends React.Component {
     })
     this.props.handleClick()
   }
-
+  openInfoModal() {
+    this.setState({
+      infoModalStatus: true
+    })
+  }
+  closeModal() {
+    this.setState({
+      infoModalStatus: false
+    })
+  }
   render() {
+    let activity = this.props.activity
     let name = this.props.activity.name
     let tripActNames = this.props.currentTrip.activities.map(act => act.name)
     let currActNames = this.props.currentActivities.map(act => act.name)
@@ -31,15 +46,22 @@ class PreviewActivityTile extends React.Component {
       <div className="col-xs-4 tile">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <strong>{nameShort}</strong> - {this.props.activity.rating}
+            <strong onClick={this.openInfoModal}>{nameShort} - {this.props.activity.rating}</strong>
             <button className="btn btn-success btn-xs" href="" onClick={this.handleClick} disabled={disabled}>
               {disabled ? <FontAwesome className='icon' name='check'/> : <FontAwesome className='icon' name='plus'/>}
             </button>
           </div>
-          <div className="fill">
+          <div onClick={this.openInfoModal} className="fill">
               <img src={this.props.activity.img_url} className='img' alt=':('/>
           </div>
         </div>
+
+        <Modal isOpen={this.state.infoModalStatus} onRequestClose={this.closeModal} style={customStyles} contentLabel="Activity Modal">
+          <h2>{activity.name}</h2>
+          <p>Address: {activity.address}</p>
+          <p>Rating: {activity.rating}/5</p>
+          <p>For more info and to view in Google Maps, click <a target="_blank" href={`https://www.google.com/maps/place/${activity.name}/@${activity.lat},${activity.lng},17z/`}>here</a>!</p>
+        </Modal>
       </div>
     )
   }
