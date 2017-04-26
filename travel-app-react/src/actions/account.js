@@ -1,12 +1,25 @@
 import axios from 'axios'
+import api from './api'
+
 
 export const setToken = (token) => ({
  type: 'SET_TOKEN', payload: token
 })
 
+export const clearAccount = () => ({
+  type: 'CLEAR_ACCOUNT'
+})
+
+export const clearErrors = () => ({
+  type: 'CLEAR_ERRORS'
+})
+
 export const setAccount = (token) => {
+  // const header = {
+  //   headers: {'Bearer': token}
+  // };
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/authorize`, {token: token})
       .then(response => {
@@ -16,14 +29,9 @@ export const setAccount = (token) => {
   }
 }
 
-export const clearAccount = () => ({
-  type: 'CLEAR_ACCOUNT'
-})
-
-
 export const createAccount = (params) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/registrations`, {
         account: {
@@ -46,7 +54,7 @@ export const createAccount = (params) => {
 
   export const login = (params) => {
     return (dispatch) => {
-      let prefix = 'http://localhost:3001'
+      let prefix = api
       axios
         .post(`${prefix}/sessions`, {
           username: params.username,
@@ -63,7 +71,3 @@ export const createAccount = (params) => {
         })
     }
 }
-
-export const clearErrors = () => ({
-  type: 'CLEAR_ERRORS'
-})

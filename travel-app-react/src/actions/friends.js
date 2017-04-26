@@ -1,34 +1,11 @@
 import axios from 'axios'
+import api from './api'
 
-export const fetchFriends = (query, token) => {
-  return (dispatch) => {
-    let prefix = 'http://localhost:3001'
-    axios
-      .post(`${prefix}/friends`, {search_term: query, token: token})
-      .then(response => {
-        let payload = response.data
-        dispatch({type: 'FETCH_FRIENDS', payload})
-      })
-  }
-}
 
 export const addFriend = (friend) => {
   return {
     type: "ADD_FRIEND",
     friend
-  }
-}
-
-export const addFriendToTrip = (friend, tripObj) => {
-  let trip = {id: tripObj.id, friend_id: friend.id}
-  return (dispatch) => {
-    let prefix = 'http://localhost:3001'
-    axios
-      .patch(`${prefix}/trips/${trip.id}`, {trip: trip})
-      .then(response => {
-        let payload = response.data
-        dispatch({type: 'FETCH_TRIP', payload})
-      })
   }
 }
 
@@ -49,3 +26,29 @@ export const removeAddedFriend = (friend) => {
 export const clearFriends = () => ({
   type: "CLEAR_FRIENDS"
 })
+
+
+export const fetchFriends = (query, token) => {
+  return (dispatch) => {
+    let prefix = api
+    axios
+      .post(`${prefix}/friends`, {search_term: query, token: token})
+      .then(response => {
+        let payload = response.data
+        dispatch({type: 'FETCH_FRIENDS', payload})
+      })
+  }
+}
+
+export const addFriendToTrip = (friend, tripObj) => {
+  let trip = {id: tripObj.id, friend_id: friend.id}
+  return (dispatch) => {
+    let prefix = api
+    axios
+      .patch(`${prefix}/trips/${trip.id}`, {trip: trip})
+      .then(response => {
+        let payload = response.data
+        dispatch({type: 'FETCH_TRIP', payload})
+      })
+  }
+}

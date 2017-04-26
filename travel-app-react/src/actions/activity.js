@@ -1,8 +1,9 @@
 import axios from 'axios'
+import api from './api'
 
 export const saveActivity = (activity) => {
   return (dispatch) => {
-  let prefix = 'http://localhost:3001'
+  let prefix = api
   axios
     .post(`${prefix}/activities`, {activity: activity})
     .then(response => {

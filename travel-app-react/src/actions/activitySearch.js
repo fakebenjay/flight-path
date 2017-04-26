@@ -1,4 +1,5 @@
 import axios from 'axios'
+import api from './api'
 import { fetchTrip } from './trips'
 
 export const setRadius = (radius) => ({
@@ -11,7 +12,7 @@ export const setKeyword = (keyword) => ({
 
 export const fetchActivities = (radius, keyword, lng, lat, id) => {
   return (dispatch) => {
-  let prefix = 'http://localhost:3001'
+  let prefix = api
   axios
     .post(`${prefix}/searchactivities`, {activity: {radius: radius, keyword: keyword, lng: lng, lat: lat, id: id}})
     .then(response => {
@@ -23,7 +24,7 @@ export const fetchActivities = (radius, keyword, lng, lat, id) => {
 
 export const removePotentialActivity = (activity) => {
   return (dispatch) => {
-  let prefix = 'http://localhost:3001'
+  let prefix = api
   let trip_id = activity.trip_id
   axios
     .delete(`${prefix}/trips/${trip_id}/activities/${activity.id}`)

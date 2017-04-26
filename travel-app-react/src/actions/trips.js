@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { resetLocations } from './location'
 import { history } from '../App'
+import api from './api'
 
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/trips`, {trip: trip, token: token, friends: friends})
       .then(response => {
@@ -19,7 +20,7 @@ export const addTrip = (trip, token, friends) => {
 
 export const fetchTrips = (token) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api 
     axios
       .post(`${prefix}/mytrips`, {token: token})
       .then(response => {
@@ -32,7 +33,7 @@ export const fetchTrips = (token) => {
 
 export const fetchTrip = (trip_id) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/fetchtrip`, {trip_id: trip_id})
       .then(response => {
@@ -44,7 +45,7 @@ export const fetchTrip = (trip_id) => {
 
 export const updateStartDate = (date, trip, token) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/change-date`, {start_date: date, trip_id: trip, token: token})
       .then(response => {
@@ -56,7 +57,7 @@ export const updateStartDate = (date, trip, token) => {
 
 export const updateEndDate = (date, trip, token) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/change-date`, {end_date: date, trip_id: trip, token: token})
       .then(response => {
@@ -82,7 +83,7 @@ export const editStartDate = (date) => {
 
 export const leaveTrip = (account_id, token, trip_id, newOwner) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id, new_owner: newOwner})
       .then(() => {
@@ -93,7 +94,7 @@ export const leaveTrip = (account_id, token, trip_id, newOwner) => {
 
 export const deleteTrip = (account_id, token, trip_id) => {
   return (dispatch) => {
-    let prefix = 'http://localhost:3001'
+    let prefix = api
     axios
       .post(`${prefix}/deletetrip`, {account_id: account_id, token: token, trip_id: trip_id})
       .then(() => {
