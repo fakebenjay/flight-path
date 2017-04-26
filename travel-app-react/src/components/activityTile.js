@@ -9,10 +9,12 @@ class ActivityTile extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      modalStatus: false,
+      commentModalStatus: false,
+      infoModalStatus: false,
       comments: this.props.activity.comments
     }
     this.handleClick = this.handleClick.bind(this)
+    this.openInfoModal = this.openInfoModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
     this.updateState = this.updateState.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
@@ -20,7 +22,12 @@ class ActivityTile extends React.Component {
   }
   handleClick() {
     this.setState({
-      modalStatus: true
+      commentModalStatus: true
+    })
+  }
+  openInfoModal() {
+    this.setState({
+      infoModalStatus: true
     })
   }
   handleRemove(e) {
@@ -29,7 +36,8 @@ class ActivityTile extends React.Component {
   }
   closeModal() {
     this.setState({
-      modalStatus: false
+      commentModalStatus: false,
+      infoModalStatus: false
     })
     this.props.refreshCurrentTrip()
   }
@@ -40,10 +48,10 @@ class ActivityTile extends React.Component {
       comments: [...this.state.comments, newComment]
     })
   }
-
   closeModalOnClick() {
     this.setState({
-      modalStatus: false
+      commentModalStatus: false,
+      infoModalStatus: false
     })
   }
   render() {
@@ -65,8 +73,8 @@ class ActivityTile extends React.Component {
       <div className="col-xs-4 tile">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <span onClick={this.handleClick}>
-              <strong>{nameShort}</strong>
+            <span>
+              <strong onClick={this.openInfoModal}>{nameShort}</strong>
             </span>
             {disabled ? null : <button className="btn btn-danger btn-xs" href="" onClick={this.handleRemove}>
               <FontAwesome className='icon' name='minus'/>
@@ -77,7 +85,7 @@ class ActivityTile extends React.Component {
               <img src={activity.img_url} className='img' alt=':('/>
           </div>
         </div>
-        <Modal isOpen={this.state.modalStatus} onRequestClose={this.closeModalOnClick} style={customStyles} contentLabel="Activity Modal">
+        <Modal isOpen={this.state.commentModalStatus} onRequestClose={this.closeModalOnClick} style={customStyles} contentLabel="Activity Modal">
           <h2>{activity.name}</h2>
           <ul>
             {comments}
@@ -85,6 +93,13 @@ class ActivityTile extends React.Component {
           <ConnectedEditActivity activity={activity} updateState={this.updateState}/>
           <br />
           <button className="custom-input login-button" onClick={this.closeModal}>Close</button>
+        </Modal>
+
+        <Modal isOpen={this.state.infoModalStatus} onRequestClose={this.closeModalOnClick} style={customStyles} contentLabel="Activity Modal">
+          <h2>{activity.name}</h2>
+          <p>Address: {activity.address}</p>
+          <p>Rating: {activity.rating}/5</p>
+          <p>For more info and to view in Google Maps, click <a target='_blank' href={`https://www.google.com/maps/place/${activity.name}/@${activity.lat},${activity.lng},17z/`}>here</a>!</p>
         </Modal>
       </div>
     )

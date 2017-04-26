@@ -28,7 +28,7 @@ class ActivitiesList extends Component {
     return (
       <div className="container-flex">
         <div className='row click'>
-          {activities.length === 0 ? <em>Add some activities!</em> : <em>Click an activity to comment</em>}
+          {activities.length === 0 ? <em>Add some activities!</em> : <em>Click an activity's photo to comment, or click on its title for more information</em>}
         </div>
         <div className="container-flex">
           {activities}
