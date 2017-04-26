@@ -11,7 +11,7 @@ class ActivitiesController < ApplicationController
     trip_id = params["activity"]["trip_id"]
     activity.trip = Trip.find(trip_id)
     if activity.save
-      render json: activity, serializer: SavedActivitySerializer
+      render json: activity, serializer: ActivitySerializer
     else
       render json: "There was an issue saving this activity", status: 401
     end
@@ -36,7 +36,7 @@ class ActivitiesController < ApplicationController
 
   def activity_params
     params.require(:activity).permit(:id, :name, :lng, :lat, :img_url, :rating, :address)
-    # render json: 
+    # render json:
   end
 
 end
