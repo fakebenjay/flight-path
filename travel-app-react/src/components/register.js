@@ -59,8 +59,8 @@ class Register extends React.Component {
         <div className="col-xs-12 text-center login-register-form">
           {this.props.account.account_id ? this.handleRedirect() : null }
           <div className="row login-register">
-            <h1 className="intro">Welcome to Waltzing Matilda</h1>
-            <h2 className="tagline">Plan your perfect get-away</h2>
+            <h1 className="intro">Welcome to Flight Path</h1>
+            <h2 className="tagline">Plan your perfect getaway</h2>
           </div>
           <form onSubmit={this.handleSubmit}>
             <div className="row login-register">
