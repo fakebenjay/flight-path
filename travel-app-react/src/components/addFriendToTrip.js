@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchFriends, addFriendToTrip, removeFriend, removeAddedFriend, clearFriends } from '../actions/friends'
 import '../stylesheets/trip.css'
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class AddFriendToTrip extends React.Component {
   constructor() {
@@ -31,7 +31,7 @@ class AddFriendToTrip extends React.Component {
     })
 
     return unaddedFriends.map((friend) => {
-      return <Button className='custom-input' key={friend.id} type="submit" onClick={this.handleClick.bind(null, friend)}>{friend.username}</Button>
+      return <Button key={friend.id} type="submit" onClick={this.handleClick.bind(null, friend)}>{friend.username}</Button>
     })
   }
 
@@ -77,10 +77,10 @@ class AddFriendToTrip extends React.Component {
   render() {
     return (
       <div>
-        <input type='text' className="custom-input trip-edit-field" onChange={this.handleChange}/>
-        <ul>
+        <ButtonGroup vertical>
+          <input type='text' className="custom-input trip-edit-field" onChange={this.handleChange}/>
           {this.props.friends.potentialFriends.length > 0 ? this.listPotentialFriends() : null}
-        </ul>
+        </ButtonGroup>
       </div>
     )
   }
