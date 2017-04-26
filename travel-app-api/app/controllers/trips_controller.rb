@@ -1,4 +1,5 @@
 class TripsController < ApplicationController
+  before_action :authenticate
 
   def create
     trip = Trip.new(trip_params)
@@ -16,6 +17,15 @@ class TripsController < ApplicationController
       render json: trip, serializer: TripSerializer
     else
       render json: 'There was an error creating your trip', status: 401
+    end
+  end
+
+  def index
+    if @account
+      trips = @account.trips
+      render json: trips, each_serialzer: TripSerializer
+    else
+      render json: "Not Permitted", status: 401
     end
   end
 

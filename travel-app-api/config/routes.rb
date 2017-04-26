@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   # Confirmed
   resources :registrations, only: :create
   resources :sessions, only: :create
+  resources :trips, only: :index
 
   # Review
+
+
   resources :trips, only: [:create, :update] do
     resources :activities, except: [:new, :edit] do
       resources :comments, only: [:create]

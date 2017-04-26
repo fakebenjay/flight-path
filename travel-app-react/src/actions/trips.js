@@ -19,10 +19,13 @@ export const addTrip = (trip, token, friends) => {
 }
 
 export const fetchTrips = (token) => {
+  const header = {
+    headers: {'bearer': token}
+  };
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/mytrips`, {token: token})
+      .get(`${prefix}/trips`, header)
       .then(response => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIPS', payload})

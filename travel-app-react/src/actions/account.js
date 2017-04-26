@@ -17,7 +17,7 @@ export const clearErrors = () => ({
 export const setAccount = (token) => {
   const header = {
     headers: {'bearer': token}
-  };
+    };
   return (dispatch) => {
     let prefix = api
     axios

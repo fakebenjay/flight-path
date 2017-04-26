@@ -12,17 +12,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  def mytrips
-    token = params["token"]
-    account = Account.from_token(token)
-    if account
-      trips = account.trips
-      render json: trips, each_serialzer: TripSerializer
-    else
-      render json: "Not Permitted", status: 401
-    end
-  end
-
   def fetchtrip
     trip_id = params["trip_id"]
     trip = Trip.find(trip_id)
@@ -30,9 +19,11 @@ class AccountsController < ApplicationController
   end
 
   def set_account
-    token = params["token"]
-    account = Account.from_token(token)
-    render json: account, serializer: AccountSerializer
+    if @account
+      render json: @account, serializer: AccountSerializer
+    else
+      render json: "Not Permitted", status: 401
+    end
   end
 
 
