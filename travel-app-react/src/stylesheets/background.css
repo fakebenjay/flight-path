@@ -12,8 +12,8 @@
 }
 
 .pre-scrollable {
-  max-height: 699px;
+  max-height: 100vh;
   min-height: 699px;
-  max-width: 980px;
+  max-width: 100%;
   overflow-y: scroll;
 }

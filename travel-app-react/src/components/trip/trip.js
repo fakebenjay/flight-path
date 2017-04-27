@@ -96,7 +96,7 @@ class Trip extends React.Component {
     if (friends.length === 0) {
       return <p className="sub-title">You haven't added any friends yet!</p>
     } else {
-      return friends.map((friend, index) => <p key={index} className="sub-title">{friend.username}</p>)
+      return friends.map((friend, index) => <p key={index} className="sub-title">{friend.username} {friend.id === this.props.trip.creator_id ? '(owner)' : null}</p>)
       }
     }
 
@@ -151,8 +151,21 @@ class Trip extends React.Component {
       )} else {
         return (
           <div>
-            <input className="custom-input trip-edit-field" value={trip.start_date} disabled="true"/>
-            <input className="custom-input trip-edit-field" value={trip.end_date} disabled="true"/>
+          <div className='row'>
+            <div className='col-md-2'></div>
+            <div className='col-md-4'>
+              <h4>Start Date</h4>
+              <input className="custom-input trip-edit-field" value={trip.start_date} disabled="true"/>
+            </div>
+            <div className='col-md-4'>
+              <h4>End Date</h4>
+              <input className="custom-input trip-edit-field" value={trip.end_date} disabled="true"/>
+            </div>
+            <div className='col-md-2'></div>
+            <br/>
+          </div>
+          <br/>
+          <div className='col-md-12 align-center'>If you'd like to change the dates of this trip, contact the trip's owner</div>
           </div>
         )}
   }

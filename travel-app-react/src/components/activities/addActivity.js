@@ -104,7 +104,7 @@ class AddActivity extends Component {
           <div className="col-xs-8">
             {this.renderSearchFields()}
             <div className='row click'>
-              {this.props.activitySearch.activities.length === 0 ? <em>There's nothing to do here!</em> : <em>Click an activity for more information</em>}
+              {this.props.activitySearch.activities.length === 0 ? <h1><em>There's nothing to do here!</em></h1> : <em>Click an activity for more information</em>}
             </div>
           </div>
         </div>
