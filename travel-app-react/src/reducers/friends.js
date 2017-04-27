@@ -33,6 +33,9 @@ export default function Friends(state = {potentialFriends: [], addedFriends: []}
       return Object.assign({}, state, {potentialFriends: potentialFriends, addedFriends: filteredAddedFriends})
 
     case "CLEAR_FRIENDS":
+      return Object.assign({}, state, {potentialFriends: []})
+
+    case "CLEAR_FRIENDS_UNMOUNT":
       return Object.assign({}, state, {potentialFriends: [], addedFriends: []})
 
     default:

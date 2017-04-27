@@ -59,7 +59,7 @@ class AddFriend extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch({type: "CLEAR_FRIENDS"})
+    this.props.dispatch({type: "CLEAR_FRIENDS_UNMOUNT"})
   }
 
   render() {
@@ -67,10 +67,8 @@ class AddFriend extends React.Component {
       <div>
         <ButtonGroup vertical>
         <input type='text' className="custom-input trip-planning-field" placeholder="Find Friends" onChange={this.handleChange}/>
-          {this.props.friends.potentialFriends.length > 0 ? (
-            <h4>Users Matching Your Search</h4>, this.listPotentialFriends() ) : null}
-          {this.props.friends.addedFriends.length > 0 ? (
-            <h4>Friends Added</h4>, this.listAddedFriends() ) : null}
+          {this.props.friends.potentialFriends.length > 0 ? this.listPotentialFriends() : null}
+          {this.props.friends.addedFriends.length > 0 ? this.listAddedFriends() : null}
         </ButtonGroup>
       </div>
     )
