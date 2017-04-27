@@ -73,7 +73,7 @@ class ActivityTile extends React.Component {
       <div className="col-xs-4 tile">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <span>
+            <span className='panel-name'>
               <strong onClick={this.openInfoModal}>{nameShort}</strong>
             </span>
             {disabled ? null : <button className="btn btn-danger btn-xs" href="" onClick={this.handleRemove}>

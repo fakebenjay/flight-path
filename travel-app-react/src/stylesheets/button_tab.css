@@ -2,10 +2,9 @@
   border-bottom: 0px;
   border-radius: 4px 4px 0px 0px;
   width: 200px;
-}
-
-.btn.btn-default.tab {
-  border-bottom: -1px;
+  background-color: #ffab43;
+  border-color: #ffab43;
+  border: 0px;
 }
 
 .tab:disabled {
@@ -13,6 +12,19 @@
   border-radius: 4px 4px 0px 0px;
   color: black;
   font-weight: bold;
+  opacity: 1;
+  background-color: #fff;
+  border-color: #fff;
+  cursor: default;
+}
+
+.tab:hover {
+  background-color: #f7cf9e;
+}
+
+.tab:disabled:hover {
+  background-color: #fff;
+  cursor: default;
 }
 
 
