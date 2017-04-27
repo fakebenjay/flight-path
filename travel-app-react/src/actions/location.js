@@ -1,5 +1,5 @@
 import axios from 'axios'
-import api from './api'
+import api from '../config/api'
 
 export const setLocation = (location) => ({
   type: "SET_LOCATION", payload: location
@@ -21,7 +21,10 @@ export const fetchLocations = (query) => {
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/location`, {search_term: query})
+      .get(`${prefix}/location`, {
+        params: {
+          query: query
+        }})
       .then(response => {
         let payload = response.data
         dispatch({type: 'SET_LOCATIONS', payload})

@@ -2,15 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom'
+import ConnectedAddFriend from '../friends/addFriend'
+import ConnectedGetLocation from './getLocation'
+import { resetSearch } from '../../actions/location'
+import { addTrip } from '../../actions/trips'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import ConnectedAddFriend from './addFriend'
-import ConnectedGetLocation from './getLocation'
-import { resetSearch } from '../actions/location'
-import { addTrip } from '../actions/trips'
-import '../stylesheets/addtrip.css'
-import '../stylesheets/submit_and_input.css'
+import '../../stylesheets/addtrip.css'
+import '../../stylesheets/submit_and_input.css'
 
 
 class AddTrip extends React.Component {
@@ -56,13 +56,12 @@ class AddTrip extends React.Component {
       trip.name = this.state.name
       trip.start_date = this.state.startDate.utc()
       trip.end_date = this.state.endDate.utc()
-      trip.creator_id = this.props.account.account_id
       let token = localStorage.getItem("token")
       let friends = []
       this.props.friends.forEach((friend) => {
         friends.push(friend.id)
       })
-      this.props.addTrip(trip, token, friends)
+      this.props.addTrip(trip, token, this.props.account.account_id, friends)
       this.setState({
         error: false,
       })

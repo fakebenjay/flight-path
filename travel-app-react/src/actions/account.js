@@ -1,6 +1,6 @@
 import axios from 'axios'
-import api from './api'
-
+import api from '../config/api'
+import { history } from '../App'
 
 export const setToken = (token) => ({
  type: 'SET_TOKEN', payload: token
@@ -15,16 +15,19 @@ export const clearErrors = () => ({
 })
 
 export const setAccount = (token) => {
-  // const header = {
-  //   headers: {'Bearer': token}
-  // };
+  const header = {
+    headers: {'bearer': token}
+    };
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/authorize`, {token: token})
+      .get(`${prefix}/set-account`, header)
       .then(response => {
         let account = response.data
         dispatch({type: 'SET_ACCOUNT', account})
+      })
+      .catch((error) => {
+        dispatch(history.push('/logout'))
       })
   }
 }

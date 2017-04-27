@@ -4,7 +4,7 @@ class Trip < ApplicationRecord
   has_many :activities, :dependent => :delete_all
   has_many :comments, through: :activities
 
-  def retreive_lng_lat_img_url
+  def retrieve_lng_lat_and_img_url
     search_url = "https://maps.googleapis.com/maps/api/place/details/json?reference=#{self.google_id}&key=#{ENV["google_api_key"]}"
     response = RestClient.send("get", search_url)
     raw_data = JSON.parse(response)

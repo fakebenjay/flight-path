@@ -1,9 +1,9 @@
 class AccountsController < ApplicationController
+  before_action :authenticate
 
   def friends
-    account = Account.from_token(params["token"])
-    search_term = params["search_term"].downcase
-    accounts = Account.where('lower(username) LIKE ? AND id != ?', "%#{search_term}%", account.id).limit(10)
+    search_term = params["query"].downcase
+    accounts = Account.where('lower(username) LIKE ? AND id != ?', "%#{search_term}%", @account.id).limit(10)
     if accounts
       render json: accounts, each_serializer: AccountSerializer
     else
@@ -11,27 +11,12 @@ class AccountsController < ApplicationController
     end
   end
 
-  def mytrips
-    token = params["token"]
-    account = Account.from_token(token)
-    if account
-      trips = account.trips
-      render json: trips, each_serialzer: TripSerializer
+  def set_account
+    if @account
+      render json: @account, serializer: AccountSerializer
     else
       render json: "Not Permitted", status: 401
     end
-  end
-
-  def fetchtrip
-    trip_id = params["trip_id"]
-    trip = Trip.find(trip_id)
-    render json: trip, serialzer: TripSerializer
-  end
-
-  def authorize
-    token = params["token"]
-    account = Account.from_token(token)
-    render json: account, serializer: AccountSerializer
   end
 
 

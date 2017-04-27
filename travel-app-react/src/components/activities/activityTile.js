@@ -1,9 +1,9 @@
 import React from 'react'
 import Modal from 'react-modal'
-import { customStyles } from '../stylesheets/modal'
 import ConnectedEditActivity from './editActivity'
 import FontAwesome from 'react-fontawesome'
-import '../stylesheets/panel.css'
+import '../../stylesheets/panel.css'
+import { customStyles } from '../../stylesheets/modal'
 
 class ActivityTile extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class ActivityTile extends React.Component {
     this.state = {
       commentModalStatus: false,
       infoModalStatus: false,
-      comments: this.props.activity.comments
+      comments: props.activity.comments
     }
     this.handleClick = this.handleClick.bind(this)
     this.openInfoModal = this.openInfoModal.bind(this)
@@ -56,14 +56,14 @@ class ActivityTile extends React.Component {
   }
   render() {
     let activity = this.props.activity
-    let comments = this.state.comments.map((comment) => {
+    let comments = this.state.comments.map((comment, i) => {
       let author = this.props.friends.filter((friend) => {
         return friend.id === comment.account_id
       })
       if (author[0] && author[0].username !== this.props.account.username) {
-        return <li key={`${comment.id}-${author[0].account_id}`}><strong>{author[0].username}</strong> : {comment.comment}</li>
+        return <li key={i}><strong>{author[0].username}</strong> : {comment.comment}</li>
       } else {
-        return <li key={`${comment.id}-${this.props.account.account_id}`}><strong>Me: </strong> {comment.comment}</li>
+        return <li key={i}><strong>Me: </strong> {comment.comment}</li>
       }
 
     })

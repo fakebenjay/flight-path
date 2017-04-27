@@ -2,20 +2,20 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Modal from 'react-modal'
-import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../actions/trips'
-import ConnectedActivities from './activitiesList'
-import ConnectedAddActivity from './addActivity'
-import ConnectedAddFriendToTrip from './addFriendToTrip'
-import { customStyles } from '../stylesheets/modal'
+import { fetchTrip, updateStartDate, updateEndDate, leaveTrip, deleteTrip } from '../../actions/trips'
+import ConnectedActivities from '../activities/activitiesList'
+import ConnectedAddActivity from '../activities/addActivity'
+import ConnectedAddFriendToTrip from '../friends/addFriendToTrip'
 import Select from 'react-select';
 import DatePicker from 'react-datepicker'
-import 'react-select/dist/react-select.css';
 import moment from 'moment'
-import 'react-datepicker/dist/react-datepicker.css'
-import '../stylesheets/button_tab.css'
-import '../stylesheets/background.css'
 import { ButtonGroup } from 'react-bootstrap';
+import Modal from 'react-modal'
+import { customStyles } from '../../stylesheets/modal'
+import 'react-select/dist/react-select.css';
+import 'react-datepicker/dist/react-datepicker.css'
+import '../../stylesheets/button_tab.css'
+import '../../stylesheets/background.css'
 
 class Trip extends React.Component {
   constructor(props) {
@@ -51,7 +51,9 @@ class Trip extends React.Component {
 
   componentWillMount() {
     let tripID = this.props.match.params.id
-    this.props.fetchTrip(tripID)
+    let accountId = this.props.account.account_id
+    let token = this.props.account.token
+    this.props.fetchTrip(tripID, accountId, token)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,14 +72,20 @@ class Trip extends React.Component {
     this.setState({
       toggle: 'planned'
     })
-    this.props.fetchTrip(this.props.match.params.id)
+    let tripID = this.props.match.params.id
+    let accountId = this.props.account.account_id
+    let token = this.props.account.token
+    this.props.fetchTrip(tripID, accountId, token)
   }
 
   handleClickAdd() {
     this.setState({
       toggle: 'add'
     })
-    this.props.fetchTrip(this.props.match.params.id)
+    let tripID = this.props.match.params.id
+    let accountId = this.props.account.account_id
+    let token = this.props.account.token
+    this.props.fetchTrip(tripID, accountId, token)
   }
 
   listFriends() {
@@ -98,7 +106,7 @@ class Trip extends React.Component {
       this.setState({
         error: ''
       })
-      this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
+      this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token, this.props.account.id)
     } else {
       this.setState({
         error: "Start Date must be before the End Date"
@@ -111,7 +119,7 @@ class Trip extends React.Component {
       this.setState({
         error: ''
       })
-      this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
+      this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token, this.props.account.id)
     }  else {
       this.setState({
         error: "End Date must be after Start Date"

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
-import { setLocation, clearLocations, fetchLocations, resetSearch } from '../actions/location'
 import { connect } from 'react-redux'
-import { ButtonGroup } from 'react-bootstrap';
+import { setLocation, clearLocations, fetchLocations, resetSearch } from '../../actions/location'
 import { Location } from './location'
+import { ButtonGroup } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome'
 
 
@@ -31,7 +31,7 @@ class GetLocation extends Component {
       this.setState({
         query: e.target.value
       })
-    if (this.state.query.length > 0) {
+    if (this.state.query.length > 1) {
       this.props.fetchLocations(this.state.query)
     }
     }
@@ -78,7 +78,8 @@ class GetLocation extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    location: state.Location
+    location: state.Location,
+    token: state.Account.token
   }
 }
 

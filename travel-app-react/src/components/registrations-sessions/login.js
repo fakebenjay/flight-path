@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { login, clearErrors } from '../actions/account'
+import { login, clearErrors } from '../../actions/account'
 import { Redirect, NavLink } from 'react-router-dom'
-import { Clouds } from './clouds'
-import '../stylesheets/clouds.css'
-import '../stylesheets/login_register.css'
-import '../stylesheets/submit_and_input.css'
+import { Clouds } from '../clouds'
+import '../../stylesheets/clouds.css'
+import '../../stylesheets/login_register.css'
+import '../../stylesheets/submit_and_input.css'
 
 class Login extends React.Component {
   constructor() {

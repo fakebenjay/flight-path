@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { createAccount, clearErrors} from '../actions/account'
+import { createAccount, clearErrors} from '../../actions/account'
 import { Redirect, NavLink } from 'react-router-dom'
-import { Clouds } from './clouds'
+import { Clouds } from '../clouds'
 
 
 class Register extends React.Component {

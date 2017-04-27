@@ -1,12 +1,13 @@
 class TripsController < ApplicationController
+  before_action :authenticate
 
   def create
     byebug
     trip = Trip.new(trip_params)
-    trip.retreive_lng_lat_img_url
-    account = Account.from_token(params["token"])
+    trip.retrieve_lng_lat_and_img_url
+    trip.creator_id = @account.id
+    @account.trips << trip
     friends = params["friends"]
-    account.trips << trip
     if friends.length > 0
       friends.each do |f|
         account = Account.find(f)
@@ -20,72 +21,75 @@ class TripsController < ApplicationController
     end
   end
 
-  def update
-    account = Account.find(trip_params["friend_id"])
-    trip = Trip.find(trip_params["id"])
+  def index
+    trips = @account.trips
+    render json: trips, each_serialzer: TripSerializer
+  end
 
+  def show
+    trip_id = params["id"]
+    trip = Trip.find(trip_id)
+    render json: trip, serialzer: TripSerializer
+  end
+
+  def update
+    account = Account.find(params["friend_id"])
+    trip = Trip.find(params["id"])
     if !trip.accounts.include?(account)
       trip.accounts << account
     end
-
     render json: trip, serializer: TripSerializer
   end
 
-  def change_date
-    account = Account.from_token(params["token"])
-    if account
+  def change_start_date
       trip = Trip.find(params["trip_id"])
       if trip
-        if params["end_date"]
+          if trip.update(start_date: params["start_date"])
+            render json: trip, serializer: TripSerializer
+          else
+            render json: "There was an error updating the end date", status: 401
+          end
+      else
+        render json: "Could not locate the trip", status: 401
+      end
+  end
+
+  def change_end_date
+      trip = Trip.find(params["trip_id"])
+      if trip
           if trip.update(end_date: params["end_date"])
             render json: trip, serializer: TripSerializer
           else
             render json: "There was an error updating the end date", status: 401
           end
-        else
-          if trip.update(start_date: params["start_date"])
-            render json: trip, serializer: TripSerializer
-          else
-            render json: "There was an error updating the start date", status: 401
-          end
-        end
       else
-        render json: "We could not locate this trip", status: 401
+        render json: "Could not locate the trip", status: 401
       end
-    else
-      render json: 'You are not permitted to update this trip', status:401
-    end
   end
 
   def leave
-    account = Account.from_token(params["token"])
-    if account
       trip = Trip.find(params["trip_id"])
-      if params["new_owner"] != ''
-        new_owner = Account.find_by(username: params["new_owner"])
-        trip.creator_id = new_owner.id
-        trip.save
-        trip.accounts.delete(account)
+      if trip
+        if params["new_owner"] != ''
+          new_owner = Account.find_by(username: params["new_owner"])
+          trip.creator_id = new_owner.id
+          trip.save
+          trip.accounts.delete(@account)
+        else
+          trip.accounts.delete(@account)
+        end
       else
-        trip.accounts.delete(account)
+        render json: "Could not locate trip", status: 401
       end
-    else
-      render json: "You are not permitted to leave this trip", status: 401
-    end
   end
 
-  def delete
-    account = Account.from_token(params["token"])
-    if account
-      trip = Trip.find(params["trip_id"])
+  def destroy
+      trip = Trip.find(params["id"])
       if trip
         trip.destroy
       else
         render json: "We could not locate this trip", status: 401
       end
-    else
-      render json: "You are not permitted to leave this trip", status: 401
-    end
   end
 
   private
