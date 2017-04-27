@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :registrations, only: :create
   resources :sessions, only: :create
   resources :accounts, only: :show do
-    resources :trips, only: :index
-  end 
+    resources :trips, only: [:show, :index]
+  end
 
   # Review
 
@@ -18,10 +18,8 @@ Rails.application.routes.draw do
   resources :activities, only: :create
 
   post '/friends', to: 'accounts#friends'
-  post '/mytrips', to: 'accounts#mytrips'
   post '/location', to: 'locations#location'
   get '/set-account', to: 'accounts#set_account'
-  post '/fetchtrip', to: 'accounts#fetchtrip'
   post '/searchactivities', to: 'activities#fetch'
   post '/change-date', to: 'trips#change_date'
   post '/leavetrip', to: 'trips#leave'

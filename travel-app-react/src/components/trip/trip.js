@@ -51,7 +51,9 @@ class Trip extends React.Component {
 
   componentWillMount() {
     let tripID = this.props.match.params.id
-    this.props.fetchTrip(tripID)
+    let accountId = this.props.account.account_id
+    let token = this.props.account.token
+    this.props.fetchTrip(tripID, accountId, token)
   }
 
   componentWillReceiveProps(nextProps) {

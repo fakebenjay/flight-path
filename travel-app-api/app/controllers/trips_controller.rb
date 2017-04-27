@@ -29,6 +29,16 @@ class TripsController < ApplicationController
     end
   end
 
+  def show
+    if @account
+      trip_id = params["trip_id"]
+      trip = Trip.find(trip_id)
+      render json: trip, serialzer: TripSerializer
+    else
+      render json: "Not Permitted", status: 401
+    end
+  end
+
   def update
     account = Account.find(trip_params["friend_id"])
     trip = Trip.find(trip_params["id"])
