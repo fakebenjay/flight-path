@@ -1,27 +1,21 @@
 Rails.application.routes.draw do
 
-  # Confirmed
   resources :registrations, only: :create
   resources :sessions, only: :create
   resources :accounts, only: :show do
-    resources :trips, only: [:show, :index]
-  end
-
-  # Review
-
-
-  resources :trips, only: [:create, :update] do
-    resources :activities, except: [:new, :edit] do
+    resources :trips, only: [:create, :show, :index, :update, :destroy] do
+      resources :activities, only: [:create, :destroy] do
       resources :comments, only: [:create]
+      end
     end
   end
-  resources :activities, only: :create
-
-  post '/friends', to: 'accounts#friends'
-  post '/location', to: 'locations#location'
   get '/set-account', to: 'accounts#set_account'
-  post '/searchactivities', to: 'activities#fetch'
-  post '/change-date', to: 'trips#change_date'
-  post '/leavetrip', to: 'trips#leave'
-  post '/deletetrip', to: 'trips#delete'
+  get '/friends', to: 'accounts#friends'
+  get '/location', to: 'locations#location'
+  get '/searchactivities', to: 'activities#fetch'
+  post '/accounts/:account_id/trips/:trip_id/leavetrip', to: 'trips#leave'
+  post '/accounts/:account_id/trips/:trip_id/change-start-date', to: 'trips#change_start_date'
+  post '/accounts/:account_id/trips/:trip_id/change-end-date', to: 'trips#change_end_date'
+
+
 end

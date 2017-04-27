@@ -1,4 +1,5 @@
 class Location
+  attr_reader :formatted_name, :google_id
 
   def initialize(formatted_name, google_id)
     @formatted_name = formatted_name

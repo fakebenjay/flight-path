@@ -1,7 +1,8 @@
 class LocationsController < ApplicationController
+    skip_before_action :authenticate
 
   def location
-    search_term = params["location"]["search_term"]
+    search_term = params["query"]
     locations = Location.new_from_search(search_term)
     if locations
       render json: locations
