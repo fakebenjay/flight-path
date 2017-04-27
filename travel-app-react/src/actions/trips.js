@@ -3,6 +3,21 @@ import { resetLocations } from './location'
 import { history } from '../App'
 import api from '../config/api'
 
+
+export const editEndDate = (date) => {
+  return {
+    type: "EDIT_START_DATE",
+    date
+  }
+}
+
+export const editStartDate = (date) => {
+  return {
+    type: "EDIT_END_DATE",
+    date
+  }
+}
+
 export const addTrip = (trip, token, friends) => {
   return (dispatch) => {
     let prefix = api
@@ -30,6 +45,9 @@ export const fetchTrips = (token, account_id) => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIPS', payload})
       })
+      .catch((error) => {
+        dispatch(history.push('/logout'))
+      })
   }
 }
 
@@ -45,6 +63,9 @@ export const fetchTrip = (trip_id, account_id, token) => {
       .then(response => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIP', payload})
+      })
+      .catch((error) => {
+        dispatch(history.push('/logout'))
       })
     }
   }
@@ -73,19 +94,6 @@ export const updateEndDate = (date, trip, token) => {
     }
 }
 
-export const editEndDate = (date) => {
-  return {
-    type: "EDIT_START_DATE",
-    date
-  }
-}
-
-export const editStartDate = (date) => {
-  return {
-    type: "EDIT_END_DATE",
-    date
-  }
-}
 
 export const leaveTrip = (account_id, token, trip_id, newOwner) => {
   return (dispatch) => {

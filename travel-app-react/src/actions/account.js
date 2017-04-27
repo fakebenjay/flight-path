@@ -1,6 +1,6 @@
 import axios from 'axios'
 import api from '../config/api'
-
+import { history } from '../App'
 
 export const setToken = (token) => ({
  type: 'SET_TOKEN', payload: token
@@ -25,6 +25,9 @@ export const setAccount = (token) => {
       .then(response => {
         let account = response.data
         dispatch({type: 'SET_ACCOUNT', account})
+      })
+      .catch((error) => {
+        dispatch(history.push('/logout'))
       })
   }
 }

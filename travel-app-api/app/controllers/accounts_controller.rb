@@ -12,11 +12,7 @@ class AccountsController < ApplicationController
     end
   end
 
-  def fetchtrip
-    trip_id = params["trip_id"]
-    trip = Trip.find(trip_id)
-    render json: trip, serialzer: TripSerializer
-  end
+
 
   def set_account
     if @account

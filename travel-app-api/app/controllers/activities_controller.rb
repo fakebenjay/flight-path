@@ -1,20 +1,21 @@
 class ActivitiesController < ApplicationController
+  before_action :authenticate
 
   def create
-    activity = Activity.new
-    activity.name = params["activity"]["name"]
-    activity.lng = params["activity"]["lng"]
-    activity.lat = params["activity"]["lat"]
-    activity.img_url = params["activity"]["img_url"]
-    activity.rating = params["activity"]["rating"]
-    activity.address = params["activity"]["address"]
-    trip_id = params["activity"]["trip_id"]
-    activity.trip = Trip.find(trip_id)
-    if activity.save
-      render json: activity, serializer: ActivitySerializer
-    else
-      render json: "There was an issue saving this activity", status: 401
-    end
+      activity = Activity.new
+      activity.name = params["activity"]["name"]
+      activity.lng = params["activity"]["lng"]
+      activity.lat = params["activity"]["lat"]
+      activity.img_url = params["activity"]["img_url"]
+      activity.rating = params["activity"]["rating"]
+      activity.address = params["activity"]["address"]
+      trip_id = params["activity"]["trip_id"]
+      activity.trip = Trip.find(trip_id)
+      if activity.save
+        render json: activity, serializer: ActivitySerializer
+      else
+        render json: "There was an issue saving this activity", status: 401
+      end
   end
 
   def fetch
