@@ -13,7 +13,9 @@ class Register extends React.Component {
     this.state = {
       username: '',
       password: '',
+      passwordConfirm: '',
       email: '',
+      emailConfirm: '',
       errors: null
     }
 
@@ -33,7 +35,22 @@ class Register extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-    this.props.createAccount(this.state)
+    if (this.state.email !== this.state.emailConfirm && this.state.password === this.state.passwordConfirm) {
+      this.setState({
+        errors: ["Your email fields do not match"]
+      })
+    } else if (this.state.email === this.state.emailConfirm && this.state.password !== this.state.passwordConfirm) {
+      this.setState({
+        errors: ["Your password fields do not match"]
+      })
+    } else if (this.state.email !== this.state.emailConfirm && this.state.password !== this.state.passwordConfirm) {
+      this.setState({
+        errors: ["Your email fields do not match", "Your password fields do not match"]
+      })
+    }
+    else {
+      this.props.createAccount(this.state)
+    }
   }
 
   handleRedirect() {
@@ -70,7 +87,13 @@ class Register extends React.Component {
               <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='text' name='email' value={this.state.email} placeholder='E-mail' onChange={this.handleChange}/>
             </div>
             <div className="row login-register">
+              <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='text' name='emailConfirm' value={this.state.emailConfirm} placeholder='Confirm E-mail' onChange={this.handleChange}/>
+            </div>
+            <div className="row login-register">
               <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange}/>
+            </div>
+            <div className="row login-register">
+              <input className="col-xs-2 col-xs-offset-5 text-center custom-input login-input" type='password' name='passwordConfirm' value={this.state.passwordConfirm} placeholder='Confirm Password' onChange={this.handleChange}/>
             </div>
             <div className="row login-register">
               <input className="custom-button login-button" type='submit' value='Register'/>
