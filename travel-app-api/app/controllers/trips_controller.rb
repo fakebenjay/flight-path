@@ -2,7 +2,6 @@ class TripsController < ApplicationController
   before_action :authenticate
 
   def create
-    byebug
     trip = Trip.new(trip_params)
     trip.retrieve_lng_lat_and_img_url
     trip.creator_id = @account.id

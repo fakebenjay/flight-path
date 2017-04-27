@@ -16,7 +16,6 @@ class ActivitiesList extends Component {
     let tripID = this.props.trip.id
     let accountId = this.props.account.account_id
     let token = this.props.account.token
-    debugger
     this.props.fetchTrip(tripID, accountId, token)
   }
   handleRemove(activity) {

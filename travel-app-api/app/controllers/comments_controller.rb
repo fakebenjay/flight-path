@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate
 
-  def create
+  def create   
     comment = Comment.new(comment_params)
     comment.save
   end
