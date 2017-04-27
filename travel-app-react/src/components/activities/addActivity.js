@@ -32,7 +32,7 @@ class AddActivity extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSearch
+    this.props.resetSearch()
   }
 
   changeValue(e) {
