@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-        <Route path="/" component={ConnectedNavbar} />
+          <Route path="/" component={ConnectedNavbar} />
           <Switch>
             {this.props.account.account_id ? <Redirect exact from="/" to="/login" /> : <Redirect exact from="/" to="/login" />}
             {this.props.account.account_id ? <Redirect from="/login" to="/mytrips" /> : <Route path='/login' component={ConnectedLogin}/>}

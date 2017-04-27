@@ -1,7 +1,7 @@
 
 
 .navbar {
-  background: #616161;
+  background: #203469;
   height: 70px;
   text-align: right;
   margin-bottom: 0;
@@ -9,7 +9,7 @@
 }
 
 .navbar-default {
-  border-color: #616161;
+  border-color: #203469;
 }
 
 .navbar-link {

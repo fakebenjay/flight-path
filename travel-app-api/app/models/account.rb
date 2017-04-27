@@ -10,7 +10,7 @@ class Account < ApplicationRecord
   has_secure_password
 
   def self.from_token(token)
-    byebug
+
     account_id = Auth.decode(token)[0]["account_id"]
     Account.find(account_id)
   end

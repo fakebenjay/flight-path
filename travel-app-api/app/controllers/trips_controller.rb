@@ -1,6 +1,7 @@
 class TripsController < ApplicationController
 
   def create
+    byebug
     trip = Trip.new(trip_params)
     trip.retreive_lng_lat_img_url
     account = Account.from_token(params["token"])
