@@ -6,10 +6,15 @@ import { NavLink } from 'react-router-dom'
 import TripTile from './tripTile'
 
 class MyTrips extends Component {
+
+
   componentWillMount() {
+    debugger
     let token = this.props.account.token
-    this.props.fetchTrips(token)
+    let account_id = this.props.account.account_id
+    this.props.fetchTrips(token, account_id)
   }
+
   listTrips() {
     return this.props.trips.map((trip) => {
       return <TripTile key={trip.id} trip={trip}/>

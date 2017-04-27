@@ -18,14 +18,15 @@ export const addTrip = (trip, token, friends) => {
   }
 }
 
-export const fetchTrips = (token) => {
+export const fetchTrips = (token, account_id) => {
+  debugger
   const header = {
     headers: {'bearer': token}
   };
   return (dispatch) => {
     let prefix = api
     axios
-      .get(`${prefix}/trips`, header)
+      .get(`${prefix}/accounts/${account_id}/trips`, header)
       .then(response => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIPS', payload})

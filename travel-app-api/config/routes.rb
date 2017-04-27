@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   # Confirmed
   resources :registrations, only: :create
   resources :sessions, only: :create
-  resources :trips, only: :index
+  resources :accounts, only: :show do
+    resources :trips, only: :index
+  end 
 
   # Review
 
