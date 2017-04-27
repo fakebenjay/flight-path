@@ -9,7 +9,6 @@ class MyTrips extends Component {
 
 
   componentWillMount() {
-    debugger
     let token = this.props.account.token
     let account_id = this.props.account.account_id
     this.props.fetchTrips(token, account_id)

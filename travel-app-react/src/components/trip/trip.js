@@ -72,14 +72,20 @@ class Trip extends React.Component {
     this.setState({
       toggle: 'planned'
     })
-    this.props.fetchTrip(this.props.match.params.id)
+    let tripID = this.props.match.params.id
+    let accountId = this.props.account.account_id
+    let token = this.props.account.token
+    this.props.fetchTrip(tripID, accountId, token)
   }
 
   handleClickAdd() {
     this.setState({
       toggle: 'add'
     })
-    this.props.fetchTrip(this.props.match.params.id)
+    let tripID = this.props.match.params.id
+    let accountId = this.props.account.account_id
+    let token = this.props.account.token
+    this.props.fetchTrip(tripID, accountId, token)
   }
 
   listFriends() {
@@ -100,7 +106,7 @@ class Trip extends React.Component {
       this.setState({
         error: ''
       })
-      this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token)
+      this.props.updateStartDate(startDate, this.props.trip.id, this.props.account.token, this.props.account.id)
     } else {
       this.setState({
         error: "Start Date must be before the End Date"
@@ -113,7 +119,7 @@ class Trip extends React.Component {
       this.setState({
         error: ''
       })
-      this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token)
+      this.props.updateEndDate(endDate, this.props.trip.id, this.props.account.token, this.props.account.id)
     }  else {
       this.setState({
         error: "End Date must be after Start Date"

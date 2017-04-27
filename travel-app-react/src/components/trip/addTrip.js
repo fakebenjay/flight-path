@@ -56,13 +56,12 @@ class AddTrip extends React.Component {
       trip.name = this.state.name
       trip.start_date = this.state.startDate.utc()
       trip.end_date = this.state.endDate.utc()
-      trip.creator_id = this.props.account.account_id
       let token = localStorage.getItem("token")
       let friends = []
       this.props.friends.forEach((friend) => {
         friends.push(friend.id)
       })
-      this.props.addTrip(trip, token, friends)
+      this.props.addTrip(trip, token, this.props.account.account_id, friends)
       this.setState({
         error: false,
       })

@@ -31,8 +31,11 @@ export const clearFriends = () => ({
 export const fetchFriends = (query, token) => {
   return (dispatch) => {
     let prefix = api
-    axios
-      .post(`${prefix}/friends`, {search_term: query, token: token})
+    axios({
+        method: 'get',
+        url: `${prefix}/friends`,
+        params: {query: query},
+        headers: {'bearer': token}})
       .then(response => {
         let payload = response.data
         dispatch({type: 'FETCH_FRIENDS', payload})
@@ -40,12 +43,15 @@ export const fetchFriends = (query, token) => {
   }
 }
 
-export const addFriendToTrip = (friend, tripObj) => {
+export const addFriendToTrip = (friend, tripObj, token) => {
   let trip = {id: tripObj.id, friend_id: friend.id}
   return (dispatch) => {
     let prefix = api
-    axios
-      .patch(`${prefix}/trips/${trip.id}`, {trip: trip})
+    axios({
+        method: 'patch',
+        url: `${prefix}/accounts/${tripObj.creator_id}/trips/${trip.id}`,
+        params: trip,
+        headers: {'bearer': token}})
       .then(response => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIP', payload})

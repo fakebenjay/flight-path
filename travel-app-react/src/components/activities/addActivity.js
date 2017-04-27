@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { setRadius, setKeyword, fetchActivities, removePotentialActivity } from '../../actions/activitySearch'
+import { setRadius, setKeyword, fetchActivities, resetSearch} from '../../actions/activitySearch'
 import { saveActivity } from '../../actions/activity'
-import { fetchTrip } from '../../actions/trips'
 import ConnectedPreviewActivityTile from './previewActivityTile'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -29,11 +28,11 @@ class AddActivity extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
+    this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id, this.props.token)
   }
 
   componentWillUnmount() {
-    this.props.dispatch({type: "RESET_SEARCH"})
+    this.props.resetSearch
   }
 
   changeValue(e) {
@@ -45,8 +44,7 @@ class AddActivity extends Component {
   }
 
   handleSearch() {
-    this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id)
-    // this.props.fetchTrip(this.props.currentTrip.id)
+    this.props.fetchActivities(this.props.activitySearch.radius, this.props.activitySearch.keyword, this.props.currentTrip.lng, this.props.currentTrip.lat, this.props.currentTrip.id, this.props.token)
   }
 
   handleToggle() {
@@ -57,7 +55,10 @@ class AddActivity extends Component {
 
   handleClick(activity) {
     // this.props.removePotentialActivity(activity)
-    this.props.saveActivity(activity)
+    let token = this.props.token
+    let trip_id = this.props.currentTrip.id
+    let account_id = this.props.account.account_id
+    this.props.saveActivity(activity, token, trip_id, account_id)
     this.setState({
       addedActivities: [...this.state.addedActivities, activity]
     })
@@ -119,11 +120,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setRadius: setRadius,
     setKeyword: setKeyword,
-    fetchTrip: fetchTrip,
     fetchActivities: fetchActivities,
     saveActivity: saveActivity,
-    removePotentialActivity: removePotentialActivity,
-    dispatch
+    resetSearch: resetSearch
   }, dispatch)
 }
 
@@ -131,7 +130,9 @@ const mapStateToProps = (state) => {
   return {
     activitySearch: state.activitySearch,
     currentTrip: state.CurrentTrip,
-    tripActivities: state.CurrentTrip.activities
+    account: state.Account,
+    tripActivities: state.CurrentTrip.activities,
+    token: state.Account.token
   }
 }
 

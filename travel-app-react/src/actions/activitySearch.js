@@ -10,29 +10,23 @@ export const setKeyword = (keyword) => ({
   type: "SET_KEYWORD", keyword
 })
 
-export const fetchActivities = (radius, keyword, lng, lat, id) => {
-  return (dispatch) => {
+export const resetSearch = () => ({
+  type: "RESET_ACTIVITY_SEARCH"
+})
+
+
+export const fetchActivities = (radius, keyword, lng, lat, id, token) => {
+  let activity = {radius: radius, keyword: keyword, lng: lng, lat: lat, id: id}
   let prefix = api
-  axios
-    .post(`${prefix}/searchactivities`, {activity: {radius: radius, keyword: keyword, lng: lng, lat: lat, id: id}})
+  return (dispatch) => {
+  axios({
+        method: 'get',
+        url: `${prefix}/searchactivities`,
+        params: activity,
+        headers: {'bearer': token}})
     .then(response => {
       let payload = response.data
       dispatch({type: 'FETCH_ACTIVITIES', payload})
-    })
-  }
-}
-
-export const removePotentialActivity = (activity) => {
-  return (dispatch) => {
-  let prefix = api
-  let trip_id = activity.trip_id
-  axios
-    .delete(`${prefix}/trips/${trip_id}/activities/${activity.id}`)
-    .then(response => {
-      dispatch(fetchTrip(trip_id))
-    })
-    .then(response => {
-      dispatch({type: 'CLEAR_ACTIVITIES'})
     })
   }
 }

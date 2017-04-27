@@ -8,8 +8,8 @@ export default function activitySearch(state = defaultState, action) {
       case "FETCH_ACTIVITIES":
         let newActivites = action.payload
         return Object.assign({}, state, {activities: newActivites})
-      case "RESET_SEARCH":
-          return defaultState  
+      case "RESET_ACTIVITY_SEARCH":
+          return defaultState
       default:
         return state
   }

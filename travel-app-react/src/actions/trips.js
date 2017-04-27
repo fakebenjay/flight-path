@@ -18,12 +18,15 @@ export const editStartDate = (date) => {
   }
 }
 
-export const addTrip = (trip, token, friends) => {
+export const addTrip = (trip, token, account_id, friends) => {
+  const header = {
+    headers: {'bearer': token}
+  }
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/trips`, {trip: trip, token: token, friends: friends})
-      .then(response => {
+      .post(`${prefix}/accounts/${account_id}/trips`, {trip: trip, friends: friends}, header)
+        .then(response => {
         let trip = response.data
         dispatch({type: 'ADD_TRIP', trip})
       }).then(() => {
@@ -36,7 +39,7 @@ export const addTrip = (trip, token, friends) => {
 export const fetchTrips = (token, account_id) => {
   const header = {
     headers: {'bearer': token}
-  };
+  }
   return (dispatch) => {
     let prefix = api
     axios
@@ -52,14 +55,14 @@ export const fetchTrips = (token, account_id) => {
 }
 
 
-export const fetchTrip = (trip_id, account_id, token) => {
+export const fetchTrip = (tripId, accountId, token) => {
   const header = {
     headers: {'bearer': token}
   };
   return (dispatch) => {
     let prefix = api
     axios
-      .get(`${prefix}/accounts/${account_id}/trips/${trip_id}`, header)
+      .get(`${prefix}/accounts/${accountId}/trips/${tripId}`, header)
       .then(response => {
         let payload = response.data
         dispatch({type: 'FETCH_TRIP', payload})
@@ -70,11 +73,14 @@ export const fetchTrip = (trip_id, account_id, token) => {
     }
   }
 
-export const updateStartDate = (date, trip, token) => {
+export const updateStartDate = (date, tripId, token, accountId) => {
+  const header = {
+    headers: {'bearer': token}
+  }
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/change-date`, {start_date: date, trip_id: trip, token: token})
+      .post(`${prefix}/accounts/${accountId}/trips/${tripId}/change-start-date`, {start_date: date}, header)
       .then(response => {
         let payload = response.data
         dispatch({type: 'EDIT_START_DATE', payload})
@@ -82,11 +88,14 @@ export const updateStartDate = (date, trip, token) => {
     }
 }
 
-export const updateEndDate = (date, trip, token) => {
+export const updateEndDate = (date, tripId, token, accountId) => {
+  const header = {
+    headers: {'bearer': token}
+  }
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/change-date`, {end_date: date, trip_id: trip, token: token})
+      .post(`${prefix}/accounts/${accountId}/trips/${tripId}/change-end-date`, {end_date: date}, header)
       .then(response => {
         let payload = response.data
         dispatch({type: 'EDIT_END_DATE', payload})
@@ -95,22 +104,28 @@ export const updateEndDate = (date, trip, token) => {
 }
 
 
-export const leaveTrip = (account_id, token, trip_id, newOwner) => {
+export const leaveTrip = (accountId, token, tripId, newOwner) => {
+  const header = {
+    headers: {'bearer': token}
+  }
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/leavetrip`, {account_id: account_id, token: token, trip_id: trip_id, new_owner: newOwner})
+      .post(`${prefix}/accounts/${accountId}/trips/${tripId}/leavetrip`, {account_id: accountId, trip_id: tripId, new_owner: newOwner}, header)
       .then(() => {
         dispatch(history.push('/mytrips'))
       })
     }
 }
 
-export const deleteTrip = (account_id, token, trip_id) => {
+export const deleteTrip = (accountId, token, tripId) => {
+  const header = {
+    headers: {'bearer': token}
+  }
   return (dispatch) => {
     let prefix = api
     axios
-      .post(`${prefix}/deletetrip`, {account_id: account_id, token: token, trip_id: trip_id})
+      .delete(`${prefix}/accounts/${accountId}/trips/${tripId}`, header)
       .then(() => {
         dispatch(history.push('/mytrips'))
       })

@@ -60,8 +60,11 @@ class AddFriendToTrip extends React.Component {
   }
 
   handleClick(e) {
-    this.props.addFriendToTrip(e, this.props.trip)
+    this.props.addFriendToTrip(e, this.props.trip, this.props.account.token)
     this.props.removeFriend(e)
+    this.setState({
+      query: ''
+    })
   }
 
   friendsAdded() {
