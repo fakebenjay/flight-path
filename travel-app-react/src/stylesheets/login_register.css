@@ -12,28 +12,33 @@
 /*Primary brand header*/
 .intro {
   font-size: 60px;
-  color: black;
+  color: white;
+  text-shadow: 2px 2px #565656;
 }
 
 /*Brand Slogan*/
 .tagline {
   font-size: 40px;
   font-style: italic;
-  color: black;
+  color: white;
+  text-shadow: 2px 2px #565656;
 }
 
 /*Subtext under submit*/
 .instructions {
   font-size: 20px;
-  color: black;
+  color: white;
+  text-shadow: 1px 1px #565656;
 }
 
 .instructions-link {
-  color: black;
+  color: white;
+  text-shadow: 1px 1px #565656;
 }
 
 .instructions-link:hover {
-  color: black;
+  color: white;
+  text-shadow: 1px 1px #565656;
 }
 
 .login-button {
