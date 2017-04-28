@@ -51,6 +51,7 @@
 .login-input {
   color: black;
   font-weight: bold;
+  min-width: 200px !important;
 }
 
 /*Placeholder text*/
