@@ -1,3 +1,5 @@
+<h1>Flight Path</h1>
+
 Flight Path is Devin Rieger, Ben Jay, and Ian Boynton's final project for The Flatiron School's Fullstack Web Development Program. 
 
 Demo available at http://flight-path.surge.sh/
@@ -24,6 +26,8 @@ JWT authentication is used in conjunction with React Router to provide security,
   <li>bcrypt</li>
   <li>PostgreSQL</li>
   <li>Bootstrap/CSS</li>
+  <li>RESTful API Architecture</li>
+  <li>Google Places API integration</li>
   <li>Credit to Shaw at Codepen for the Login/Register backgrounds (https://codepen.io/shshaw/pen/DxJka)</li>
 </ul>
 
