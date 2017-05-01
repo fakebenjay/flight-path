@@ -1,16 +1,27 @@
 Flight Path is Devin Rieger, Ben Jay, and Ian Boynton's final project for The Flatiron School's Fullstack Web Development Program. 
 
+Demo available at http://flight-path.surge.sh/
+
 Technologies Used 
 
 -React.js
+
 -Redux
+
 -React Router (with protected routes)
+
 -JWT Authentication
+
 -Ruby on Rails
+
 -bcrpyt
+
 -PostgreSQL
+
 -Bootstrap/CSS
+
 -Credit to login/register backgrounds to Codepen.
+
 
 About Flight Path
 
