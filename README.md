@@ -2,7 +2,7 @@ Flight Path is Devin Rieger, Ben Jay, and Ian Boynton's final project for The Fl
 
 Demo available at http://flight-path.surge.sh/
 
-About Flight Path
+<h1>About Flight Path</h1>
 
 Flight Path is a trip-planning application that allows users to plan a trip with friends and build a shared itinerary. Utilizing the Google Places API, users are able to plan a trip to any city in the world with any other Flight Path user(s). 
 
