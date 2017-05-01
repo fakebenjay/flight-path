@@ -2,7 +2,7 @@
 
 Flight Path is Devin Rieger, Ben Jay, and Ian Boynton's final project for The Flatiron School's Fullstack Web Development Program. 
 
-Demo available at http://flight-path.surge.sh/
+Demo available at https://flight-path.surge.sh/
 
 <h3>About Flight Path</h3>
 
