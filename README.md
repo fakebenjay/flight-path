@@ -2,7 +2,7 @@ Flight Path is Devin Rieger, Ben Jay, and Ian Boynton's final project for The Fl
 
 Demo available at http://flight-path.surge.sh/
 
-<h1>About Flight Path</h1>
+<h3>About Flight Path</h3>
 
 Flight Path is a trip-planning application that allows users to plan a trip with friends and build a shared itinerary. Utilizing the Google Places API, users are able to plan a trip to any city in the world with any other Flight Path user(s). 
 
@@ -14,23 +14,16 @@ The user who initially plans the trip is given administrator rights over the gro
 
 JWT authentication is used in conjunction with React Router to provide security, in addition to bcrypt password management.
 
-Technologies Used 
-
--React.js
-
--Redux
-
--React Router (with protected routes)
-
--JWT Authentication
-
--Ruby on Rails
-
--bcrpyt
-
--PostgreSQL
-
--Bootstrap/CSS
-
--Credit to Shaw at Codepen for the Login/Register backgrounds (https://codepen.io/shshaw/pen/DxJka)
+<h4>Technologies Used</h4>
+<ul>
+  <li>React.js</li>
+  <li>Redux</li>
+  <li>React Router (with protected routes)</li>
+  <li>JWT Authentication</li>
+  <li>Ruby on Rails</li>
+  <li>bcrypt</li>
+  <li>PostgreSQL</li>
+  <li>Bootstrap/CSS</li>
+  <li>Credit to Shaw at Codepen for the Login/Register backgrounds (https://codepen.io/shshaw/pen/DxJka)</li>
+</ul>
 
