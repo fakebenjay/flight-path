@@ -5,13 +5,21 @@ Demo available at http://flight-path.surge.sh/
 Technologies Used 
 
 -React.js
+
 -Redux
+
 -React Router (with protected routes)
+
 -JWT Authentication
+
 -Ruby on Rails
+
 -bcrpyt
+
 -PostgreSQL
+
 -Bootstrap/CSS
+
 -Credit to Shaw at Codepen for the Login/Register backgrounds (https://codepen.io/shshaw/pen/DxJka)
 
 
