@@ -251,7 +251,7 @@ class Trip extends React.Component {
     return (
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
-        <div className="col-md-4 yellow-background">
+        <div className="col-lg-4 col-md-12 colyellow-background">
           <div className="row trip-panel-title">
             <h1>{trip.name}</h1>
             <h2>to {trip.formatted_name}</h2>
@@ -281,7 +281,7 @@ class Trip extends React.Component {
             <div className="col-md-2"></div>
         </div>
       </div>
-      <div className="col-xs-8 panels">
+      <div className="col-lg-8 col-md-12 panels">
         <div className="row tabs">
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>

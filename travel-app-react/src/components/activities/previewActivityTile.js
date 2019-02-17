@@ -43,7 +43,7 @@ class PreviewActivityTile extends React.Component {
       disabled = true
     }
     return (
-      <div className="col-xs-4 tile">
+      <div className="col-lg-4 col-sm-6 col-xs-12 tile">
         <div className="panel activity panel-default">
           <div className="panel-heading activity">
             <strong className="col-xs-9 activity-title" onClick={this.openInfoModal}>{name}</strong><strong className="col" onClick={this.openInfoModal}> {this.props.activity.rating}</strong>
