@@ -5,7 +5,6 @@ import { fetchTrip } from '../../actions/trips'
 import { removeActivity } from '../../actions/activity'
 import ActivityTile from './activityTile'
 
-
 class ActivitiesList extends Component {
   constructor() {
     super()

@@ -67,21 +67,20 @@ class ActivityTile extends React.Component {
       }
 
     })
-    let nameShort = activity.name.substring(0,35)
     let disabled = this.props.trip.creator_id !== this.props.account.account_id
     return (
-      <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6 tile">
-        <div className="panel panel-default">
-          <div className="panel-heading">
+      <div className="col-xs-4 tile">
+        <div className="panel activity panel-default">
+          <div className="panel-heading activity">
             <span className='panel-name'>
-              <strong onClick={this.openInfoModal}>{nameShort}</strong>
+              <strong className="col-xs-10 activity-title" onClick={this.openInfoModal}>{activity.name}</strong>
             </span>
             {disabled ? null : <button className="btn btn-danger btn-xs" href="" onClick={this.handleRemove}>
               <FontAwesome className='icon' name='minus'/>
             </button>
           }
           </div>
-          <div onClick={this.handleClick} className="fill">
+          <div onClick={this.handleClick} className="fill activity">
               <img src={activity.img_url} className='img' alt=':('/>
           </div>
         </div>

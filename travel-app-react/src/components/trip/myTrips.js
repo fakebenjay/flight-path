@@ -23,7 +23,7 @@ class MyTrips extends Component {
   render() {
     return (
       <div className='container-flex'>
-        <div className="row padding"></div>
+        <div className="padding"></div>
         {this.props.trips.length === 0 ? <h3 className="center-text">No trips planned yet? Get moving, <NavLink to="/addtrip">add</NavLink> one now</h3> : this.listTrips()}
       </div>
     )

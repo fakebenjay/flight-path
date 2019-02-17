@@ -89,7 +89,7 @@ class AddActivity extends Component {
             min={this.state.min}
            />
         </div>
-        <div className='col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6'>
+        <div className='col-xs-4'>
           <br/>
           <button className="btn btn-primary active filter" onClick={this.handleSearch}>Filter</button>
         </div>

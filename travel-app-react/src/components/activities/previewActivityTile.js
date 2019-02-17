@@ -42,17 +42,16 @@ class PreviewActivityTile extends React.Component {
     if (tripActNames.includes(name) || currActNames.includes(name)) {
       disabled = true
     }
-    let nameShort = name.substring(0,30)
     return (
-      <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6 tile">
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <strong onClick={this.openInfoModal}>{nameShort} - {this.props.activity.rating}</strong>
-            <button className="btn btn-success btn-xs" href="" onClick={this.handleClick} disabled={disabled}>
+      <div className="col-xs-4 tile">
+        <div className="panel activity panel-default">
+          <div className="panel-heading activity">
+            <strong className="col-xs-9 activity-title" onClick={this.openInfoModal}>{name}</strong><strong className="col" onClick={this.openInfoModal}> {this.props.activity.rating}</strong>
+            <button className="btn btn-success btn-xs col" href="" onClick={this.handleClick} disabled={disabled}>
               {disabled ? <FontAwesome className='icon' name='check'/> : <FontAwesome className='icon' name='plus'/>}
             </button>
           </div>
-          <div onClick={this.openInfoModal} className="fill">
+          <div onClick={this.openInfoModal} className="fill activity">
               <img src={this.props.activity.img_url} className='img' alt=':('/>
           </div>
         </div>
