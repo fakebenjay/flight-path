@@ -132,40 +132,30 @@ class Trip extends React.Component {
     if (this.props.account.account_id === trip.creator_id) {
       return (
         <div>
-          <div className="row">
-            <div className="col-md-2"></div>
-            <div className="col-md-4">
-              <h4>Start Date</h4>
-              <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
-            </div>
-            <div className="col-md-4">
-              <h4>End Date</h4>
-              <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
-            </div>
-            <div className="col-md-2"></div>
-            <div className="col-md-12 align-center">
-              {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null}
-            </div>
+          <div className="col-xs-6 col-sm-6">
+            <h4>Start Date</h4>
+            <DatePicker className="custom-input trip-edit-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
+          </div>
+          <div className="col-xs-6 col-sm-6">
+            <h4>End Date</h4>
+            <DatePicker className="custom-input trip-edit-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
+          </div>
+          <div className="col-md-12 align-center">
+            {this.state.error !== '' ? <h4 className="error">{this.state.error}</h4> : null}
           </div>
         </div>
       )} else {
         return (
           <div>
-          <div className='row'>
-            <div className='col-md-2'></div>
-            <div className='col-md-4'>
+            <div className="col-xs-6 col-sm-6">
               <h4>Start Date</h4>
               <input className="custom-input trip-edit-field" value={trip.start_date} disabled="true"/>
             </div>
-            <div className='col-md-4'>
+            <div className='col-xs-6 col-sm-6'>
               <h4>End Date</h4>
               <input className="custom-input trip-edit-field" value={trip.end_date} disabled="true"/>
             </div>
-            <div className='col-md-2'></div>
-            <br/>
-          </div>
-          <br/>
-          <div className='col-md-12 align-center'>If you'd like to change the dates of this trip, contact the trip's owner</div>
+            <div className='col-md-12 align-center'>If you'd like to change the dates of this trip, contact the trip's owner</div>
           </div>
         )}
   }
@@ -251,35 +241,29 @@ class Trip extends React.Component {
     return (
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
-        <div className="col-lg-4 col-md-12 colyellow-background">
-          <div className="row trip-panel-title">
-            <h1>{trip.name}</h1>
-            <h2>to {trip.formatted_name}</h2>
-            <br/>
-            <br/>
+        <div className="col-lg-4 col-md-12 col yellow-background align-items-center">
+          <div className="d-flex row trip-panel-title align-items-center">
+            <h2>{trip.name}</h2>
+            <h3>to {trip.formatted_name}</h3>
             {trip.creator_id === this.props.account.account_id ? this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
           </div>
-          <br/>
-          <br/>
-          <div className="row trip-panel-title">
-            {this.renderDateFields()}
+          <div className="d-flex row trip-panel-title align-items-center">
+            <div className="col-xs-12 col-sm-6 col-lg-12">
+              {this.renderDateFields()}
+            </div>
+            <div className="col-xs-12 col-sm-6 col-lg-12">
+              <div className="col-xs-6 col-sm-6">
+                <h4>Travelers</h4>
+                {this.listFriends()}
+              </div>
+              <div className="col-xs-6 col-sm-6">
+                <h4>Add some friends!</h4>
+                <ButtonGroup vertical>
+                  <ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/>
+                </ButtonGroup>
+              </div>
+            </div>
           </div>
-          <br/>
-          <br/>
-          <div className="row trip-panel-title">
-            <div className="col-md-2"></div>
-            <div className="col-md-4">
-              <h4>Travelers</h4>
-              {this.listFriends()}
-            </div>
-            <div className="col-md-4">
-              <h4>Add some friends!</h4>
-              <ButtonGroup vertical>
-                <ConnectedAddFriendToTrip fetchTrip={this.fetchTrip}/>
-              </ButtonGroup>
-            </div>
-            <div className="col-md-2"></div>
-        </div>
       </div>
       <div className="col-lg-8 col-md-12 panels">
         <div className="row tabs">
