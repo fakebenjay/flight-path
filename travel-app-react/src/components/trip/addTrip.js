@@ -107,15 +107,15 @@ class AddTrip extends React.Component {
             </div>
           </div>
         <div className="add-trip-row row">
-          <div className="col-xs-4">
+          <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6">
             <p className="date-label">Departure Date</p>
             <DatePicker className="custom-input trip-planning-field" selected={this.state.startDate} onChange={this.handleDateStart}/>
           </div>
-          <div className="col-xs-4">
+          <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6">
             <p className="date-label">Return Date</p>
             <DatePicker className="custom-input trip-planning-field" selected={this.state.endDate} onChange={this.handleDateEnd}/>
           </div>
-          <div className="col-xs-4">
+          <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6">
             <p className="date-label">Who would you like to go with?</p>
             <ConnectedAddFriend />
           </div>

@@ -70,7 +70,7 @@ class ActivityTile extends React.Component {
     let nameShort = activity.name.substring(0,35)
     let disabled = this.props.trip.creator_id !== this.props.account.account_id
     return (
-      <div className="col-xs-4 tile">
+      <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6 tile">
         <div className="panel panel-default">
           <div className="panel-heading">
             <span className='panel-name'>

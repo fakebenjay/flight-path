@@ -14,7 +14,7 @@ class Navbar extends Component  {
             <div className="col-xs-1 logo-wrapper">
               <FontAwesome className='logo' name='globe' size='4x'/>
             </div>
-            <div className="col-xs-4 navbar-center-text-left">
+            <div className="col-xs-12 col-sm-6 col-md-4 pb-xs-12 pb-sm-6 navbar-center-text-left">
               {this.props.token ? <NavLink className="navbar-link" to="/mytrips">Flight Path</NavLink> : null }
             </div>
             <div className="col-xs-7 navbar-center-text">
