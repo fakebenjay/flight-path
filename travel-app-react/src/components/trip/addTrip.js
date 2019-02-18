@@ -92,17 +92,19 @@ class AddTrip extends React.Component {
   render() {
     return (
       <div>
-      <div className="col-xs-10 col-xs-offset-1">
+      <div className="col-xs-12 col-sm-8">
         <div className="container-fluid">
           {this.props.location.redirect ? this.handleRedirect() : null}
           <div className="row add-trip-title-row">
             <h1 className="add-trip-title">Begin Your Journey</h1>
           </div>
           <div className="add-trip-name-row">
-            <div className="col-xs-6">
-              <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
+            <div className="col-xs-12 col-sm-6">
+              <div>
+                <input type='text' className="custom-input title-field" placeholder='Trip Name' onChange={this.handleChange} name='name'/>
+              </div>
             </div>
-            <div className="col-xs-6">
+            <div className="col-xs-12 col-sm-6 text-left">
               <ConnectedGetLocation />
             </div>
           </div>

@@ -58,27 +58,30 @@ class GetLocation extends Component {
 
 
 	renderResetButton() {
-		return ( <
-			button className = "no-border"
-			onClick = { this.handleSearchReset } > < FontAwesome className = "larger-times"
-			name = 'times' / > < /button>
+		return ( <span className="input-group-btn">
+			<button className="no-border btn btn-default"
+			onClick={ this.handleSearchReset }>
+			<FontAwesome className="larger-times"
+			name='times'
+			/>
+			</button>
+		</span>
 		)
 	}
 
 
 	render() {
-		return ( <
-			div >
-			<
-			ButtonGroup vertical >
-			<
-			input type = "text"
-			className = "custom-input title-field"
-			placeholder = "Where would you like to go?"
-			onChange = { this.handleChange } value = { this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query }
-			/> { this.props.location.locations.length > 0 ? this.listLocations() : null } <
-			/ButtonGroup> { this.props.location.hasBeenFound ? this.renderResetButton() : null } <
-			/div>
+		return ( <div>
+			<ButtonGroup vertical className="input-group">
+			<input type="text"
+			className="city-finder custom-input title-field form-control"
+			placeholder="Where would you like to go?"
+			onChange={ this.handleChange }
+			value={ this.props.location.formattedName.length > 0 ? this.props.location.formattedName : this.state.query }
+			/>
+			{ this.props.location.locations.length > 0 ? this.listLocations() : null }
+			{ this.props.location.hasBeenFound ? this.renderResetButton() : null }
+			</ButtonGroup></div>
 		)
 	}
 }

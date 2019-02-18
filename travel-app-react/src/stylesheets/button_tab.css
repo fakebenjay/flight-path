@@ -46,3 +46,7 @@
     padding-left: 50px;
     margin: auto;
 }
+
+.custom-input.trip-edit-field {
+    max-width: 120px;
+}

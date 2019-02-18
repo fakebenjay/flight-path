@@ -8,9 +8,9 @@
 
 .title-field {
     height: 80px;
-    width: 400px;
+    width: 100%;
     font-size: 2em;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .add-trip-name-row {
@@ -25,12 +25,6 @@
 
 .add-trip-button-row {
     margin-top: 25px;
-    text-align: center;
-    height: 100px;
-}
-
-.add-trip-title-row {
-    margin-top: 50px;
     text-align: center;
     height: 100px;
 }
@@ -51,7 +45,6 @@
 
 .add-trip-title {
     text-align: center;
-    font-size: 48px;
     color: #36454f;
 }
 
