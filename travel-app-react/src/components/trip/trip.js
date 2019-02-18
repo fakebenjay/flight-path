@@ -242,7 +242,7 @@ class Trip extends React.Component {
       <div className="container-flex">
         {this.state.redirect ? this.handleRedirect() : null}
         <div className="col-lg-4 col-md-12 col yellow-background align-items-center">
-          <div className="d-flex row trip-panel-title align-items-center">
+          <div className="d-flex trip-panel-title align-items-center">
             <h2>{trip.name}</h2>
             <h3>to {trip.formatted_name}</h3>
             {trip.creator_id === this.props.account.account_id ? this.renderOwnerFields() : <input type="submit" value="Leave Trip" className="custom-input leave" onClick={this.leaveTripClick} /> }
@@ -270,7 +270,7 @@ class Trip extends React.Component {
           <button className="btn btn-default tab" onClick={this.handleClickPlan} disabled={this.state.toggle === 'planned'}>Planned Activities</button>
           <button className="btn btn-default tab" onClick={this.handleClickAdd} disabled={this.state.toggle === 'add'}>Add Activity</button>
         </div>
-        <div className="row tile-background pre-scrollable">
+        <div className="tile-background pre-scrollable">
           {this.state.toggle !== 'planned' ? <ConnectedAddActivity/> : <ConnectedActivities/>}
         </div>
       </div>

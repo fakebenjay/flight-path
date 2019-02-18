@@ -28,23 +28,24 @@ class Navbar extends Component  {
 
 
       <nav className="navbar navbar-default">
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-list" aria-expanded="false">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-          </button>
-          {this.props.token ? <NavLink className="navbar-brand align-middle" to="/mytrips"><FontAwesome className='logo' name='globe' size='2x'/> <strong className="navbar-link">Flight Path</strong></NavLink> : null }
-        </div>
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-list" aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            {this.props.token ? <NavLink className="navbar-brand align-middle" to="/mytrips"><FontAwesome className='logo' name='globe' size='2x'/> <strong className="navbar-link">Flight Path</strong></NavLink> : null }
+          </div>
 
-
-        <div className="collapse navbar-collapse navbar-right" id="collapse-list">
-          <ul className="nav navbar-nav">
-            <li>{this.props.token ? <NavLink className="navbar-link-small" to="/mytrips">My Trips</NavLink> : null }</li>
-            <li>{this.props.token ? <NavLink className="navbar-link-small" to="/addtrip">Add Trip</NavLink> : null }</li>
-            <li>{this.props.token ? <NavLink className="navbar-link-small" to="/logout">Log Out</NavLink> : null }</li>
-          </ul>
+          <div className="collapse navbar-collapse navbar-right" id="collapse-list">
+            <ul className="nav navbar-nav">
+              <li>{this.props.token ? <NavLink className="navbar-link-small" to="/mytrips">My Trips</NavLink> : null }</li>
+              <li>{this.props.token ? <NavLink className="navbar-link-small" to="/addtrip">Add Trip</NavLink> : null }</li>
+              <li>{this.props.token ? <NavLink className="navbar-link-small" to="/logout">Log Out</NavLink> : null }</li>
+            </ul>
+          </div>
         </div>
       </nav>
     )
